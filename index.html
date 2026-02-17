@@ -146,6 +146,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--orange); ou
 @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 .results-hero-card { background: white; border-radius: 18px; box-shadow: var(--shadow-soft); padding: 32px; display: flex; align-items: center; gap: 24px; border: 1px solid #e8ecf0; }
 .hero-icon { width: 72px; height: 72px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: "Sora", sans-serif; font-size: 28px; font-weight: 800; color: white; flex-shrink: 0; }
+.hero-icon svg { width: 38px; height: 38px; filter: brightness(0) invert(1); }
 .hero-info { flex: 1; }
 .hero-subtitle { font-size: 12px; font-weight: 700; color: #9aa3ad; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
 .hero-info h1 { font-size: 26px; font-weight: 800; margin-bottom: 6px; }
@@ -1269,7 +1270,7 @@ function renderResults(el) {
   // Hero Card
   html += `
     <div class="results-hero-card animate-stagger" style="animation-delay:0.1s">
-      <div class="hero-icon" style="background:${getColorValue(dom.color)}">${dom.name.split(' ').pop().charAt(0)}</div>
+      <div class="hero-icon" style="background:${getColorValue(dom.color)}">${dom.icon}</div>
       <div class="hero-info">
         <div class="hero-subtitle">Your AI Orientation</div>
         <h1>${dom.name}</h1>
