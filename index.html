@@ -1,0 +1,2375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Archetype & Fluency Assessment | Community Health Network</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --deep-purple: #6B2D5B;
+  --orange: #E8712B;
+  --gold: #F2A630;
+  --dark-slate: #4A6670;
+  --light-blue-gray: #E8EDF2;
+  --charcoal: #3D4F5F;
+  --bg: #fafdff;
+  --white: #FFFFFF;
+  --surface: #FFFFFF;
+  --border: #d8dee5;
+  --shadow-soft: 0 20px 40px rgba(70, 83, 96, 0.12);
+  --shadow-card: 0 4px 16px rgba(70, 83, 96, 0.08);
+  --focus-ring: 0 0 0 3px rgba(107, 45, 91, 0.2);
+  --athlete: #E8712B; --builder: #4A6670; --steward: #6B2D5B;
+  --integrator: #F2A630; --optimizer: #2D8B5E; --visionary: #3B7DD8; --skeptic: #8B5E3C;
+  --report-prose-size: 16px;
+  --report-prose-line-height: 1.75;
+  --report-prose-max-width: 740px;
+  --report-card-title-size: 15px;
+  --report-card-body-size: 15px;
+  --report-roadmap-text: 15px;
+  --report-caution-text: 15px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: "Manrope", "Segoe UI", sans-serif; color: var(--charcoal);
+  min-height: 100vh; overflow-x: hidden;
+  background:
+    radial-gradient(1200px 600px at -10% -20%, rgba(233,184,79,0.18), transparent 60%),
+    radial-gradient(900px 500px at 110% 0%, rgba(225,103,55,0.14), transparent 64%), var(--bg);
+}
+h1,h2,h3,h4 { font-family: "Sora", "Segoe UI", sans-serif; color: var(--dark-slate); margin: 0; }
+p { margin: 0; line-height: 1.6; }
+button, input { font: inherit; }
+button:focus-visible, input:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; }
+
+.progress-bar-container { position: fixed; top: 0; left: 0; width: 100%; height: 8px; background: #e8ecf0; z-index: 1000; border-radius: 0 0 4px 4px; }
+.progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--deep-purple), var(--orange)); transition: width 0.5s cubic-bezier(0.4,0,0.2,1); width: 0%; border-radius: 0 999px 999px 0; }
+
+.logo-header { position: fixed; top: 8px; left: 0; width: 100%; padding: 12px 28px; display: flex; align-items: center; justify-content: space-between; z-index: 999; background: rgba(255,255,255,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+.logo-left { display: flex; align-items: center; gap: 10px; }
+.logo-mark { height: 30px; display: inline-flex; align-items: center; }
+.logo-mark svg { height: 30px; width: auto; }
+.screen-counter { font-size: 13px; color: #7d8792; font-weight: 500; }
+
+.survey-container { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 90px 24px 40px; }
+#reportContainer { display: none; }
+.screen { max-width: 680px; width: 100%; margin: 0 auto; animation: fadeIn 260ms ease-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.card { background: var(--surface); border-radius: 18px; box-shadow: var(--shadow-soft); padding: 40px 36px; border: 1px solid #e8ecf0; }
+.question-card { position: relative; }
+
+.welcome-card { text-align: center; max-width: 600px; margin: 0 auto; }
+.welcome-card .welcome-logo { height: 48px; margin: 0 auto 20px; display: flex; justify-content: center; align-items: center; }
+.welcome-card .welcome-logo svg { height: 48px; width: auto; }
+.welcome-card h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; background: linear-gradient(135deg, var(--deep-purple), var(--orange)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 6px; }
+.welcome-card .subtitle { font-size: 15px; color: #7d8792; margin-bottom: 14px; }
+.welcome-card .time-pill { display: inline-block; background: #f0f2f5; border-radius: 999px; padding: 5px 14px; font-size: 13px; color: #7d8792; font-weight: 600; margin-bottom: 18px; }
+.welcome-card .welcome-text { font-size: 14px; line-height: 1.7; color: var(--charcoal); margin-bottom: 12px; }
+.section-preview { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 20px 0; }
+.section-badge { background: #f0f2f5; border-radius: 999px; padding: 6px 14px; font-size: 12px; font-weight: 600; color: var(--dark-slate); display: inline-flex; align-items: center; gap: 6px; }
+.badge-num { width: 20px; height: 20px; border-radius: 50%; background: var(--deep-purple); color: white; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
+.welcome-card .disclaimer { font-size: 12px; color: #9aa3ad; font-style: italic; margin: 16px 0; }
+
+.btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 14px 32px; border: none; border-radius: 12px; background: linear-gradient(135deg, var(--deep-purple), var(--orange)); color: white; font-weight: 700; font-size: 16px; cursor: pointer; transition: all 0.2s; letter-spacing: 0.01em; }
+.btn-primary:hover { filter: brightness(1.08); transform: translateY(-1px); }
+.btn-primary:active { transform: scale(0.98); }
+.btn-secondary { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; border: 1px solid var(--border); border-radius: 10px; background: white; color: var(--dark-slate); font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.15s; }
+.btn-secondary:hover { background: #f5f7f9; }
+.btn-ghost { background: none; border: none; color: #7d8792; font-weight: 600; font-size: 14px; cursor: pointer; padding: 10px 20px; text-decoration: underline; text-underline-offset: 3px; }
+.btn-ghost:hover { color: var(--deep-purple); }
+
+.interstitial-card { text-align: center; max-width: 560px; margin: 0 auto; }
+.interstitial-card h2 { font-size: 24px; font-weight: 700; margin-bottom: 10px; }
+.interstitial-card .desc { font-size: 15px; line-height: 1.7; margin-bottom: 18px; color: var(--charcoal); }
+.interstitial-card .instruction-box { background: #f8f4fb; border-left: 3px solid var(--deep-purple); padding: 12px 18px; border-radius: 0 10px 10px 0; font-size: 13px; line-height: 1.6; color: var(--charcoal); margin-bottom: 20px; text-align: left; }
+.section-number { width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, var(--deep-purple), var(--orange)); color: white; font-family: "Sora", sans-serif; font-size: 22px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+
+.section-pill { display: inline-flex; background: #f0f2f5; border-radius: 999px; padding: 4px 14px; font-size: 12px; font-weight: 600; color: var(--dark-slate); margin-bottom: 14px; }
+.question-text { font-size: 18px; line-height: 1.6; font-weight: 600; color: var(--dark-slate); margin-bottom: 20px; }
+.item-code { position: absolute; top: 16px; right: 20px; font-size: 11px; font-weight: 500; color: #c0c7ce; font-family: "Manrope", monospace; letter-spacing: 0.03em; user-select: none; }
+
+.options-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.option { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; border: 1px solid var(--border); border-radius: 12px; cursor: pointer; transition: all 0.15s; border-left: 4px solid transparent; }
+.option:hover { background: #f8f4fb; border-left-color: var(--deep-purple); transform: translateY(-1px); }
+.option.selected { background: #f2eaf0; border-left-color: var(--deep-purple); border-color: var(--deep-purple); }
+.option kbd { min-width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid #cbd1d8; border-radius: 6px; font-size: 12px; font-weight: 700; color: var(--dark-slate); background: #f5f7f9; flex-shrink: 0; }
+.option.selected kbd { background: var(--deep-purple); color: white; border-color: var(--deep-purple); }
+.option-text { font-size: 14px; line-height: 1.5; color: var(--charcoal); }
+.text-input-wrapper { margin-bottom: 14px; }
+.text-input { width: 100%; padding: 14px 16px; border: 1px solid var(--border); border-radius: 12px; font-size: 15px; outline: none; transition: border-color 0.15s; }
+.text-input:focus { border-color: var(--deep-purple); box-shadow: var(--focus-ring); }
+.skip-link { display: block; text-align: center; font-size: 13px; color: #9aa3ad; cursor: pointer; margin: 8px 0 14px; }
+.skip-link:hover { color: var(--deep-purple); }
+
+.single-likert { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 12px; }
+.single-likert .likert-option { flex: 1; min-width: 90px; padding: 14px 10px; text-align: center; background: #f3f5f7; border: 2px solid transparent; border-radius: 12px; cursor: pointer; transition: all 0.15s ease; font-size: 13px; line-height: 1.3; color: var(--dark-slate); }
+.single-likert .likert-option:hover { background: #e8dce6; border-color: var(--deep-purple); transform: translateY(-2px); }
+.single-likert .likert-option.selected { background: var(--deep-purple); color: white; border-color: var(--deep-purple); transform: scale(1.02); box-shadow: 0 4px 12px rgba(107,45,91,0.25); }
+.single-likert .likert-option .key-hint { display: block; font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+.single-likert .likert-option.selected .key-hint { color: white; }
+.extended-scale { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; margin-top: 10px; padding-top: 12px; border-top: 1px solid #eef0f3; }
+.extended-option { padding: 8px 14px; border: 1px solid var(--border); border-radius: 10px; cursor: pointer; font-size: 12px; color: var(--dark-slate); transition: all 0.15s; }
+.extended-option:hover { background: #fef3ec; border-color: var(--orange); }
+.extended-option.selected { background: var(--orange); color: white; border-color: var(--orange); }
+.extended-option b { font-weight: 700; margin-right: 3px; }
+.single-progress { text-align: center; font-size: 12px; color: #9aa3ad; margin-top: 14px; font-weight: 500; }
+
+.likert-group { display: flex; flex-direction: column; gap: 14px; }
+.likert-item { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; transition: all 0.2s ease; border-left: 4px solid transparent; }
+.likert-item.focused { border-left-color: var(--deep-purple); box-shadow: var(--focus-ring); }
+.likert-item.answered { border-left-color: #2D8B5E; }
+.likert-item .item-text { font-size: 15px; line-height: 1.6; color: var(--charcoal); margin-bottom: 12px; }
+.likert-scale { display: flex; gap: 6px; flex-wrap: wrap; }
+.likert-option { flex: 1; min-width: 56px; padding: 8px 4px; text-align: center; background: #f3f5f7; border: 1px solid transparent; border-radius: 10px; cursor: pointer; transition: all 0.15s ease; font-size: 12px; line-height: 1.3; color: var(--dark-slate); }
+.likert-option:hover { background: #e8dce6; border-color: var(--deep-purple); }
+.likert-option.selected { background: var(--deep-purple); color: white; border-color: var(--deep-purple); }
+.likert-option .key-hint { display: block; font-size: 13px; font-weight: 700; margin-bottom: 1px; }
+.likert-option.selected .key-hint { color: white; }
+.group-progress { font-size: 12px; color: #9aa3ad; margin-bottom: 12px; font-weight: 500; }
+
+.scenario-box { background: #faf8fd; border-left: 3px solid var(--deep-purple); padding: 16px 20px; border-radius: 0 12px 12px 0; margin-bottom: 18px; }
+.scenario-box .question-text { font-size: 16px; margin-bottom: 0; }
+
+.nav-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 24px; padding-top: 16px; border-top: 1px solid #eef0f3; flex-wrap: wrap; gap: 10px; }
+.nav-hint { font-size: 12px; color: #9aa3ad; font-weight: 500; }
+.nav-actions { display: flex; gap: 8px; }
+
+.qc-warning { background: #fef9ec; border: 1px solid #f5e6b8; border-radius: 12px; padding: 14px 18px; font-size: 13px; color: #8a6914; margin-bottom: 18px; }
+
+.results-container { max-width: 680px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+.animate-stagger { animation: fadeSlideUp 0.5s ease-out both; }
+@keyframes fadeSlideUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+.results-hero-card { background: white; border-radius: 18px; box-shadow: var(--shadow-soft); padding: 32px; display: flex; align-items: center; gap: 24px; border: 1px solid #e8ecf0; }
+.hero-icon { width: 72px; height: 72px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: "Sora", sans-serif; font-size: 28px; font-weight: 800; color: white; flex-shrink: 0; }
+.hero-info { flex: 1; }
+.hero-subtitle { font-size: 12px; font-weight: 700; color: #9aa3ad; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+.hero-info h1 { font-size: 26px; font-weight: 800; margin-bottom: 6px; }
+.hero-desc { font-size: 14px; color: var(--charcoal); line-height: 1.5; margin-bottom: 8px; }
+.secondary-chip { display: inline-flex; background: #f0f2f5; border-radius: 999px; padding: 4px 12px; font-size: 12px; font-weight: 600; color: var(--dark-slate); }
+.hero-score { font-family: "Sora", sans-serif; font-size: 36px; font-weight: 800; color: var(--deep-purple); text-align: center; flex-shrink: 0; }
+.hero-score span { display: block; font-size: 11px; font-weight: 600; color: #9aa3ad; text-transform: uppercase; }
+
+.fluency-card { background: white; border-radius: 18px; box-shadow: var(--shadow-card); padding: 28px 32px; border: 1px solid #e8ecf0; }
+.fluency-header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+.fluency-big-num { font-family: "Sora", sans-serif; font-size: 40px; font-weight: 800; color: var(--deep-purple); }
+.fluency-meta h2 { font-size: 16px; font-weight: 700; }
+.level-name { font-size: 14px; color: var(--orange); font-weight: 600; }
+.fluency-gauge { display: flex; gap: 4px; margin-bottom: 14px; }
+.fluency-segment { flex: 1; height: 10px; border-radius: 999px; background: #e8ecf0; }
+.fluency-segment.past { background: var(--deep-purple); }
+.fluency-segment.active { background: linear-gradient(90deg, var(--deep-purple), var(--orange)); }
+.fluency-desc { font-size: 13px; color: var(--charcoal); line-height: 1.6; margin-bottom: 18px; }
+.fluency-level-label { font-family: "Sora", sans-serif; font-size: 20px; font-weight: 700; color: var(--deep-purple); margin-bottom: 6px; }
+.fluency-divider { border: none; border-top: 1px solid #e8ecf0; margin: 18px 0 14px; }
+.fluency-breakdown-title { font-size: 13px; font-weight: 700; color: #7d8792; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
+.fluency-breakdown { display: flex; flex-direction: column; gap: 10px; }
+.fluency-row { display: flex; align-items: center; gap: 12px; }
+.fluency-row-name { width: 140px; font-size: 13px; font-weight: 600; color: var(--dark-slate); flex-shrink: 0; }
+.fluency-row-bar { flex: 1; height: 6px; background: #e8ecf0; border-radius: 999px; overflow: hidden; }
+.fluency-row-bar-fill { height: 100%; border-radius: 999px; background: var(--deep-purple); }
+.fluency-row-level { font-size: 12px; font-weight: 700; color: var(--deep-purple); width: 28px; text-align: center; }
+.fluency-row-score { font-size: 12px; color: #7d8792; width: 30px; text-align: right; }
+.fluency-bottleneck-tag { display: inline-block; font-size: 10px; font-weight: 700; color: var(--orange); background: rgba(232,113,43,0.1); border-radius: 4px; padding: 2px 6px; margin-left: 6px; }
+.fluency-vis-note { font-size: 12px; color: #8a6914; background: #fef9ec; border: 1px solid #f5e6b8; border-radius: 8px; padding: 8px 12px; margin-top: 10px; }
+.subsystem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.subsystem-card { background: #f8f9fb; border-radius: 12px; padding: 14px 16px; border: 1px solid #eef0f3; }
+.subsystem-card.bottleneck { border-color: var(--orange); background: #fef9ec; }
+.subsystem-card h4 { font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+.subsystem-card .level { font-family: "Sora", sans-serif; font-size: 18px; font-weight: 800; color: var(--deep-purple); }
+.subsystem-card .score { font-size: 12px; color: #7d8792; }
+.subsystem-bar { height: 5px; background: #e0e4e8; border-radius: 999px; margin: 6px 0 4px; }
+.subsystem-bar-fill { height: 100%; background: var(--deep-purple); border-radius: 999px; }
+
+.archetype-bars-card { background: white; border-radius: 18px; box-shadow: var(--shadow-card); padding: 24px 28px; border: 1px solid #e8ecf0; }
+.archetype-bars-card h2 { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+.arch-bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.arch-bar-label { width: 80px; font-size: 13px; font-weight: 600; color: var(--dark-slate); text-align: right; }
+.arch-bar-track { flex: 1; height: 14px; background: #eef0f3; border-radius: 999px; overflow: hidden; }
+.arch-bar-fill { height: 100%; border-radius: 999px; transition: width 0.8s ease; }
+.arch-bar-value { width: 30px; font-size: 13px; font-weight: 700; color: var(--dark-slate); }
+.arch-bar-badges { width: 40px; }
+.badge { font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; text-transform: uppercase; }
+.dominant-badge { background: var(--deep-purple); color: white; }
+.secondary-badge { background: #e8ecf0; color: var(--dark-slate); }
+
+.explore-cta { text-align: center; padding: 8px 0; }
+.explore-cta .btn-primary { font-size: 18px; padding: 18px 40px; }
+.visibility-gap { background: #fef9ec; border: 1px solid #f5e6b8; border-radius: 14px; padding: 18px 22px; font-size: 13px; color: #8a6914; }
+.visibility-gap h4 { font-size: 14px; margin-bottom: 8px; color: #6b5210; }
+.visibility-gap ul { padding-left: 18px; margin-top: 8px; }
+.visibility-gap li { margin-bottom: 4px; }
+
+.radar-chart-card { background: white; border-radius: 18px; box-shadow: var(--shadow-card); padding: 24px 28px; border: 1px solid #e8ecf0; }
+.radar-chart-card h2 { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+.radar-svg-wrap { display: flex; justify-content: center; padding: 8px 0; }
+.radar-svg-wrap svg { max-width: 440px; width: 100%; height: auto; }
+.radar-legend { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 14px; }
+.radar-legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--dark-slate); }
+.radar-legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.radar-legend-score { color: #7d8792; font-weight: 500; }
+.radar-legend-item:hover { opacity: 0.8; }
+.archetype-popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.35); z-index: 2000; display: flex; align-items: center; justify-content: center; animation: fadeIn 200ms ease-out; }
+.archetype-popup { background: white; border-radius: 18px; padding: 28px 32px; max-width: 480px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,0.2); position: relative; max-height: 80vh; overflow-y: auto; }
+.popup-close { position: absolute; top: 12px; right: 16px; background: none; border: none; font-size: 22px; cursor: pointer; color: #7d8792; line-height: 1; padding: 4px; }
+.popup-close:hover { color: var(--charcoal); }
+.archetype-popup h3 { font-family: "Sora", sans-serif; font-size: 20px; margin-bottom: 10px; }
+.popup-desc { font-size: 14px; line-height: 1.6; color: var(--charcoal); margin-bottom: 14px; }
+.popup-detail { font-size: 13px; line-height: 1.5; color: var(--charcoal); margin-bottom: 8px; }
+.popup-detail strong { color: var(--dark-slate); }
+.info-tooltip { position: relative; display: inline-block; margin-left: 4px; cursor: help; vertical-align: middle; }
+.info-icon { font-size: 12px; color: #9aa3ad; transition: color 0.15s; }
+.info-tooltip:hover .info-icon, .info-tooltip:focus .info-icon { color: var(--deep-purple); }
+.tooltip-text { visibility: hidden; opacity: 0; position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); background: var(--charcoal); color: white; font-size: 12px; font-weight: 400; padding: 8px 12px; border-radius: 8px; width: 220px; line-height: 1.5; text-align: left; z-index: 10; pointer-events: none; transition: opacity 0.2s, visibility 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+.tooltip-text::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 6px solid transparent; border-top-color: var(--charcoal); }
+.info-tooltip:hover .tooltip-text, .info-tooltip:focus .tooltip-text { visibility: visible; opacity: 1; }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-6px); } 40% { transform: translateX(6px); } 60% { transform: translateX(-4px); } 80% { transform: translateX(4px); } }
+.question-card.shake { animation: shake 0.4s ease-in-out; }
+.validation-msg { text-align: center; font-size: 13px; color: #c44; font-weight: 600; margin-top: 10px; display: none; animation: fadeIn 200ms ease-out; }
+
+.report-page { font-family: "Manrope", sans-serif; font-size: var(--report-prose-size); line-height: var(--report-prose-line-height); -webkit-font-smoothing: antialiased; }
+.report-topbar { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); display: flex; align-items: center; justify-content: space-between; padding: 10px 28px; border-bottom: 1px solid var(--border); }
+.logo-svg-small { display: inline-flex; align-items: center; }
+.logo-svg-small svg { height: 24px; width: auto; }
+.report-arch-badge { padding: 4px 12px; border-radius: 999px; color: white; font-size: 12px; font-weight: 700; }
+.report-hero-banner { padding: clamp(32px, 6vw, 64px) clamp(20px, 4vw, 48px) clamp(28px, 5vw, 56px); text-align: center; color: white; }
+.report-hero-banner h1 { font-size: clamp(24px, 4vw, 38px); font-weight: 800; color: white; margin-bottom: 8px; letter-spacing: -0.02em; }
+.rh-subtitle { font-size: clamp(15px, 2vw, 18px); opacity: 0.92; margin-bottom: 6px; font-weight: 500; }
+.rh-tagline { font-size: clamp(12px, 1.5vw, 15px); opacity: 0.72; }
+.report-layout { max-width: 1100px; margin: 0 auto; padding: 32px; display: flex; gap: 32px; align-items: flex-start; }
+.report-toc { position: sticky; top: 64px; width: 230px; flex-shrink: 0; max-height: calc(100vh - 80px); overflow-y: auto; scrollbar-width: thin; scrollbar-color: #d0d5db transparent; }
+.toc-list { list-style: none; }
+.toc-item { display: block; padding: 9px 14px; font-size: 13px; font-weight: 500; color: var(--charcoal); border-radius: 8px; margin-bottom: 2px; cursor: pointer; transition: all 0.15s; text-decoration: none; border-left: 3px solid transparent; }
+.toc-item:hover { background: #f0f2f5; }
+.toc-item.active { background: #f2eaf0; color: var(--deep-purple); font-weight: 700; border-left-color: var(--deep-purple); }
+.toc-toggle { display: none; width: 100%; padding: 12px 16px; border: 1px solid var(--border); border-radius: 10px; background: white; font-weight: 600; cursor: pointer; font-size: 14px; margin-bottom: 10px; transition: background 0.15s; }
+.toc-toggle:hover { background: #f8f9fb; }
+.report-toc--mobile { overflow: hidden; max-height: 0; opacity: 0; transition: max-height 0.35s ease, opacity 0.25s ease; }
+.report-toc--mobile.open { max-height: 500px; opacity: 1; }
+.report-content-area { flex: 1; min-width: 0; max-width: var(--report-prose-max-width); }
+
+.accordion-section { margin-bottom: 18px; }
+.accordion-header { display: flex; align-items: center; gap: 12px; padding: 18px 24px; background: white; border: 1px solid var(--border); border-radius: 14px; cursor: pointer; transition: all 0.15s; user-select: none; }
+.accordion-header:hover { background: #f8f9fb; }
+.accordion-header.open { border-radius: 14px 14px 0 0; border-bottom-color: transparent; }
+.accordion-icon { font-size: 20px; flex-shrink: 0; }
+.accordion-title { flex: 1; font-weight: 700; font-size: 16px; color: var(--dark-slate); }
+.accordion-chevron { font-size: 12px; color: #9aa3ad; transition: transform 0.25s; }
+.accordion-header.open .accordion-chevron { transform: rotate(180deg); }
+.accordion-body { display: grid; grid-template-rows: 0fr; overflow: hidden; transition: grid-template-rows 0.4s ease; border: 1px solid var(--border); border-top: none; border-radius: 0 0 14px 14px; }
+.accordion-body.open { grid-template-rows: 1fr; }
+.accordion-body-inner { min-height: 0; overflow: hidden; padding: 0 28px; transition: padding 0.3s ease; }
+.accordion-body.open .accordion-body-inner { padding: 24px 28px; }
+
+.section-intro { font-size: var(--report-prose-size); line-height: var(--report-prose-line-height); color: var(--charcoal); margin-bottom: 20px; }
+.section-intro:first-of-type { font-size: 17px; line-height: 1.8; color: var(--dark-slate); }
+.report-subhead { font-family: "Sora", sans-serif; font-size: 16px; font-weight: 700; color: var(--deep-purple); margin: 28px 0 14px; padding-top: 12px; border-top: 1px solid #eef0f3; }
+.accent-card { background: #f8f9fb; border-left: 3px solid var(--deep-purple); border-radius: 0 12px 12px 0; padding: 20px 24px; margin-bottom: 20px; transition: box-shadow 0.2s; }
+.accent-card:hover { box-shadow: var(--shadow-card); }
+.accent-card--alt { background: #faf8fd; border-left-color: var(--orange); }
+.accent-title { font-weight: 700; color: var(--dark-slate); font-size: var(--report-card-title-size); margin-bottom: 8px; line-height: 1.5; }
+.accent-body p { font-size: var(--report-card-body-size); line-height: var(--report-prose-line-height); color: var(--charcoal); margin-bottom: 10px; }
+.accent-body p:last-child { margin-bottom: 0; }
+.accent-body ul { padding-left: 20px; margin: 10px 0 0; list-style: none; }
+.accent-body li { font-size: 14px; line-height: 1.7; color: var(--charcoal); margin-bottom: 6px; position: relative; padding-left: 16px; }
+.accent-body li::before { content: ''; position: absolute; left: 0; top: 10px; width: 5px; height: 5px; border-radius: 50%; background: var(--deep-purple); }
+.styled-list { padding-left: 0; list-style: none; margin: 12px 0; }
+.styled-list li { position: relative; padding-left: 20px; font-size: 14px; line-height: 1.7; color: var(--charcoal); margin-bottom: 8px; }
+.styled-list li::before { content: ''; position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--deep-purple); }
+.section-divider { border: none; border-top: 1px solid #e2e6eb; margin: 28px 0; }
+.report-body-text { font-size: var(--report-prose-size); line-height: var(--report-prose-line-height); color: var(--charcoal); margin-bottom: 16px; }
+.report-back-footer { text-align: center; margin: 36px 0; }
+.toc-mobile-wrapper { max-width: 1100px; margin: 0 auto; padding: 12px 28px 0; }
+@media (min-width: 769px) { .toc-mobile-wrapper { display: none; } }
+
+.roadmap-timeline { position: relative; padding-left: 56px; margin: 20px 0; }
+.roadmap-line { position: absolute; left: 20px; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--deep-purple), var(--orange), var(--gold)); border-radius: 2px; }
+.roadmap-phase { position: relative; margin-bottom: 36px; }
+.phase-marker { position: absolute; left: -56px; top: 0; width: 36px; height: 36px; border-radius: 50%; background: var(--deep-purple); color: white; font-family: "Sora", sans-serif; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; z-index: 1; box-shadow: 0 2px 8px rgba(107, 45, 91, 0.2); }
+.phase-marker.end { background: var(--optimizer); }
+.phase-label { font-size: 11px; font-weight: 700; color: var(--deep-purple); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+.phase-title { font-family: "Sora", sans-serif; font-size: 18px; font-weight: 700; color: var(--dark-slate); margin-bottom: 16px; }
+.phase-title--target { color: var(--optimizer); }
+.phase-items { display: flex; flex-direction: column; gap: 12px; }
+.phase-item-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+.phase-item-card strong { display: block; font-size: var(--report-roadmap-text); color: var(--dark-slate); margin-bottom: 6px; line-height: 1.4; }
+.phase-item-card p { font-size: var(--report-roadmap-text); line-height: var(--report-prose-line-height); color: var(--charcoal); }
+.failure-callout { background: #fef6ee; border: 1px solid #fad4b0; border-left: 3px solid var(--orange); border-radius: 0 10px 10px 0; padding: 18px 20px; margin-top: 12px; }
+.failure-callout strong { display: block; font-size: var(--report-roadmap-text); color: #9a5b1c; margin-bottom: 6px; }
+.failure-callout p { font-size: var(--report-roadmap-text); line-height: var(--report-prose-line-height); color: #7a4a16; }
+.caution-card { background: #fefcf3; border: 1px solid #f5e6b8; border-left: 3px solid var(--gold); border-radius: 0 12px 12px 0; padding: 20px 24px; margin-bottom: 14px; }
+.caution-card strong { display: block; font-size: var(--report-caution-text); color: #6b5210; margin-bottom: 6px; line-height: 1.4; }
+.caution-card p { font-size: var(--report-caution-text); line-height: var(--report-prose-line-height); color: #8a6914; }
+.caution-intro { font-size: var(--report-caution-text); line-height: var(--report-prose-line-height); color: var(--charcoal); margin-bottom: 14px; }
+.quote-callout { border-left: 3px solid var(--deep-purple); padding: 16px 20px; background: #faf8fd; border-radius: 0 12px 12px 0; margin-bottom: 20px; }
+.quote-callout p { font-size: 16px; font-style: italic; line-height: 1.8; color: var(--charcoal); }
+.secondary-banner { background: #f0f2f5; border-radius: 14px; padding: 20px 24px; text-align: center; margin-top: 24px; }
+.secondary-banner p { font-size: 14px; margin-bottom: 12px; }
+
+.report-section { margin-bottom: 28px; }
+.section-header { display: flex; align-items: center; gap: 12px; padding: 18px 0 14px; border-bottom: 2px solid #e2e6eb; margin-bottom: 18px; }
+.section-icon { font-size: 22px; flex-shrink: 0; }
+.section-title { font-family: "Sora", sans-serif; font-size: 18px; font-weight: 700; color: var(--dark-slate); }
+.details-toggle { display: inline-flex; align-items: center; gap: 6px; background: none; border: 1px solid var(--border); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600; color: #7d8792; cursor: pointer; margin: 14px 0; transition: all 0.15s; }
+.details-toggle:hover { background: #f5f7f9; color: var(--dark-slate); }
+.section-details { display: grid; grid-template-rows: 1fr; transition: grid-template-rows 0.4s ease; }
+.section-details.collapsed { grid-template-rows: 0fr; }
+.section-details-inner { min-height: 0; overflow: hidden; }
+
+@media (max-width: 1024px) {
+  .report-layout { padding: 24px; gap: 24px; }
+  .report-toc { width: 200px; }
+  .report-content-area { max-width: none; }
+}
+@media (max-width: 900px) {
+  .report-toc { width: 180px; }
+  .toc-item { padding: 7px 12px; font-size: 12px; }
+}
+@media (max-width: 768px) {
+  :root { --report-prose-size: 15px; --report-card-title-size: 14px; --report-card-body-size: 14px; --report-roadmap-text: 14px; --report-caution-text: 14px; }
+  .results-hero-card { flex-direction: column; text-align: center; }
+  .report-toc:not(.report-toc--mobile) { display: none; }
+  .toc-toggle { display: block; }
+  .report-toc.open { display: block; width: 100%; position: static; }
+  .report-layout { flex-direction: column; padding: 16px; }
+  .report-content-area { max-width: none; }
+  .subsystem-grid { grid-template-columns: 1fr; }
+  .accordion-body-inner { padding: 0 20px; }
+  .accordion-body.open .accordion-body-inner { padding: 20px; }
+  .accordion-header { padding: 14px 18px; }
+  .accent-card { padding: 16px 18px; }
+}
+@media (max-width: 640px) {
+  .card { padding: 28px 22px; }
+  .welcome-card h1 { font-size: 22px; }
+  .section-preview { gap: 6px; }
+  .section-badge { font-size: 11px; padding: 4px 10px; }
+}
+@media (max-width: 480px) {
+  :root { --report-prose-size: 14.5px; --report-roadmap-text: 13.5px; }
+  .single-likert { flex-direction: column; }
+  .single-likert .likert-option { min-width: unset; }
+  .likert-scale { flex-direction: column; }
+  .extended-scale { flex-direction: column; }
+  .option kbd { min-width: 24px; height: 24px; font-size: 11px; }
+  .nav-footer { flex-direction: column; text-align: center; }
+  .nav-actions { width: 100%; }
+  .nav-actions button { flex: 1; }
+  .logo-header { padding: 10px 14px; }
+  .roadmap-timeline { padding-left: 36px; }
+  .phase-marker { left: -36px; width: 28px; height: 28px; font-size: 12px; }
+  .roadmap-line { left: 13px; }
+  .phase-title { font-size: 16px; }
+  .phase-item-card { padding: 14px 16px; }
+  .accordion-header { padding: 12px 14px; gap: 10px; }
+  .accordion-title { font-size: 14px; }
+  .accordion-body-inner { padding: 0 14px; }
+  .accordion-body.open .accordion-body-inner { padding: 16px 14px; }
+  .fluency-row-name { width: 100px; font-size: 12px; }
+  .fluency-row { gap: 8px; }
+  .radar-svg-wrap svg { max-width: 330px; }
+}
+.admin-page { font-family: "Manrope", sans-serif; max-width: 1100px; margin: 0 auto; padding: 32px; }
+.admin-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; gap: 16px; flex-wrap: wrap; }
+.admin-header h1 { font-family: "Sora", sans-serif; font-size: 24px; color: var(--dark-slate); }
+.admin-loading { color: #7d8792; font-size: 13px; }
+.admin-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 28px; }
+.admin-stat { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+.admin-stat .stat-label { font-size: 12px; font-weight: 700; color: #7d8792; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+.admin-stat .stat-value { font-family: "Sora", sans-serif; font-size: 28px; font-weight: 800; color: var(--deep-purple); }
+.admin-stat .stat-detail { font-size: 13px; color: var(--charcoal); margin-top: 4px; }
+.admin-section { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 24px; margin-bottom: 20px; }
+.admin-section h2 { font-family: "Sora", sans-serif; font-size: 18px; margin-bottom: 16px; color: var(--dark-slate); }
+.admin-dist-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.admin-dist-label { width: 100px; font-size: 13px; font-weight: 600; text-align: right; }
+.admin-dist-bar { flex: 1; height: 22px; background: #eef0f3; border-radius: 6px; overflow: hidden; }
+.admin-dist-fill { height: 100%; border-radius: 6px; transition: width 0.5s; }
+.admin-dist-count { width: 36px; font-size: 13px; font-weight: 700; }
+.admin-table-wrap { overflow-x: auto; }
+.admin-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.admin-table th { text-align: left; padding: 10px 12px; border-bottom: 2px solid var(--border); font-weight: 700; color: var(--dark-slate); white-space: nowrap; }
+.admin-table td { padding: 8px 12px; border-bottom: 1px solid #eef0f3; }
+.admin-table tr:hover td { background: #f8f9fb; }
+.admin-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+@media (max-width: 768px) { .admin-cards { grid-template-columns: 1fr 1fr; } .admin-header { flex-direction: column; align-items: flex-start; } }
+@media (max-width: 480px) { .admin-cards { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="progress-bar-container">
+  <div class="progress-bar-fill" id="progressBar"></div>
+</div>
+
+<div class="logo-header">
+  <div class="logo-left">
+    <span class="logo-mark"><svg id="artwork" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 232.45 56.47"><defs><style>.chn-1{fill:#e87824;}.chn-2{fill:#d4262f;}.chn-3{fill:#f1b533;}.chn-4{fill:#435563;}</style></defs><title>CHN-LOGO-RGB</title><path class="chn-1" d="M52,23.21l-8.25,8.25a0.78,0.78,0,0,1-.61.22V37a0.76,0.76,0,0,0,.42-0.21l8.35-8.34a0.78,0.78,0,0,1,.6-0.22V23A0.78,0.78,0,0,0,52,23.21Z" transform="translate(-21.89 -21.89)"/><path class="chn-1" d="M63.41,35.38H51.74a0.78,0.78,0,0,1-.58-0.27l-3.9,3.6a0.77,0.77,0,0,0,.6.29h11.8a0.78,0.78,0,0,1,.56.24L64,35.61A0.78,0.78,0,0,0,63.41,35.38Z" transform="translate(-21.89 -21.89)"/><path class="chn-1" d="M62.86,52L54.6,43.77a0.77,0.77,0,0,1-.21-0.72H49.07a0.77,0.77,0,0,0,.23.54l8.34,8.34a0.77,0.77,0,0,1,.22.55h5.21A0.76,0.76,0,0,0,62.86,52Z" transform="translate(-21.89 -21.89)"/><path class="chn-1" d="M47.07,47.86v11.8a0.76,0.76,0,0,1-.26.58l3.68,3.69a0.78,0.78,0,0,0,.2-0.51V51.74a0.77,0.77,0,0,1,.19-0.5L47.3,47.31A0.78,0.78,0,0,0,47.07,47.86Z" transform="translate(-21.89 -21.89)"/><path class="chn-1" d="M42.48,49.3l-8.34,8.34a0.76,0.76,0,0,1-.51.22v5.21A0.77,0.77,0,0,0,34,62.86l8.25-8.25a0.77,0.77,0,0,1,.57-0.22V49.09A0.78,0.78,0,0,0,42.48,49.3Z" transform="translate(-21.89 -21.89)"/><path class="chn-1" d="M38.22,47.07H26.41a0.77,0.77,0,0,1-.58-0.26L22.15,50.5a0.77,0.77,0,0,0,.52.2H34.33a0.77,0.77,0,0,1,.55.23l3.84-3.66A0.77,0.77,0,0,0,38.22,47.07Z" transform="translate(-21.89 -21.89)"/><path class="chn-1" d="M37,43a0.76,0.76,0,0,0-.22-0.49l-8.34-8.35a0.78,0.78,0,0,1-.18-0.82H23a0.78,0.78,0,0,0,.2.73l8.25,8.25a0.79,0.79,0,0,1,.22.68H37Z" transform="translate(-21.89 -21.89)"/><path class="chn-1" d="M39,38.21V26.42a0.77,0.77,0,0,1,.28-0.59l-3.69-3.7a0.78,0.78,0,0,0-.21.53V34.34a0.78,0.78,0,0,1-.2.52l3.63,3.87A0.76,0.76,0,0,0,39,38.21Z" transform="translate(-21.89 -21.89)"/><path class="chn-2" d="M42.68,31.47l-1.42-1.41c-0.3-.3-0.55-0.2-0.55.23v3.93a2.15,2.15,0,0,0,.55,1.32l1.24,1.24a0.78,0.78,0,0,0,.67.21v-5.3A0.76,0.76,0,0,1,42.68,31.47Z" transform="translate(-21.89 -21.89)"/><path class="chn-2" d="M51,34.61v-2c0-.43-0.25-0.53-0.55-0.23l-2.78,2.78a2.17,2.17,0,0,0-.55,1.33v1.75a0.76,0.76,0,0,0,.17.48l3.9-3.6A0.78,0.78,0,0,1,51,34.61Z" transform="translate(-21.89 -21.89)"/><path class="chn-2" d="M54.6,42.68L56,41.26c0.3-.3.2-0.54-0.23-0.54H51.86a2.15,2.15,0,0,0-1.32.54L49.3,42.5a0.77,0.77,0,0,0-.22.56H54.4A0.76,0.76,0,0,1,54.6,42.68Z" transform="translate(-21.89 -21.89)"/><path class="chn-2" d="M53.7,50.42l-2.78-2.79a2.16,2.16,0,0,0-1.32-.55H47.85a0.78,0.78,0,0,0-.55.23l3.58,3.93A0.78,0.78,0,0,1,51.47,51h2C53.89,51,54,50.72,53.7,50.42Z" transform="translate(-21.89 -21.89)"/><path class="chn-2" d="M44.81,50.54L43.58,49.3a0.78,0.78,0,0,0-.7-0.21v5.29a0.78,0.78,0,0,1,.52.22L44.81,56c0.3,0.3.55,0.2,0.55-.23V51.86A2.15,2.15,0,0,0,44.81,50.54Z" transform="translate(-21.89 -21.89)"/><path class="chn-2" d="M38.73,47.27l-3.84,3.66a0.77,0.77,0,0,1,.23.54v2c0,0.43.25,0.53,0.55,0.23l2.78-2.78A2.16,2.16,0,0,0,39,49.59V47.85A0.77,0.77,0,0,0,38.73,47.27Z" transform="translate(-21.89 -21.89)"/><path class="chn-2" d="M31.68,43a0.76,0.76,0,0,1-.21.42l-1.41,1.42c-0.3.3-.2,0.55,0.23,0.55h3.93a2.16,2.16,0,0,0,1.32-.55l1.23-1.23A0.76,0.76,0,0,0,37,43H31.68Z" transform="translate(-21.89 -21.89)"/><path class="chn-2" d="M35.18,34.86a0.77,0.77,0,0,1-.57.26h-2c-0.43,0-.53.25-0.23,0.55l2.78,2.78a2.17,2.17,0,0,0,1.32.55h1.75a0.76,0.76,0,0,0,.58-0.26Z" transform="translate(-21.89 -21.89)"/><path class="chn-3" d="M62.09,32.19l-9-9A0.76,0.76,0,0,0,52.54,23v5.22a0.78,0.78,0,0,1,.5.22l3.75,3.76a2.15,2.15,0,0,0,1.32.55h3.75C62.29,32.73,62.39,32.49,62.09,32.19Z" transform="translate(-21.89 -21.89)"/><path class="chn-3" d="M64,35.61l-3.74,3.63a0.79,0.79,0,0,1,.22.54V45.1A2.09,2.09,0,0,0,61,46.41L63.63,49c0.31,0.3.56,0.19,0.56-.24V36.16A0.78,0.78,0,0,0,64,35.61Z" transform="translate(-21.89 -21.89)"/><path class="chn-3" d="M57.87,52.49a0.76,0.76,0,0,1-.22.55l-3.75,3.75a2.17,2.17,0,0,0-.55,1.32v3.77c0,0.43.24,0.53,0.55,0.22l9-9a0.76,0.76,0,0,0,.22-0.64H57.87Z" transform="translate(-21.89 -21.89)"/><path class="chn-3" d="M46.29,60.43H41a2.09,2.09,0,0,0-1.31.56l-2.55,2.63c-0.3.31-.19,0.56,0.24,0.56H49.92a0.77,0.77,0,0,0,.58-0.26l-3.68-3.69A0.76,0.76,0,0,1,46.29,60.43Z" transform="translate(-21.89 -21.89)"/><path class="chn-3" d="M33,57.65l-3.75-3.77A2.18,2.18,0,0,0,28,53.33l-3.79,0c-0.43,0-.53.24-0.23,0.54l9,9a0.77,0.77,0,0,0,.67.21V57.87A0.78,0.78,0,0,1,33,57.65Z" transform="translate(-21.89 -21.89)"/><path class="chn-3" d="M25.64,46.3V41a2.1,2.1,0,0,0-.56-1.32l-2.63-2.54c-0.31-.3-0.56-0.19-0.56.23V49.92a0.77,0.77,0,0,0,.26.57l3.69-3.69A0.78,0.78,0,0,1,25.64,46.3Z" transform="translate(-21.89 -21.89)"/><path class="chn-3" d="M28.43,33l3.76-3.75A2.08,2.08,0,0,0,32.72,28l-0.06-3.67c0-.43-0.26-0.53-0.56-0.23L23.22,33a0.76,0.76,0,0,0-.2.37h5.23A0.76,0.76,0,0,1,28.43,33Z" transform="translate(-21.89 -21.89)"/><path class="chn-3" d="M48.72,21.89H36.16a0.78,0.78,0,0,0-.56.24l3.69,3.7a0.76,0.76,0,0,1,.5-0.18h5.31a2.12,2.12,0,0,0,1.32-.56L49,22.45C49.25,22.14,49.15,21.89,48.72,21.89Z" transform="translate(-21.89 -21.89)"/><path class="chn-3" d="M62.35,60.55a1.82,1.82,0,1,1,0,3.63,1.82,1.82,0,1,1,0-3.63h0Zm0,0.41a1.4,1.4,0,1,0,1.36,1.4A1.36,1.36,0,0,0,62.31,61h0Zm-0.23,2.3H61.59V61.53a3.39,3.39,0,0,1,.72-0.07,1,1,0,0,1,.65.14,0.42,0.42,0,0,1,.18.37,0.46,0.46,0,0,1-.38.41v0a0.52,0.52,0,0,1,.33.44,1.83,1.83,0,0,0,.12.42H62.7a1.39,1.39,0,0,1-.13-0.4,0.28,0.28,0,0,0-.32-0.26H62.08v0.66Zm0-1h0.17A0.29,0.29,0,0,0,62.61,62c0-.15-0.1-0.24-0.33-0.24l-0.19,0v0.46Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M83.65,48.83c-4.24,0-6.75-2.67-6.75-6.92,0-4.75,3-7,6.72-7a10.12,10.12,0,0,1,4,.78l1-3.77a12.48,12.48,0,0,0-5.21-.94c-6.41,0-11.56,4-11.56,11.23,0,6.07,3.77,10.66,11.09,10.66a14,14,0,0,0,5.4-.91l-0.69-3.77A11.39,11.39,0,0,1,83.65,48.83Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M96.94,36.75c-5,0-8.23,3.18-8.23,8.15s3.46,7.92,7.94,7.92h0c4.08,0,8.07-2.58,8.07-8.18C104.75,40,101.62,36.75,96.94,36.75ZM96.75,49.39h0c-2,0-3.11-2-3.11-4.59,0-2.29.88-4.63,3.14-4.63s3,2.33,3,4.6C99.79,47.54,98.63,49.39,96.75,49.39Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M142.91,36.75a5.84,5.84,0,0,0-2.91.76,6.59,6.59,0,0,0-2,1.89h-0.07a4.33,4.33,0,0,0-4.21-2.65,5.32,5.32,0,0,0-4.64,2.46l-0.28.33a4.65,4.65,0,0,0-4.44-2.79,5.87,5.87,0,0,0-2.92.76,6.7,6.7,0,0,0-2,1.89h-0.06a4.34,4.34,0,0,0-4.21-2.65,5.32,5.32,0,0,0-4.65,2.46h-0.09l-0.19-2.11h-4c0.06,1.38.13,3,.13,4.9V52.48h4.65V43.55a3.33,3.33,0,0,1,.19-1.23,2.44,2.44,0,0,1,2.23-1.7c1.54,0,2.23,1.33,2.23,3.24v8.62h4.65v-9a5.06,5.06,0,0,1,.16-1.2,2.37,2.37,0,0,1,2.23-1.67c1.43,0,2.14,1.12,2.24,3v8.82h4.67V43.42c0-.09,0-0.17,0-0.26a2.53,2.53,0,0,1,.18-0.84,2.44,2.44,0,0,1,2.22-1.7c1.54,0,2.23,1.33,2.23,3.24v8.62h4.65v-9a4.87,4.87,0,0,1,.16-1.2,2.36,2.36,0,0,1,2.22-1.67c1.54,0,2.26,1.29,2.26,3.53v8.34h4.65V43.42C148.09,38.83,145.87,36.75,142.91,36.75Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M164.32,37.1h-4.77v9.15a2.57,2.57,0,0,1-.19,1A2.54,2.54,0,0,1,157,49c-1.69,0-2.41-1.36-2.41-3.58V37.1h-4.77v9c0,4.73,2.26,6.69,5.4,6.69a5.49,5.49,0,0,0,4.8-2.51h0.09l0.22,2.17h4.14c-0.06-1.29-.12-2.93-0.12-4.94V37.1Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M175.36,36.75a5.51,5.51,0,0,0-4.74,2.49h-0.1l-0.22-2.14h-4.14c0.06,1.38.13,3,.13,4.9V52.48h4.77V43.61a3.46,3.46,0,0,1,.16-1.19,2.62,2.62,0,0,1,2.45-1.79c1.73,0,2.42,1.35,2.42,3.34v8.52h4.77V43.39C180.85,38.86,178.5,36.75,175.36,36.75Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M185.21,30a2.55,2.55,0,1,0-.07,5.1h0A2.55,2.55,0,1,0,185.21,30Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M210.75,37.1l-1.88,7.55c-0.23.88-.48,2-0.7,2.86h-0.09c-0.19-.82-0.51-2-0.76-2.86L205,37.1h-9V32.92l-4.68,1.29V37.1H182.8V52.48h4.77V40.62h3.82v6.32c0,2.17.44,3.65,1.32,4.56a5.1,5.1,0,0,0,3.62,1.33,10,10,0,0,0,3.07-.41l0-3.61a6.36,6.36,0,0,1-1.42.13c-1.41,0-1.88-.85-1.88-2.71v-5.6h5.09l4.24,10.53a2.13,2.13,0,0,1,.18.79,1.32,1.32,0,0,1-.25.7,5.46,5.46,0,0,1-2,1.92,7.34,7.34,0,0,1-2.07.81l1,4a8.41,8.41,0,0,0,4.61-2.1c1.73-1.54,3.21-4,5.4-10.07l3.58-10.12h-5.12Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M109.1,62.74V68.9h6.5V62.74h2.81V78.11H115.6V71.34h-6.5v6.78h-2.8V62.74h2.8Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M122.91,73.34c0.07,2,1.62,2.87,3.42,2.87a8.94,8.94,0,0,0,3.08-.5l0.41,1.92a10,10,0,0,1-3.88.71c-3.6,0-5.73-2.21-5.73-5.61,0-3.08,1.87-6,5.43-6s4.79,3,4.79,5.41a6.87,6.87,0,0,1-.09,1.19h-7.44Zm4.88-2a2.39,2.39,0,0,0-2.3-2.71,2.75,2.75,0,0,0-2.58,2.71h4.88Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M141.05,75.44a15,15,0,0,0,.18,2.67H138.7l-0.21-1.23h-0.07a4.06,4.06,0,0,1-3.29,1.48,3.3,3.3,0,0,1-3.49-3.31c0-2.78,2.49-4.22,6.59-4.2V70.68c0-.73-0.3-1.94-2.26-1.94a5.9,5.9,0,0,0-3,.82l-0.55-1.83a8,8,0,0,1,4-1c3.56,0,4.58,2.26,4.58,4.7v4Zm-2.74-2.76c-2,0-3.88.39-3.88,2.08a1.47,1.47,0,0,0,1.6,1.6,2.3,2.3,0,0,0,2.21-1.53,1.89,1.89,0,0,0,.07-0.62V72.68Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M143.31,61.92h2.81v16.2h-2.81V61.92Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M152.06,64.15V67h2.67v2.1h-2.67V74c0,1.37.37,2.05,1.44,2.05a3.66,3.66,0,0,0,1.09-.11l0,2.12a6.15,6.15,0,0,1-2,.3,3.21,3.21,0,0,1-2.42-.91,4.38,4.38,0,0,1-.89-3.13V69.1h-1.57V67h1.57V64.93Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M156.46,61.92h2.81v6.59h0a3.68,3.68,0,0,1,1.39-1.25,4,4,0,0,1,1.94-.5c1.89,0,3.88,1.25,3.88,4.81v6.55h-2.81V71.86c0-1.6-.59-2.83-2.14-2.83a2.34,2.34,0,0,0-2.19,1.57,2.5,2.5,0,0,0-.11.84v6.66h-2.81V61.92Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M173.4,78.11V62.74h3.22l4,6.59a45.93,45.93,0,0,1,2.62,5.16h0A62.9,62.9,0,0,1,183,68.1V62.74h2.6V78.11h-2.92l-4-6.78A52.83,52.83,0,0,1,175.94,66l-0.09,0c0.12,2,.16,4,0.16,6.55v5.5h-2.6Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M190.2,73.34c0.07,2,1.62,2.87,3.42,2.87a8.94,8.94,0,0,0,3.08-.5l0.41,1.92a10,10,0,0,1-3.88.71c-3.6,0-5.73-2.21-5.73-5.61,0-3.08,1.87-6,5.43-6s4.79,3,4.79,5.41a6.77,6.77,0,0,1-.09,1.19H190.2Zm4.88-2a2.39,2.39,0,0,0-2.3-2.71,2.74,2.74,0,0,0-2.58,2.71h4.88Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M202.81,64.15V67h2.67v2.1h-2.67V74c0,1.37.36,2.05,1.44,2.05a3.67,3.67,0,0,0,1.1-.11l0,2.12a6.14,6.14,0,0,1-2,.3,3.21,3.21,0,0,1-2.42-.91,4.37,4.37,0,0,1-.89-3.13V69.1h-1.57V67H200V64.93Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M209.12,67l1.14,5c0.27,1.19.52,2.4,0.73,3.6h0c0.23-1.21.59-2.44,0.89-3.58L213.38,67h2.28l1.39,4.93c0.34,1.3.64,2.51,0.89,3.72h0c0.16-1.21.43-2.42,0.73-3.72L220,67h2.76l-3.49,11.11h-2.6L215.3,73.6a33.9,33.9,0,0,1-.84-3.56h0a33.84,33.84,0,0,1-.84,3.56l-1.41,4.52h-2.62L206.24,67h2.88Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M234.45,72.46a5.5,5.5,0,0,1-5.7,5.91,5.37,5.37,0,0,1-5.57-5.73,5.48,5.48,0,0,1,5.75-5.89A5.33,5.33,0,0,1,234.45,72.46Zm-8.37.11c0,2.14,1.07,3.76,2.76,3.76s2.71-1.55,2.71-3.81c0-1.73-.78-3.74-2.69-3.74S226.08,70.72,226.08,72.57Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M236.17,70.58c0-1.5,0-2.6-.09-3.58h2.42l0.11,2.1h0.07a3.32,3.32,0,0,1,3.06-2.35,2.93,2.93,0,0,1,.66.07v2.62a4.56,4.56,0,0,0-.84-0.07A2.47,2.47,0,0,0,239,71.5a4.93,4.93,0,0,0-.07.84v5.77h-2.81V70.58Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M246.77,71.88h0c0.27-.43.59-0.91,0.87-1.3L250.39,67h3.38l-4.13,4.54,4.7,6.57h-3.44l-3.19-4.9-0.93,1.12v3.79H244V61.92h2.81v10Z" transform="translate(-21.89 -21.89)"/></svg></span>
+  </div>
+  <span class="screen-counter" id="screenCounter"></span>
+</div>
+
+<div class="survey-container" id="surveyContainer">
+  <div id="screenContent" class="screen"></div>
+</div>
+
+<div id="reportContainer"></div>
+<div id="adminContainer" style="display:none"></div>
+
+<script>
+// ============================================================
+//  DATA: ALL SURVEY QUESTIONS
+// ============================================================
+
+const CONTEXT_QUESTIONS = [
+  { id: 'CON-001', text: 'For analysis purposes, which group best describes you?',
+    options: [
+      { key: 'A', text: 'Executive / VP+', value: 'exec' },
+      { key: 'B', text: 'Director / Manager / Supervisor (people leader)', value: 'director' },
+      { key: 'C', text: 'Individual contributor / staff (non-technical)', value: 'ic' },
+      { key: 'D', text: 'Technical / IT / Data / Analytics / Security', value: 'technical' },
+      { key: 'E', text: 'Clinical / Provider / Nursing / Care team', value: 'clinical' },
+      { key: 'F', text: 'Other / Not sure', value: 'other' }
+    ]
+  },
+  { id: 'CON-002', text: 'What is your primary function?',
+    options: [
+      { key: 'A', text: 'Clinical / Nursing / Provider', value: 'clinical' },
+      { key: 'B', text: 'Operations / Quality / Patient experience', value: 'operations' },
+      { key: 'C', text: 'Access / Scheduling / Contact center', value: 'access' },
+      { key: 'D', text: 'Revenue cycle / Finance', value: 'finance' },
+      { key: 'E', text: 'Marketing / Communications / Digital', value: 'marketing' },
+      { key: 'F', text: 'IT / Data / Analytics / Security', value: 'it' },
+      { key: 'G', text: 'Legal / Compliance / Risk', value: 'legal' },
+      { key: 'H', text: 'HR / People / Training', value: 'hr' },
+      { key: 'I', text: 'Other', value: 'other' }
+    ]
+  },
+  { id: 'CON-003', text: 'How frequently do you personally use AI tools at work?',
+    options: [
+      { key: 'A', text: 'Daily', value: 'daily' },
+      { key: 'B', text: 'Weekly', value: 'weekly' },
+      { key: 'C', text: 'Monthly', value: 'monthly' },
+      { key: 'D', text: 'Rarely', value: 'rarely' },
+      { key: 'E', text: 'Never', value: 'never' }
+    ]
+  },
+  { id: 'CON-004', text: 'Are you involved in selecting, approving, governing, or implementing AI tools/use cases?',
+    options: [
+      { key: 'A', text: 'Yes (directly)', value: 'yes' },
+      { key: 'B', text: 'Somewhat (influences decisions)', value: 'somewhat' },
+      { key: 'C', text: 'No', value: 'no' },
+      { key: 'D', text: 'Not sure', value: 'unsure' }
+    ]
+  },
+  { id: 'CON-005', text: 'What business unit, market, or site are you primarily part of?', type: 'text', optional: true }
+];
+
+const PST_ITEMS = [
+  // P1_EXPERIMENTATION (Athlete)
+  { id: 'PST-001', text: 'When a new AI capability looks promising, small pilots start quickly to learn.', construct: 'P1', reverse: false },
+  { id: 'PST-002', text: 'The culture leans toward learning-by-doing rather than waiting for a perfect plan.', construct: 'P1', reverse: false },
+  { id: 'PST-003', text: 'Sharing AI learnings is encouraged (what worked, what didn\'t, what to try next).', construct: 'P1', reverse: false },
+  { id: 'PST-004', text: 'Many small tests are preferred over one large, high-stakes rollout.', construct: 'P1', reverse: false },
+  { id: 'PST-005', text: 'Experimentation is avoided until every detail is fully defined.', construct: 'P1', reverse: true },
+  // P2_ARCHITECTURE (Builder)
+  { id: 'PST-006', text: 'Reusable solutions are favored over one-off tools built for a single team.', construct: 'P2', reverse: false },
+  { id: 'PST-007', text: 'Integration, long-term ownership, and data readiness are considered before adopting AI tools widely.', construct: 'P2', reverse: false },
+  { id: 'PST-008', text: 'Investment in shared platforms/services is considered when it enables many AI use cases.', construct: 'P2', reverse: false },
+  { id: 'PST-009', text: 'Maintainability and scalability are prioritized even if it slows initial deployment.', construct: 'P2', reverse: false },
+  { id: 'PST-010', text: 'Teams adopt separate AI tools even if they won\'t integrate later.', construct: 'P2', reverse: true },
+  // P3_DEFENSIBILITY (Steward)
+  { id: 'PST-011', text: 'Clear boundaries are communicated for what data can/cannot be used with AI (e.g., PHI, confidential info).', construct: 'P3', reverse: false },
+  { id: 'PST-012', text: 'Accountability is clear for AI decisions (who approves, who monitors, who responds).', construct: 'P3', reverse: false },
+  { id: 'PST-013', text: 'Privacy, compliance, and ethics are treated as prerequisites for scaling AI.', construct: 'P3', reverse: false },
+  { id: 'PST-014', text: 'Guardrails are used to enable safe AI use\u2014not just to restrict it.', construct: 'P3', reverse: false },
+  { id: 'PST-015', text: 'Governance and compliance are addressed only after AI tools are already widely used.', construct: 'P3', reverse: true },
+  // P4_WORKFLOW_EMBEDDING (Integrator)
+  { id: 'PST-016', text: 'AI is embedded into existing workflows rather than added as extra standalone steps.', construct: 'P4', reverse: false },
+  { id: 'PST-017', text: 'When something works, rollout support follows (training, comms, workflow change) to drive adoption.', construct: 'P4', reverse: false },
+  { id: 'PST-018', text: 'Consistent AI practices across teams are preferred over each team doing its own thing.', construct: 'P4', reverse: false },
+  { id: 'PST-019', text: 'Usability and workflow fit are taken seriously (who uses it, where it fits, what must change).', construct: 'P4', reverse: false },
+  { id: 'PST-020', text: 'If a pilot works in one team, other teams are expected to adopt without much rollout effort.', construct: 'P4', reverse: true },
+  // P5_ROI_THROUGHPUT (Optimizer)
+  { id: 'PST-021', text: 'AI initiatives are prioritized based on measurable impact (time, cost, quality, experience).', construct: 'P5', reverse: false },
+  { id: 'PST-022', text: 'Success metrics are expected before calling an AI initiative "successful."', construct: 'P5', reverse: false },
+  { id: 'PST-023', text: 'AI initiatives are stopped or retired when they don\'t deliver value.', construct: 'P5', reverse: false },
+  { id: 'PST-024', text: 'Effort is concentrated on high-volume, high-friction workflows where AI can truly move the needle.', construct: 'P5', reverse: false },
+  { id: 'PST-025', text: 'AI initiatives continue even when there isn\'t clear evidence of value.', construct: 'P5', reverse: true },
+  // P6_FUTURE_STATE (Visionary)
+  { id: 'PST-026', text: 'There is meaningful discussion about how AI could reshape strategy or the operating model (not just efficiency).', construct: 'P6', reverse: false },
+  { id: 'PST-027', text: 'Leadership communicates a clear direction for AI that aligns teams toward a shared future-state.', construct: 'P6', reverse: false },
+  { id: 'PST-028', text: 'Downstream effects are considered (workflow impact, people impact, risk), not just the immediate win.', construct: 'P6', reverse: false },
+  { id: 'PST-029', text: 'Build/buy/partner decisions for AI are treated as strategic choices, not just procurement.', construct: 'P6', reverse: false },
+  { id: 'PST-030', text: 'AI is treated mainly as tactical tools rather than a strategic capability.', construct: 'P6', reverse: true },
+  // P7_EVIDENCE_VALIDATION (Skeptic)
+  { id: 'PST-031', text: 'AI pilots are set up with success criteria and measurement\u2014not just demos.', construct: 'P7', reverse: false },
+  { id: 'PST-032', text: 'Scaling is cautious until results hold up in real-world conditions.', construct: 'P7', reverse: false },
+  { id: 'PST-033', text: 'After deployment, AI performance is revisited over time rather than assumed stable.', construct: 'P7', reverse: false },
+  { id: 'PST-034', text: 'Vendor claims and internal assumptions are pressure-tested with data or structured evaluation.', construct: 'P7', reverse: false },
+  { id: 'PST-035', text: 'After launch, there is little follow-up to re-check whether AI is working as expected.', construct: 'P7', reverse: true }
+];
+
+const CAP_ITEMS = [
+  // F1_USE_VALUE
+  { id: 'CAP-001', text: 'AI is used in day-to-day workflows in areas I\'m close to (not just experimentation).', subsystem: 'F1' },
+  { id: 'CAP-002', text: 'Work is guided by a defined set of priority AI use cases (not just ad hoc ideas).', subsystem: 'F1' },
+  { id: 'CAP-003', text: 'AI use cases have named owners accountable for outcomes and adoption.', subsystem: 'F1' },
+  { id: 'CAP-004', text: 'Baselines are defined before AI changes are rolled into workflows (so impact can be assessed).', subsystem: 'F1' },
+  { id: 'CAP-005', text: 'Outcomes are tracked and shared for AI initiatives (time, cost, quality, experience).', subsystem: 'F1' },
+  { id: 'CAP-006', text: 'Start/stop/scale decisions are made based on measured performance.', subsystem: 'F1' },
+  // F2_ENABLEMENT_ADOPTION
+  { id: 'CAP-007', text: 'Training or guidance on safe/effective AI use is provided to staff.', subsystem: 'F2' },
+  { id: 'CAP-008', text: 'There is an easy way for staff to get help with AI (support channel, champions, office hours).', subsystem: 'F2' },
+  { id: 'CAP-009', text: 'Shared playbooks or prompt libraries are used for common workflows.', subsystem: 'F2' },
+  { id: 'CAP-010', text: 'Scaling includes real rollout planning (training, comms, workflow change), not just "turn it on."', subsystem: 'F2' },
+  { id: 'CAP-011', text: 'Usage/adoption is tracked to improve support and outcomes.', subsystem: 'F2' },
+  { id: 'CAP-012', text: 'New employees receive an AI on-ramp (tools, policies, safe use) as part of onboarding.', subsystem: 'F2' },
+  // F3_RISK_TRUST
+  { id: 'CAP-013', text: 'Clear guidance exists on what can/can\'t be put into AI tools (PHI, confidential info, IP).', subsystem: 'F3' },
+  { id: 'CAP-014', text: 'Before AI tools/vendors are approved, there is evidence of security/privacy/compliance review.', subsystem: 'F3' },
+  { id: 'CAP-015', text: 'There is a clear path for handling AI incidents (errors, unsafe outputs, data exposure).', subsystem: 'F3' },
+  { id: 'CAP-016', text: 'AI outputs are evaluated for quality/safety before and after deployment (as appropriate).', subsystem: 'F3' },
+  { id: 'CAP-017', text: 'Audit trails/logging exist for how key AI tools are used (defensibility/compliance).', subsystem: 'F3' },
+  { id: 'CAP-018', text: 'Governance helps teams move faster within clear boundaries (not just slow them down).', subsystem: 'F3' },
+  // F4_PLATFORM_DATA
+  { id: 'CAP-019', text: 'AI is embedded into systems/workflows rather than relying on copy/paste workarounds.', subsystem: 'F4' },
+  { id: 'CAP-020', text: 'When internal data is used with AI, an approved secure pathway is actually used (access controls, logging).', subsystem: 'F4' },
+  { id: 'CAP-021', text: 'Shared AI services/capabilities are reused across teams instead of reinvented each time.', subsystem: 'F4' },
+  { id: 'CAP-022', text: 'Deployed AI is monitored over time for issues (quality, drift, exceptions, errors).', subsystem: 'F4' },
+  { id: 'CAP-023', text: 'AI tools/models can be updated without major disruption to teams using them.', subsystem: 'F4' },
+  { id: 'CAP-024', text: 'Data quality/governance supports reliable AI use at scale (vs data issues blocking progress).', subsystem: 'F4' }
+];
+
+const ART_ITEMS = [
+  // F1_USE_VALUE
+  { id: 'ART-001', text: 'A centralized AI use-case registry/backlog exists (owners + status).', subsystem: 'F1' },
+  { id: 'ART-002', text: 'Success metrics/KPIs exist for AI initiatives and are reviewed.', subsystem: 'F1' },
+  { id: 'ART-003', text: 'A stage-gate approach exists (pilot \u2192 product/scale \u2192 retire) with clear criteria.', subsystem: 'F1' },
+  // F2_ENABLEMENT_ADOPTION
+  { id: 'ART-004', text: 'AI training/onboarding materials exist for staff (role-appropriate).', subsystem: 'F2' },
+  { id: 'ART-005', text: 'A shared AI playbook/prompt library exists for common workflows.', subsystem: 'F2' },
+  { id: 'ART-006', text: 'A support model exists for AI use (champions, office hours, help channel).', subsystem: 'F2' },
+  // F3_RISK_TRUST
+  { id: 'ART-007', text: 'An AI acceptable use policy exists (including data boundaries/PHI rules).', subsystem: 'F3' },
+  { id: 'ART-008', text: 'A formal approval process exists for AI tools/vendors (privacy/security/compliance).', subsystem: 'F3' },
+  { id: 'ART-009', text: 'An AI incident response process exists (reporting, triage, remediation, accountability).', subsystem: 'F3' },
+  // F4_PLATFORM_DATA
+  { id: 'ART-010', text: 'A secure AI environment exists for internal data use (access controls + logging).', subsystem: 'F4' },
+  { id: 'ART-011', text: 'Monitoring/logging exists for key AI applications (quality, errors, drift, exceptions).', subsystem: 'F4' },
+  { id: 'ART-012', text: 'A defined integration approach exists for embedding AI into core systems/workflows (APIs, EHR/CRM patterns).', subsystem: 'F4' }
+];
+
+const VIGNETTES = [
+  { id: 'VIG-001', text: 'A team requests a new AI tool to speed up sensitive work. What is most likely to happen first?',
+    options: [
+      { key: 'A', construct: 1, text: 'We\'ll try a small pilot quickly with a few users and learn as we go.' },
+      { key: 'B', construct: 2, text: 'A technical team will assess integration/data needs and prototype the best-fit approach.' },
+      { key: 'C', construct: 3, text: 'It will be routed through privacy/compliance/security review before anyone uses it.' },
+      { key: 'D', construct: 4, text: 'We\'ll evaluate workflow fit and plan a rollout approach (training/support) before broad use.' },
+      { key: 'E', construct: 5, text: 'We\'ll require a business case (ROI/time saved/quality) before investing time or budget.' },
+      { key: 'F', construct: 6, text: 'Leadership will connect it to strategic priorities and decide whether it fits the broader direction.' },
+      { key: 'G', construct: 7, text: 'We\'ll require evidence and validation (benchmarks, references, testing) before moving forward.' }
+    ]
+  },
+  { id: 'VIG-006', text: 'A vendor claims their AI will improve a workflow by ~25%. What is most likely to happen next?',
+    options: [
+      { key: 'A', construct: 1, text: 'We\'ll run a quick trial with real users to see what happens.' },
+      { key: 'B', construct: 2, text: 'We\'ll dig into technical details, data requirements, and whether we can build/extend internally.' },
+      { key: 'C', construct: 3, text: 'We\'ll evaluate risk (PHI/privacy/security/compliance) before any trial or data sharing.' },
+      { key: 'D', construct: 4, text: 'We\'ll test it in a real workflow and assess adoption, training needs, and change impacts.' },
+      { key: 'E', construct: 5, text: 'We\'ll demand a quantified business case and compare cost vs expected performance gains.' },
+      { key: 'F', construct: 6, text: 'We\'ll assess whether this supports the long-term strategy and future-state capabilities.' },
+      { key: 'G', construct: 7, text: 'We\'ll run a structured evaluation (baseline, control, metrics) to verify the claim.' }
+    ]
+  },
+  { id: 'VIG-003', text: 'Leadership has budget for one major AI investment this quarter. How is that investment most likely to be chosen?',
+    options: [
+      { key: 'A', construct: 1, text: 'We pick something we can try quickly and learn from (even if it\'s not perfect).' },
+      { key: 'B', construct: 2, text: 'We invest where technical leverage/platform value will compound over time.' },
+      { key: 'C', construct: 3, text: 'We choose what is safest/most defensible and aligns to risk and trust requirements.' },
+      { key: 'D', construct: 4, text: 'We choose what can be integrated and adopted reliably across workflows.' },
+      { key: 'E', construct: 5, text: 'We choose the option with the clearest ROI and measurable impact.' },
+      { key: 'F', construct: 6, text: 'We choose the option that best advances the strategic direction and differentiates us.' },
+      { key: 'G', construct: 7, text: 'We choose only after evidence shows it works better than alternatives.' }
+    ]
+  },
+  { id: 'VIG-004', text: 'A pilot worked well in one department. Other teams want it. What is most likely to happen?',
+    options: [
+      { key: 'A', construct: 1, text: 'Other teams start trying it quickly, and we adapt based on what we learn.' },
+      { key: 'B', construct: 2, text: 'We rebuild/upgrade it into a more scalable technical solution before spreading it.' },
+      { key: 'C', construct: 3, text: 'We standardize governance and guardrails before expanding to new teams.' },
+      { key: 'D', construct: 4, text: 'We plan a controlled rollout with training, support, workflow integration, and ownership.' },
+      { key: 'E', construct: 5, text: 'We scale it only where the metrics show it will deliver meaningful value.' },
+      { key: 'F', construct: 6, text: 'We decide whether it fits the broader AI direction and which areas should adopt first.' },
+      { key: 'G', construct: 7, text: 'We validate results across contexts and confirm the pilot generalizes before scaling.' }
+    ]
+  },
+  { id: 'VIG-002', text: 'An AI feature is delivering value, but serious errors appear. What is most likely to happen next?',
+    options: [
+      { key: 'A', construct: 1, text: 'We iterate quickly with users to fix issues while continuing to learn.' },
+      { key: 'B', construct: 2, text: 'We investigate root causes (data, model behavior, integration) and redesign the solution.' },
+      { key: 'C', construct: 3, text: 'We pause or restrict use until risk is assessed and mitigations are in place.' },
+      { key: 'D', construct: 4, text: 'We refine the workflow, add checks/training, and adjust rollout so the process is reliable.' },
+      { key: 'E', construct: 5, text: 'We evaluate whether value still exceeds cost/risk and decide to fix, replace, or stop.' },
+      { key: 'F', construct: 6, text: 'We reassess how this fits the long-term strategy and whether a different approach is needed.' },
+      { key: 'G', construct: 7, text: 'We run a structured review to quantify error rates, impacts, and whether results hold up.' }
+    ]
+  },
+  { id: 'VIG-005', text: 'An AI tool is used improperly with sensitive data. What is most likely to happen?',
+    options: [
+      { key: 'A', construct: 1, text: 'We respond quickly, correct the behavior, and use it as a learning moment.' },
+      { key: 'B', construct: 2, text: 'We adjust systems/controls to prevent recurrence (technical safeguards, safer pathways).' },
+      { key: 'C', construct: 3, text: 'We escalate through formal incident response and tighten governance immediately.' },
+      { key: 'D', construct: 4, text: 'We update training, workflows, and support so safe use is practical and repeatable.' },
+      { key: 'E', construct: 5, text: 'We evaluate business impact and implement the minimum controls needed to prevent repeat issues.' },
+      { key: 'F', construct: 6, text: 'We treat it as a strategic trust issue and reset expectations across the org.' },
+      { key: 'G', construct: 7, text: 'We investigate what happened, document evidence, and adjust based on verified root cause.' }
+    ]
+  },
+  { id: 'VIG-007', text: 'A competitor announces a major AI-driven offering. What is most likely to happen internally?',
+    options: [
+      { key: 'A', construct: 1, text: 'We spin up quick experiments to see what we can learn and replicate or surpass.' },
+      { key: 'B', construct: 2, text: 'We evaluate what would be required technically to match/beat it and where we can build advantage.' },
+      { key: 'C', construct: 3, text: 'We assess risk/trust implications and what must be true for any response to be safe.' },
+      { key: 'D', construct: 4, text: 'We plan how we could operationalize an equivalent capability reliably across workflows.' },
+      { key: 'E', construct: 5, text: 'We analyze competitive impact and prioritize the response with the best ROI.' },
+      { key: 'F', construct: 6, text: 'Leadership revisits strategic direction and decides where we need to leapfrog.' },
+      { key: 'G', construct: 7, text: 'We validate what the competitor actually shipped and how well it works before reacting.' }
+    ]
+  }
+];
+
+// ============================================================
+//  DATA: ARCHETYPE & FLUENCY METADATA
+// ============================================================
+
+const ARCHETYPES = {
+  P1: { key: 'athlete', name: 'The Athlete', color: 'var(--athlete)',
+    description: 'An Athlete organization builds AI understanding through action\u2014moving fast to learn what works and reduce fear through firsthand experience.',
+    coreBelief: 'Momentum creates clarity.',
+    coreTension: 'The risk of inertia outweighs the risk of imperfection.',
+    approach: 'AI is approached as something you learn by using. Decisions skew toward action over analysis, pilots over policies, and firsthand experience over abstract debate.',
+    signals: ['Many small experiments across teams','Early adoption of new tools','Informal sharing of "what worked"','Uneven consistency and standards'],
+    strengths: ['Speed to insight','Reduced fear through firsthand experience','Cultural permission to engage with AI','Early discovery of meaningful use cases'],
+    constraints: ['Tool sprawl and duplicated effort','Inconsistent quality and uneven outcomes','Difficulty scaling successful experiments']
+  },
+  P2: { key: 'builder', name: 'The Builder', color: 'var(--builder)',
+    description: 'A Builder organization treats AI as infrastructure\u2014designing durable, scalable systems rather than relying on one-off tools.',
+    coreBelief: 'Real advantage is built, not bolted on.',
+    coreTension: 'Short-term wins are meaningless if they create long-term fragility.',
+    approach: 'AI is approached as infrastructure. Decisions emphasize architecture, data readiness, integration, interoperability, and long-term extensibility.',
+    signals: ['Deep technical discussions early','Fewer pilots, more thought behind each one','Platform-first thinking over point tools','Strong involvement from engineering / IT / analytics'],
+    strengths: ['Durable capability and compounding advantage','Technical coherence and interoperability','Scalable innovation with reduced reinvention'],
+    constraints: ['Slow time-to-value','Adoption lag ("we built it, but\u2026")','Perception of over-engineering']
+  },
+  P3: { key: 'steward', name: 'The Steward', color: 'var(--steward)',
+    description: 'A Steward organization orients around trust\u2014ensuring AI is safe, ethical, and defensible before it scales.',
+    coreBelief: 'Trust is a prerequisite for scale.',
+    coreTension: 'The cost of preventable harm outweighs the cost of delayed progress.',
+    approach: 'AI is evaluated through the lenses of risk, compliance, ethics, and accountability. Guardrails are established early, and decisions prioritize safety and defensibility over speed.',
+    signals: ['Early involvement of legal, compliance, and security','Centralized AI guidance or approval','Clear rules around data usage','Cautious rollout of new capabilities'],
+    strengths: ['Reduced organizational risk','Ethical clarity','Long-term credibility and trust','Greater confidence for leaders and teams'],
+    constraints: ['Missed opportunities and slower learning','Friction with faster-moving teams','Innovation moving outside formal channels']
+  },
+  P4: { key: 'integrator', name: 'The Integrator', color: 'var(--integrator)',
+    description: 'An Integrator organization focuses on making AI real\u2014embedding it into workflows so it actually gets used at scale.',
+    coreBelief: 'Value only exists if people actually use it.',
+    coreTension: 'Potential without adoption is wasted effort.',
+    approach: 'AI is approached as an adoption and change-management challenge. Decisions prioritize workflow fit, usability, training, and consistency over novelty.',
+    signals: ['Strong cross-functional coordination','Standardized tooling and patterns','Clear ownership and support models','Emphasis on rollout, enablement, and measurement of usage'],
+    strengths: ['Scaled adoption and consistent usage','Operational reliability and reduced fragmentation','Realized value from AI investments'],
+    constraints: ['Limited experimentation and fewer novel discoveries','Slower responsiveness to emerging opportunities']
+  },
+  P5: { key: 'optimizer', name: 'The Optimizer', color: 'var(--optimizer)',
+    description: 'An Optimizer organization adopts AI to measurably improve performance, efficiency, and outcomes.',
+    coreBelief: 'If it doesn\'t improve outcomes, it doesn\'t matter.',
+    coreTension: 'Resources spent on low-impact initiatives crowd out real value.',
+    approach: 'AI is evaluated through ROI, operational performance metrics, and measurable improvements. Adoption is justified by results, not promise.',
+    signals: ['High scrutiny of pilots and vendor claims','Strong demand for success metrics','Preference for high-volume, high-friction process improvements','Clear prioritization and sunsetting of low-impact efforts'],
+    strengths: ['Fast, defensible wins','Executive credibility and disciplined prioritization','Clear measurement of AI value'],
+    constraints: ['Undervaluing longer-horizon benefits','Treating AI only as automation','Missing transformational opportunities']
+  },
+  P6: { key: 'visionary', name: 'The Visionary', color: 'var(--visionary)',
+    description: 'A Visionary organization uses AI to reimagine strategy, offerings, and long-term advantage\u2014not just efficiency.',
+    coreBelief: 'AI changes what\'s possible, not just what\'s efficient.',
+    coreTension: 'Incrementalism risks irrelevance.',
+    approach: 'AI is approached as strategy. Decisions are framed around long-term advantage, mission, and future operating models.',
+    signals: ['Executive-level AI ambition and storytelling','Focus on future-state operating models','Interest in new offerings and differentiation','Strong emphasis on alignment across initiatives'],
+    strengths: ['Direction and coherence across AI work','Strategic differentiation','Cultural ambition and alignment'],
+    constraints: ['Execution gaps and abstraction','Overpromising relative to operational readiness','Friction with teams needing clarity and support']
+  },
+  P7: { key: 'skeptic', name: 'The Skeptic', color: 'var(--skeptic)',
+    description: 'A Skeptic organization pressures AI claims with evidence\u2014demanding proof before belief or scale.',
+    coreBelief: 'Credibility comes from evidence.',
+    coreTension: 'Overconfidence creates blind spots.',
+    approach: 'AI is approached through testing, evaluation, and proof. Initiatives must demonstrate impact before scaling, and performance is scrutinized over time.',
+    signals: ['Demanding questions about evidence and validity','Preference for pilots with clear measurement','Caution around vendor claims','Interest in evaluation frameworks and ongoing monitoring'],
+    strengths: ['Strong decision quality and credibility','Reduced waste and hype-driven investment','Continuous improvement through measurement'],
+    constraints: ['Slower learning cycles','Reduced cultural momentum','Risk of late adoption']
+  }
+};
+
+const SUBSYSTEMS = {
+  F1: { name: 'Use & Value', description: 'Whether AI is being used in meaningful ways and delivering measurable value to the organization.' },
+  F2: { name: 'Enablement & Adoption', description: 'How well the organization supports people in learning, using, and consistently adopting AI tools.' },
+  F3: { name: 'Risk & Trust', description: 'How the organization manages AI-related risk, compliance, ethics, and builds trust in AI systems.' },
+  F4: { name: 'Platform & Data', description: 'The technical infrastructure, data readiness, and integration architecture supporting AI capabilities.' }
+};
+
+const FLUENCY_LEVELS = {
+  1: { name: 'Orientation', description: 'AI is on the radar, but the organization can\'t reliably act on it yet.' },
+  2: { name: 'Exploration', description: 'AI is used in pockets and pilots, producing learning but also noise and inconsistency.' },
+  3: { name: 'Operationalization', description: 'AI becomes repeatable and owned\u2014specific use cases deliver measurable value in defined domains.' },
+  4: { name: 'Institutionalization', description: 'AI becomes a normal part of work at scale\u2014adoption, governance, and platforms are coherent and reliable.' },
+  5: { name: 'Advantage', description: 'AI becomes a compounding capability that shapes strategy and adapts faster than peers.' }
+};
+
+// ============================================================
+//  STATE MANAGEMENT
+// ============================================================
+
+
+// ============================================================
+//  LOGO SVG
+// ============================================================
+
+const CHN_LOGO_SVG = `<svg id="artwork" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 232.45 56.47"><defs><style>.chn-1{fill:#e87824;}.chn-2{fill:#d4262f;}.chn-3{fill:#f1b533;}.chn-4{fill:#435563;}</style></defs><title>CHN-LOGO-RGB</title><path class="chn-1" d="M52,23.21l-8.25,8.25a0.78,0.78,0,0,1-.61.22V37a0.76,0.76,0,0,0,.42-0.21l8.35-8.34a0.78,0.78,0,0,1,.6-0.22V23A0.78,0.78,0,0,0,52,23.21Z" transform="translate(-21.89 -21.89)"/><path class="chn-1" d="M63.41,35.38H51.74a0.78,0.78,0,0,1-.58-0.27l-3.9,3.6a0.77,0.77,0,0,0,.6.29h11.8a0.78,0.78,0,0,1,.56.24L64,35.61A0.78,0.78,0,0,0,63.41,35.38Z" transform="translate(-21.89 -21.89)"/><path class="chn-1" d="M62.86,52L54.6,43.77a0.77,0.77,0,0,1-.21-0.72H49.07a0.77,0.77,0,0,0,.23.54l8.34,8.34a0.77,0.77,0,0,1,.22.55h5.21A0.76,0.76,0,0,0,62.86,52Z" transform="translate(-21.89 -21.89)"/><path class="chn-1" d="M47.07,47.86v11.8a0.76,0.76,0,0,1-.26.58l3.68,3.69a0.78,0.78,0,0,0,.2-0.51V51.74a0.77,0.77,0,0,1,.19-0.5L47.3,47.31A0.78,0.78,0,0,0,47.07,47.86Z" transform="translate(-21.89 -21.89)"/><path class="chn-1" d="M42.48,49.3l-8.34,8.34a0.76,0.76,0,0,1-.51.22v5.21A0.77,0.77,0,0,0,34,62.86l8.25-8.25a0.77,0.77,0,0,1,.57-0.22V49.09A0.78,0.78,0,0,0,42.48,49.3Z" transform="translate(-21.89 -21.89)"/><path class="chn-1" d="M38.22,47.07H26.41a0.77,0.77,0,0,1-.58-0.26L22.15,50.5a0.77,0.77,0,0,0,.52.2H34.33a0.77,0.77,0,0,1,.55.23l3.84-3.66A0.77,0.77,0,0,0,38.22,47.07Z" transform="translate(-21.89 -21.89)"/><path class="chn-1" d="M37,43a0.76,0.76,0,0,0-.22-0.49l-8.34-8.35a0.78,0.78,0,0,1-.18-0.82H23a0.78,0.78,0,0,0,.2.73l8.25,8.25a0.79,0.79,0,0,1,.22.68H37Z" transform="translate(-21.89 -21.89)"/><path class="chn-1" d="M39,38.21V26.42a0.77,0.77,0,0,1,.28-0.59l-3.69-3.7a0.78,0.78,0,0,0-.21.53V34.34a0.78,0.78,0,0,1-.2.52l3.63,3.87A0.76,0.76,0,0,0,39,38.21Z" transform="translate(-21.89 -21.89)"/><path class="chn-2" d="M42.68,31.47l-1.42-1.41c-0.3-.3-0.55-0.2-0.55.23v3.93a2.15,2.15,0,0,0,.55,1.32l1.24,1.24a0.78,0.78,0,0,0,.67.21v-5.3A0.76,0.76,0,0,1,42.68,31.47Z" transform="translate(-21.89 -21.89)"/><path class="chn-2" d="M51,34.61v-2c0-.43-0.25-0.53-0.55-0.23l-2.78,2.78a2.17,2.17,0,0,0-.55,1.33v1.75a0.76,0.76,0,0,0,.17.48l3.9-3.6A0.78,0.78,0,0,1,51,34.61Z" transform="translate(-21.89 -21.89)"/><path class="chn-2" d="M54.6,42.68L56,41.26c0.3-.3.2-0.54-0.23-0.54H51.86a2.15,2.15,0,0,0-1.32.54L49.3,42.5a0.77,0.77,0,0,0-.22.56H54.4A0.76,0.76,0,0,1,54.6,42.68Z" transform="translate(-21.89 -21.89)"/><path class="chn-2" d="M53.7,50.42l-2.78-2.79a2.16,2.16,0,0,0-1.32-.55H47.85a0.78,0.78,0,0,0-.55.23l3.58,3.93A0.78,0.78,0,0,1,51.47,51h2C53.89,51,54,50.72,53.7,50.42Z" transform="translate(-21.89 -21.89)"/><path class="chn-2" d="M44.81,50.54L43.58,49.3a0.78,0.78,0,0,0-.7-0.21v5.29a0.78,0.78,0,0,1,.52.22L44.81,56c0.3,0.3.55,0.2,0.55-.23V51.86A2.15,2.15,0,0,0,44.81,50.54Z" transform="translate(-21.89 -21.89)"/><path class="chn-2" d="M38.73,47.27l-3.84,3.66a0.77,0.77,0,0,1,.23.54v2c0,0.43.25,0.53,0.55,0.23l2.78-2.78A2.16,2.16,0,0,0,39,49.59V47.85A0.77,0.77,0,0,0,38.73,47.27Z" transform="translate(-21.89 -21.89)"/><path class="chn-2" d="M31.68,43a0.76,0.76,0,0,1-.21.42l-1.41,1.42c-0.3.3-.2,0.55,0.23,0.55h3.93a2.16,2.16,0,0,0,1.32-.55l1.23-1.23A0.76,0.76,0,0,0,37,43H31.68Z" transform="translate(-21.89 -21.89)"/><path class="chn-2" d="M35.18,34.86a0.77,0.77,0,0,1-.57.26h-2c-0.43,0-.53.25-0.23,0.55l2.78,2.78a2.17,2.17,0,0,0,1.32.55h1.75a0.76,0.76,0,0,0,.58-0.26Z" transform="translate(-21.89 -21.89)"/><path class="chn-3" d="M62.09,32.19l-9-9A0.76,0.76,0,0,0,52.54,23v5.22a0.78,0.78,0,0,1,.5.22l3.75,3.76a2.15,2.15,0,0,0,1.32.55h3.75C62.29,32.73,62.39,32.49,62.09,32.19Z" transform="translate(-21.89 -21.89)"/><path class="chn-3" d="M64,35.61l-3.74,3.63a0.79,0.79,0,0,1,.22.54V45.1A2.09,2.09,0,0,0,61,46.41L63.63,49c0.31,0.3.56,0.19,0.56-.24V36.16A0.78,0.78,0,0,0,64,35.61Z" transform="translate(-21.89 -21.89)"/><path class="chn-3" d="M57.87,52.49a0.76,0.76,0,0,1-.22.55l-3.75,3.75a2.17,2.17,0,0,0-.55,1.32v3.77c0,0.43.24,0.53,0.55,0.22l9-9a0.76,0.76,0,0,0,.22-0.64H57.87Z" transform="translate(-21.89 -21.89)"/><path class="chn-3" d="M46.29,60.43H41a2.09,2.09,0,0,0-1.31.56l-2.55,2.63c-0.3.31-.19,0.56,0.24,0.56H49.92a0.77,0.77,0,0,0,.58-0.26l-3.68-3.69A0.76,0.76,0,0,1,46.29,60.43Z" transform="translate(-21.89 -21.89)"/><path class="chn-3" d="M33,57.65l-3.75-3.77A2.18,2.18,0,0,0,28,53.33l-3.79,0c-0.43,0-.53.24-0.23,0.54l9,9a0.77,0.77,0,0,0,.67.21V57.87A0.78,0.78,0,0,1,33,57.65Z" transform="translate(-21.89 -21.89)"/><path class="chn-3" d="M25.64,46.3V41a2.1,2.1,0,0,0-.56-1.32l-2.63-2.54c-0.31-.3-0.56-0.19-0.56.23V49.92a0.77,0.77,0,0,0,.26.57l3.69-3.69A0.78,0.78,0,0,1,25.64,46.3Z" transform="translate(-21.89 -21.89)"/><path class="chn-3" d="M28.43,33l3.76-3.75A2.08,2.08,0,0,0,32.72,28l-0.06-3.67c0-.43-0.26-0.53-0.56-0.23L23.22,33a0.76,0.76,0,0,0-.2.37h5.23A0.76,0.76,0,0,1,28.43,33Z" transform="translate(-21.89 -21.89)"/><path class="chn-3" d="M48.72,21.89H36.16a0.78,0.78,0,0,0-.56.24l3.69,3.7a0.76,0.76,0,0,1,.5-0.18h5.31a2.12,2.12,0,0,0,1.32-.56L49,22.45C49.25,22.14,49.15,21.89,48.72,21.89Z" transform="translate(-21.89 -21.89)"/><path class="chn-3" d="M62.35,60.55a1.82,1.82,0,1,1,0,3.63,1.82,1.82,0,1,1,0-3.63h0Zm0,0.41a1.4,1.4,0,1,0,1.36,1.4A1.36,1.36,0,0,0,62.31,61h0Zm-0.23,2.3H61.59V61.53a3.39,3.39,0,0,1,.72-0.07,1,1,0,0,1,.65.14,0.42,0.42,0,0,1,.18.37,0.46,0.46,0,0,1-.38.41v0a0.52,0.52,0,0,1,.33.44,1.83,1.83,0,0,0,.12.42H62.7a1.39,1.39,0,0,1-.13-0.4,0.28,0.28,0,0,0-.32-0.26H62.08v0.66Zm0-1h0.17A0.29,0.29,0,0,0,62.61,62c0-.15-0.1-0.24-0.33-0.24l-0.19,0v0.46Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M83.65,48.83c-4.24,0-6.75-2.67-6.75-6.92,0-4.75,3-7,6.72-7a10.12,10.12,0,0,1,4,.78l1-3.77a12.48,12.48,0,0,0-5.21-.94c-6.41,0-11.56,4-11.56,11.23,0,6.07,3.77,10.66,11.09,10.66a14,14,0,0,0,5.4-.91l-0.69-3.77A11.39,11.39,0,0,1,83.65,48.83Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M96.94,36.75c-5,0-8.23,3.18-8.23,8.15s3.46,7.92,7.94,7.92h0c4.08,0,8.07-2.58,8.07-8.18C104.75,40,101.62,36.75,96.94,36.75ZM96.75,49.39h0c-2,0-3.11-2-3.11-4.59,0-2.29.88-4.63,3.14-4.63s3,2.33,3,4.6C99.79,47.54,98.63,49.39,96.75,49.39Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M142.91,36.75a5.84,5.84,0,0,0-2.91.76,6.59,6.59,0,0,0-2,1.89h-0.07a4.33,4.33,0,0,0-4.21-2.65,5.32,5.32,0,0,0-4.64,2.46l-0.28.33a4.65,4.65,0,0,0-4.44-2.79,5.87,5.87,0,0,0-2.92.76,6.7,6.7,0,0,0-2,1.89h-0.06a4.34,4.34,0,0,0-4.21-2.65,5.32,5.32,0,0,0-4.65,2.46h-0.09l-0.19-2.11h-4c0.06,1.38.13,3,.13,4.9V52.48h4.65V43.55a3.33,3.33,0,0,1,.19-1.23,2.44,2.44,0,0,1,2.23-1.7c1.54,0,2.23,1.33,2.23,3.24v8.62h4.65v-9a5.06,5.06,0,0,1,.16-1.2,2.37,2.37,0,0,1,2.23-1.67c1.43,0,2.14,1.12,2.24,3v8.82h4.67V43.42c0-.09,0-0.17,0-0.26a2.53,2.53,0,0,1,.18-0.84,2.44,2.44,0,0,1,2.22-1.7c1.54,0,2.23,1.33,2.23,3.24v8.62h4.65v-9a4.87,4.87,0,0,1,.16-1.2,2.36,2.36,0,0,1,2.22-1.67c1.54,0,2.26,1.29,2.26,3.53v8.34h4.65V43.42C148.09,38.83,145.87,36.75,142.91,36.75Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M164.32,37.1h-4.77v9.15a2.57,2.57,0,0,1-.19,1A2.54,2.54,0,0,1,157,49c-1.69,0-2.41-1.36-2.41-3.58V37.1h-4.77v9c0,4.73,2.26,6.69,5.4,6.69a5.49,5.49,0,0,0,4.8-2.51h0.09l0.22,2.17h4.14c-0.06-1.29-.12-2.93-0.12-4.94V37.1Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M175.36,36.75a5.51,5.51,0,0,0-4.74,2.49h-0.1l-0.22-2.14h-4.14c0.06,1.38.13,3,.13,4.9V52.48h4.77V43.61a3.46,3.46,0,0,1,.16-1.19,2.62,2.62,0,0,1,2.45-1.79c1.73,0,2.42,1.35,2.42,3.34v8.52h4.77V43.39C180.85,38.86,178.5,36.75,175.36,36.75Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M185.21,30a2.55,2.55,0,1,0-.07,5.1h0A2.55,2.55,0,1,0,185.21,30Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M210.75,37.1l-1.88,7.55c-0.23.88-.48,2-0.7,2.86h-0.09c-0.19-.82-0.51-2-0.76-2.86L205,37.1h-9V32.92l-4.68,1.29V37.1H182.8V52.48h4.77V40.62h3.82v6.32c0,2.17.44,3.65,1.32,4.56a5.1,5.1,0,0,0,3.62,1.33,10,10,0,0,0,3.07-.41l0-3.61a6.36,6.36,0,0,1-1.42.13c-1.41,0-1.88-.85-1.88-2.71v-5.6h5.09l4.24,10.53a2.13,2.13,0,0,1,.18.79,1.32,1.32,0,0,1-.25.7,5.46,5.46,0,0,1-2,1.92,7.34,7.34,0,0,1-2.07.81l1,4a8.41,8.41,0,0,0,4.61-2.1c1.73-1.54,3.21-4,5.4-10.07l3.58-10.12h-5.12Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M109.1,62.74V68.9h6.5V62.74h2.81V78.11H115.6V71.34h-6.5v6.78h-2.8V62.74h2.8Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M122.91,73.34c0.07,2,1.62,2.87,3.42,2.87a8.94,8.94,0,0,0,3.08-.5l0.41,1.92a10,10,0,0,1-3.88.71c-3.6,0-5.73-2.21-5.73-5.61,0-3.08,1.87-6,5.43-6s4.79,3,4.79,5.41a6.87,6.87,0,0,1-.09,1.19h-7.44Zm4.88-2a2.39,2.39,0,0,0-2.3-2.71,2.75,2.75,0,0,0-2.58,2.71h4.88Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M141.05,75.44a15,15,0,0,0,.18,2.67H138.7l-0.21-1.23h-0.07a4.06,4.06,0,0,1-3.29,1.48,3.3,3.3,0,0,1-3.49-3.31c0-2.78,2.49-4.22,6.59-4.2V70.68c0-.73-0.3-1.94-2.26-1.94a5.9,5.9,0,0,0-3,.82l-0.55-1.83a8,8,0,0,1,4-1c3.56,0,4.58,2.26,4.58,4.7v4Zm-2.74-2.76c-2,0-3.88.39-3.88,2.08a1.47,1.47,0,0,0,1.6,1.6,2.3,2.3,0,0,0,2.21-1.53,1.89,1.89,0,0,0,.07-0.62V72.68Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M143.31,61.92h2.81v16.2h-2.81V61.92Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M152.06,64.15V67h2.67v2.1h-2.67V74c0,1.37.37,2.05,1.44,2.05a3.66,3.66,0,0,0,1.09-.11l0,2.12a6.15,6.15,0,0,1-2,.3,3.21,3.21,0,0,1-2.42-.91,4.38,4.38,0,0,1-.89-3.13V69.1h-1.57V67h1.57V64.93Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M156.46,61.92h2.81v6.59h0a3.68,3.68,0,0,1,1.39-1.25,4,4,0,0,1,1.94-.5c1.89,0,3.88,1.25,3.88,4.81v6.55h-2.81V71.86c0-1.6-.59-2.83-2.14-2.83a2.34,2.34,0,0,0-2.19,1.57,2.5,2.5,0,0,0-.11.84v6.66h-2.81V61.92Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M173.4,78.11V62.74h3.22l4,6.59a45.93,45.93,0,0,1,2.62,5.16h0A62.9,62.9,0,0,1,183,68.1V62.74h2.6V78.11h-2.92l-4-6.78A52.83,52.83,0,0,1,175.94,66l-0.09,0c0.12,2,.16,4,0.16,6.55v5.5h-2.6Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M190.2,73.34c0.07,2,1.62,2.87,3.42,2.87a8.94,8.94,0,0,0,3.08-.5l0.41,1.92a10,10,0,0,1-3.88.71c-3.6,0-5.73-2.21-5.73-5.61,0-3.08,1.87-6,5.43-6s4.79,3,4.79,5.41a6.77,6.77,0,0,1-.09,1.19H190.2Zm4.88-2a2.39,2.39,0,0,0-2.3-2.71,2.74,2.74,0,0,0-2.58,2.71h4.88Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M202.81,64.15V67h2.67v2.1h-2.67V74c0,1.37.36,2.05,1.44,2.05a3.67,3.67,0,0,0,1.1-.11l0,2.12a6.14,6.14,0,0,1-2,.3,3.21,3.21,0,0,1-2.42-.91,4.37,4.37,0,0,1-.89-3.13V69.1h-1.57V67H200V64.93Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M209.12,67l1.14,5c0.27,1.19.52,2.4,0.73,3.6h0c0.23-1.21.59-2.44,0.89-3.58L213.38,67h2.28l1.39,4.93c0.34,1.3.64,2.51,0.89,3.72h0c0.16-1.21.43-2.42,0.73-3.72L220,67h2.76l-3.49,11.11h-2.6L215.3,73.6a33.9,33.9,0,0,1-.84-3.56h0a33.84,33.84,0,0,1-.84,3.56l-1.41,4.52h-2.62L206.24,67h2.88Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M234.45,72.46a5.5,5.5,0,0,1-5.7,5.91,5.37,5.37,0,0,1-5.57-5.73,5.48,5.48,0,0,1,5.75-5.89A5.33,5.33,0,0,1,234.45,72.46Zm-8.37.11c0,2.14,1.07,3.76,2.76,3.76s2.71-1.55,2.71-3.81c0-1.73-.78-3.74-2.69-3.74S226.08,70.72,226.08,72.57Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M236.17,70.58c0-1.5,0-2.6-.09-3.58h2.42l0.11,2.1h0.07a3.32,3.32,0,0,1,3.06-2.35,2.93,2.93,0,0,1,.66.07v2.62a4.56,4.56,0,0,0-.84-0.07A2.47,2.47,0,0,0,239,71.5a4.93,4.93,0,0,0-.07.84v5.77h-2.81V70.58Z" transform="translate(-21.89 -21.89)"/><path class="chn-4" d="M246.77,71.88h0c0.27-.43.59-0.91,0.87-1.3L250.39,67h3.38l-4.13,4.54,4.7,6.57h-3.44l-3.19-4.9-0.93,1.12v3.79H244V61.92h2.81v10Z" transform="translate(-21.89 -21.89)"/></svg>`;
+
+const STATE_KEY = 'chn_ai_survey_v2';
+let state = {
+  currentScreen: 0,
+  responses: {},
+  screens: [],
+  totalScreens: 0
+};
+
+function saveState() {
+  try {
+    localStorage.setItem(STATE_KEY, JSON.stringify({
+      currentScreen: state.currentScreen,
+      responses: state.responses
+    }));
+  } catch(e) {}
+}
+
+function loadState() {
+  try {
+    const saved = localStorage.getItem(STATE_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      state.responses = parsed.responses || {};
+      state.currentScreen = parsed.currentScreen || 0;
+    }
+  } catch(e) {}
+}
+
+function clearState() {
+  state.responses = {};
+  state.currentScreen = 0;
+  try { localStorage.removeItem(STATE_KEY); } catch(e) {}
+}
+
+// ============================================================
+//  SCREEN BUILDER
+// ============================================================
+
+
+// ============================================================
+//  SCREEN BUILDER
+// ============================================================
+
+function shuffleArray(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function buildScreens() {
+  const screens = [];
+  screens.push({ type: 'welcome' });
+
+  // Section 1: Context
+  screens.push({ type: 'interstitial', section: 1, title: 'About You', desc: 'A few quick questions for analysis purposes. These help us understand how different groups experience AI in the organization.' });
+  CONTEXT_QUESTIONS.forEach(q => screens.push({ type: 'context', question: q }));
+
+  // Section 2: Posture (one per screen)
+  screens.push({ type: 'interstitial', section: 2, title: 'How AI Decisions Tend to Happen Here', desc: 'Rate how true each statement seems based on what you\'ve personally experienced or observed.', instruction: 'Scale: 1 = Rarely true \u2192 5 = Almost always true. Press 1\u20135 to answer.' });
+  const pstGroupNames = { P1:'Experimentation', P2:'Architecture', P3:'Defensibility', P4:'Workflow Embedding', P5:'ROI & Throughput', P6:'Future State', P7:'Evidence & Validation' };
+  shuffleArray(PST_ITEMS).forEach((item, i) => {
+    screens.push({ type: 'posture-single', item, label: pstGroupNames[item.construct] || item.construct, itemIndex: i, totalItems: PST_ITEMS.length });
+  });
+
+  // Section 3: Capability (one per screen)
+  screens.push({ type: 'interstitial', section: 3, title: 'What Happens in Practice', desc: 'Thinking about the last 90 days, how frequently have you seen or experienced the following?', instruction: 'Press 1\u20135 for frequency. Press H = Heard but haven\'t seen, D = Don\'t know, N = Not in my scope.' });
+  const capSubLabels = { F1:'Use & Value', F2:'Enablement & Adoption', F3:'Risk & Trust', F4:'Platform & Data' };
+  shuffleArray(CAP_ITEMS).forEach((item, i) => {
+    screens.push({ type: 'capability-single', item, label: capSubLabels[item.subsystem] || item.subsystem, itemIndex: i, totalItems: CAP_ITEMS.length });
+  });
+
+  // Section 4: Vignettes
+  screens.push({ type: 'interstitial', section: 4, title: 'Scenarios', desc: 'For each scenario, choose the response that best describes what would most likely happen in your organization.', instruction: 'Press A\u2013G to select your answer.' });
+  shuffleArray(VIGNETTES).forEach(v => screens.push({ type: 'vignette', vignette: v }));
+
+  // Section 5: Artifacts (one per screen)
+  screens.push({ type: 'interstitial', section: 5, title: 'What Exists Today', desc: 'To your knowledge, do the following exist in your organization?', instruction: 'Press 1\u20134 for maturity level. Press H = Heard but haven\'t seen, D = Don\'t know, N = Not in my scope.' });
+  const artSubLabels = { F1:'Use & Value Artifacts', F2:'Enablement & Adoption Artifacts', F3:'Risk & Trust Artifacts', F4:'Platform & Data Artifacts' };
+  shuffleArray(ART_ITEMS).forEach((item, i) => {
+    screens.push({ type: 'artifact-single', item, label: artSubLabels[item.subsystem] || item.subsystem, itemIndex: i, totalItems: ART_ITEMS.length });
+  });
+
+  // Section 6: QC
+  screens.push({ type: 'interstitial', section: 6, title: 'Almost Done', desc: 'Two quick attention-check questions.' });
+  screens.push({ type: 'qc' });
+
+  // Results
+  screens.push({ type: 'results' });
+
+  state.screens = screens;
+  state.totalScreens = screens.length;
+}
+
+// ============================================================
+//  RENDERING (NEW UI)
+// ============================================================
+
+let currentFocusIndex = 0;
+
+function renderScreen() {
+  const screen = state.screens[state.currentScreen];
+  const el = document.getElementById('screenContent');
+  document.getElementById('surveyContainer').style.display = 'flex';
+  document.getElementById('reportContainer').style.display = 'none';
+  document.querySelector('.logo-header').style.display = 'flex';
+  document.querySelector('.progress-bar-container').style.display = 'block';
+
+  const totalQ = state.totalScreens - 2;
+  const pct = state.currentScreen <= 0 ? 0 : state.currentScreen >= state.totalScreens - 1 ? 100 : Math.round((state.currentScreen / totalQ) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+
+  const counter = document.getElementById('screenCounter');
+  if (state.currentScreen > 0 && state.currentScreen < state.totalScreens - 1) {
+    counter.textContent = `${state.currentScreen} of ${totalQ}`;
+  } else { counter.textContent = ''; }
+
+  el.innerHTML = '';
+  el.className = 'screen';
+  currentFocusIndex = 0;
+
+  switch(screen.type) {
+    case 'welcome': renderWelcome(el); break;
+    case 'interstitial': renderInterstitial(el, screen); break;
+    case 'context': renderContext(el, screen.question); break;
+    case 'posture-single': renderPostureSingle(el, screen); break;
+    case 'capability-single': renderCapabilitySingle(el, screen); break;
+    case 'artifact-single': renderArtifactSingle(el, screen); break;
+    case 'vignette': renderVignette(el, screen.vignette); break;
+    case 'qc': renderQC(el); break;
+    case 'results': renderResults(el); break;
+  }
+
+  document.onkeydown = (e) => handleKeydown(e, screen);
+  saveState();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderWelcome(el) {
+  el.innerHTML = `
+    <div class="card welcome-card">
+      <div class="welcome-logo">${CHN_LOGO_SVG}</div>
+      <h1>AI Archetype & Fluency Assessment</h1>
+      <p class="subtitle">Community Health Network</p>
+      <div class="time-pill">~15 min</div>
+      <p class="welcome-text">This assessment identifies how your organization naturally orients toward AI and how ready it is for what\u2019s next. Your responses help build an honest baseline\u2014not a judgment.</p>
+      <p class="welcome-text">You\u2019ll answer questions about how AI decisions happen, what practices exist, and how you\u2019d respond to common scenarios.</p>
+      <div class="section-preview">
+        <span class="section-badge"><span class="badge-num">1</span> About You</span>
+        <span class="section-badge"><span class="badge-num">2</span> AI Decisions</span>
+        <span class="section-badge"><span class="badge-num">3</span> In Practice</span>
+        <span class="section-badge"><span class="badge-num">4</span> Scenarios</span>
+        <span class="section-badge"><span class="badge-num">5</span> What Exists</span>
+        <span class="section-badge"><span class="badge-num">6</span> Final Check</span>
+      </div>
+      <p class="disclaimer">This is not a personality test for individuals. Individuals provide signals; the organization expresses the archetype.</p>
+      <button class="btn-primary" onclick="nextScreen()">Begin Assessment \u2192</button>
+    </div>
+  `;
+}
+
+function renderInterstitial(el, screen) {
+  el.innerHTML = `
+    <div class="card interstitial-card">
+      <div class="section-number">${screen.section}</div>
+      <h2>${screen.title}</h2>
+      <p class="desc">${screen.desc}</p>
+      ${screen.instruction ? `<div class="instruction-box">${screen.instruction}</div>` : ''}
+      <button class="btn-primary" onclick="nextScreen()">Continue \u2192</button>
+    </div>
+  `;
+}
+
+function renderContext(el, q) {
+  if (q.type === 'text') {
+    el.innerHTML = `
+      <div class="card question-card">
+        <div class="section-pill">Section 1 of 6 ${q.optional ? '\u2022 Optional' : ''}</div>
+        <div class="item-code">${q.id}</div>
+        <div class="question-text">${q.text}</div>
+        <div class="text-input-wrapper">
+          <input type="text" class="text-input" id="textInput" placeholder="Type your answer..." value="${state.responses[q.id] || ''}" />
+        </div>
+        <span class="skip-link" onclick="skipQuestion('${q.id}')">Skip this question</span>
+        ${navFooter('Press Enter to continue')}
+      </div>
+    `;
+    setTimeout(() => { const inp = document.getElementById('textInput'); if(inp) inp.focus(); }, 100);
+    return;
+  }
+  const selected = state.responses[q.id];
+  el.innerHTML = `
+    <div class="card question-card">
+      <div class="section-pill">Section 1 of 6</div>
+      <div class="item-code">${q.id}</div>
+      <div class="question-text">${q.text}</div>
+      <div class="options-list">
+        ${q.options.map(o => `
+          <div class="option ${selected === o.key ? 'selected' : ''}" data-key="${o.key}" onclick="selectOption('${q.id}','${o.key}')">
+            <kbd>${o.key}</kbd>
+            <div class="option-text">${o.text}</div>
+          </div>
+        `).join('')}
+      </div>
+      ${navFooter('Press ' + q.options.map(o=>o.key).join(', '))}
+    </div>
+  `;
+}
+
+function renderPostureSingle(el, screen) {
+  const item = screen.item;
+  const scaleLabels = ['Rarely true','Occasionally','Sometimes','Often','Almost always'];
+  const val = state.responses[item.id];
+  el.innerHTML = `
+    <div class="card question-card">
+      <div class="section-pill">Section 2 of 6 \u2022 ${screen.label}</div>
+      <div class="item-code">${item.id}</div>
+      <div class="question-text">${item.text}</div>
+      <div class="single-likert">
+        ${[1,2,3,4,5].map(v => `
+          <div class="likert-option ${val==v?'selected':''}" data-value="${v}" onclick="selectSingleLikert('${item.id}',${v})">
+            <span class="key-hint">${v}</span>
+            ${scaleLabels[v-1]}
+          </div>
+        `).join('')}
+      </div>
+      <div class="single-progress">${screen.itemIndex + 1} of ${screen.totalItems}</div>
+      ${navFooter('Press 1\u20135 to answer')}
+    </div>
+  `;
+}
+
+function renderCapabilitySingle(el, screen) {
+  const item = screen.item;
+  const scaleLabels = ['Never','Rarely','Sometimes','Often','Routinely'];
+  const val = state.responses[item.id];
+  el.innerHTML = `
+    <div class="card question-card">
+      <div class="section-pill">Section 3 of 6 \u2022 ${screen.label}</div>
+      <div class="item-code">${item.id}</div>
+      <div class="question-text">${item.text}</div>
+      <div class="single-likert">
+        ${[1,2,3,4,5].map(v => `
+          <div class="likert-option ${val==v?'selected':''}" data-value="${v}" onclick="selectSingleLikert('${item.id}',${v})">
+            <span class="key-hint">${v}</span>
+            ${scaleLabels[v-1]}
+          </div>
+        `).join('')}
+      </div>
+      <div class="extended-scale">
+        <div class="extended-option ${val==7?'selected':''}" data-value="7" onclick="selectSingleLikert('${item.id}',7)"><b>H</b> Heard, haven't seen</div>
+        <div class="extended-option ${val==9?'selected':''}" data-value="9" onclick="selectSingleLikert('${item.id}',9)"><b>D</b> Don't know</div>
+        <div class="extended-option ${val==8?'selected':''}" data-value="8" onclick="selectSingleLikert('${item.id}',8)"><b>N</b> Not in my scope</div>
+      </div>
+      <div class="single-progress">${screen.itemIndex + 1} of ${screen.totalItems}</div>
+      ${navFooter('Press 1\u20135 or H/D/N')}
+    </div>
+  `;
+}
+
+function renderArtifactSingle(el, screen) {
+  const item = screen.item;
+  const scaleLabels = ['Not present','Drafted / in progress','Present, inconsistent','Present & consistent'];
+  const val = state.responses[item.id];
+  el.innerHTML = `
+    <div class="card question-card">
+      <div class="section-pill">Section 5 of 6 \u2022 ${screen.label}</div>
+      <div class="item-code">${item.id}</div>
+      <div class="question-text">${item.text}</div>
+      <div class="single-likert">
+        ${[1,2,3,4].map(v => `
+          <div class="likert-option ${val==v?'selected':''}" data-value="${v}" onclick="selectSingleLikert('${item.id}',${v})">
+            <span class="key-hint">${v}</span>
+            ${scaleLabels[v-1]}
+          </div>
+        `).join('')}
+      </div>
+      <div class="extended-scale">
+        <div class="extended-option ${val==7?'selected':''}" data-value="7" onclick="selectSingleLikert('${item.id}',7)"><b>H</b> Heard, haven't seen</div>
+        <div class="extended-option ${val==9?'selected':''}" data-value="9" onclick="selectSingleLikert('${item.id}',9)"><b>D</b> Don't know</div>
+        <div class="extended-option ${val==8?'selected':''}" data-value="8" onclick="selectSingleLikert('${item.id}',8)"><b>N</b> Not in my scope</div>
+      </div>
+      <div class="single-progress">${screen.itemIndex + 1} of ${screen.totalItems}</div>
+      ${navFooter('Press 1\u20134 or H/D/N')}
+    </div>
+  `;
+}
+
+function selectSingleLikert(itemId, value) {
+  state.responses[itemId] = value;
+  saveState();
+  document.querySelectorAll('.single-likert .likert-option, .extended-option').forEach(o => {
+    o.classList.toggle('selected', o.dataset && o.dataset.value == value);
+  });
+  setTimeout(() => nextScreen(), 300);
+}
+
+function renderVignette(el, vig) {
+  const selected = state.responses[vig.id];
+  const shuffled = shuffleArray(vig.options);
+  vig._shuffledOptions = shuffled;
+  el.innerHTML = `
+    <div class="card question-card">
+      <div class="section-pill">Section 4 of 6 \u2022 Scenario</div>
+      <div class="item-code">${vig.id}</div>
+      <div class="scenario-box">
+        <div class="question-text">${vig.text}</div>
+      </div>
+      <div class="options-list">
+        ${shuffled.map((o, idx) => {
+          const dk = String.fromCharCode(65 + idx);
+          return `
+          <div class="option ${selected === o.key ? 'selected' : ''}" data-key="${o.key}" onclick="selectOption('${vig.id}','${o.key}')">
+            <kbd>${dk}</kbd>
+            <div class="option-text">${o.text}</div>
+          </div>`;
+        }).join('')}
+      </div>
+      ${navFooter('Press A\u2013G to select')}
+    </div>
+  `;
+}
+
+function renderQC(el) {
+  const qc1 = state.responses['QC-001'];
+  const qc2 = state.responses['QC-002'];
+  el.innerHTML = `
+    <div class="card question-card">
+      <div class="section-pill">Section 6 of 6 \u2022 Attention Check</div>
+      <div class="likert-group">
+        <div class="likert-item ${!qc1?'focused':qc1?'answered':''}" data-id="QC-001" data-idx="0">
+          <div class="item-text">Please select "4" for this question.</div>
+          <div class="likert-scale">
+            ${[1,2,3,4,5].map(v => `
+              <div class="likert-option ${qc1==v?'selected':''}" data-value="${v}" onclick="selectLikertItem('QC-001',${v},0,2)">
+                <span class="key-hint">${v}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+        <div class="likert-item ${qc1&&!qc2?'focused':qc2?'answered':''}" data-id="QC-002" data-idx="1">
+          <div class="item-text">Please select "Option B" below.</div>
+          <div class="likert-scale">
+            ${['A','B','C','D'].map(k => `
+              <div class="likert-option ${qc2===k?'selected':''}" data-value="${k}" onclick="selectLikertItem('QC-002','${k}',1,2)">
+                <span class="key-hint">${k}</span>
+                Option ${k}
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:24px;">
+        <button class="btn-primary" onclick="nextScreen()">See My Results \u2192</button>
+      </div>
+      ${navFooter('')}
+    </div>
+  `;
+}
+
+function navFooter(hint) {
+  return `
+    <div class="nav-footer">
+      <span class="nav-hint">${hint}</span>
+      <div class="nav-actions">
+        <button class="btn-secondary" onclick="prevScreen()">\u2190 Back</button>
+        <button class="btn-primary" style="padding:10px 24px;font-size:14px;" onclick="nextScreen()">Next \u2192</button>
+      </div>
+    </div>
+  `;
+}
+
+function calculateScores() {
+  const scores = {
+    posture: {}, posturePST: {}, postureVig: {}, postureFinal: {},
+    capability: {}, artifact: {}, fluency: {},
+    fluencyLevels: {}, overallFluencyLevel: 1, overallFluency: 0,
+    visibilityGaps: {},
+    dominantArchetype: null, secondaryArchetype: null,
+    qcPassed: true
+  };
+
+  // QC Check
+  if (state.responses['QC-001'] != 4) scores.qcPassed = false;
+  if (state.responses['QC-002'] !== 'B') scores.qcPassed = false;
+
+  // PST Scoring
+  const pstByConstruct = {};
+  ['P1','P2','P3','P4','P5','P6','P7'].forEach(c => { pstByConstruct[c] = []; });
+  PST_ITEMS.forEach(item => {
+    const raw = state.responses[item.id];
+    if (raw !== undefined && raw >= 1 && raw <= 5) {
+      let score = (raw - 1) * 25; // 1->0, 2->25, 3->50, 4->75, 5->100
+      if (item.reverse) score = 100 - score;
+      pstByConstruct[item.construct].push(score);
+    }
+  });
+  Object.keys(pstByConstruct).forEach(c => {
+    const arr = pstByConstruct[c];
+    scores.posturePST[c] = arr.length > 0 ? arr.reduce((a,b)=>a+b,0)/arr.length : 0;
+  });
+
+  // Vignette Scoring
+  const vigCounts = {};
+  ['P1','P2','P3','P4','P5','P6','P7'].forEach(c => { vigCounts[c] = 0; });
+  let vigAnswered = 0;
+  VIGNETTES.forEach(vig => {
+    const key = state.responses[vig.id];
+    if (key) {
+      const opt = vig.options.find(o => o.key === key);
+      if (opt) {
+        vigCounts['P' + opt.construct]++;
+        vigAnswered++;
+      }
+    }
+  });
+  Object.keys(vigCounts).forEach(c => {
+    scores.postureVig[c] = vigAnswered > 0 ? (vigCounts[c] / vigAnswered) * 100 : 0;
+  });
+
+  // Combined posture: 80% PST + 20% VIG
+  Object.keys(ARCHETYPES).forEach(c => {
+    scores.postureFinal[c] = 0.8 * scores.posturePST[c] + 0.2 * scores.postureVig[c];
+  });
+
+  // Dominant and secondary
+  const sorted = Object.entries(scores.postureFinal).sort((a,b) => b[1]-a[1]);
+  scores.dominantArchetype = sorted[0][0];
+  if (sorted.length > 1 && (sorted[0][1] - sorted[1][1]) <= 7) {
+    scores.secondaryArchetype = sorted[1][0];
+  }
+
+  // CAP Scoring
+  const capBySubsys = { F1:[], F2:[], F3:[], F4:[] };
+  const capVisBySubsys = { F1:[], F2:[], F3:[], F4:[] };
+  CAP_ITEMS.forEach(item => {
+    const raw = state.responses[item.id];
+    if (raw !== undefined) {
+      if (raw >= 1 && raw <= 5) {
+        capBySubsys[item.subsystem].push((raw-1)*25);
+        capVisBySubsys[item.subsystem].push(0);
+      } else if (raw === 7 || raw === 9) {
+        capVisBySubsys[item.subsystem].push(1);
+      }
+      // 8 excluded from both
+    }
+  });
+
+  // ART Scoring
+  const artBySubsys = { F1:[], F2:[], F3:[], F4:[] };
+  const artVisBySubsys = { F1:[], F2:[], F3:[], F4:[] };
+  ART_ITEMS.forEach(item => {
+    const raw = state.responses[item.id];
+    if (raw !== undefined) {
+      if (raw >= 1 && raw <= 4) {
+        const s = raw===1?0 : raw===2?33 : raw===3?67 : 100;
+        artBySubsys[item.subsystem].push(s);
+        artVisBySubsys[item.subsystem].push(0);
+      } else if (raw === 7 || raw === 9) {
+        artVisBySubsys[item.subsystem].push(1);
+      }
+    }
+  });
+
+  // Fluency subsystem scores
+  ['F1','F2','F3','F4'].forEach(f => {
+    const capMean = capBySubsys[f].length > 0 ? capBySubsys[f].reduce((a,b)=>a+b,0)/capBySubsys[f].length : 0;
+    const artMean = artBySubsys[f].length > 0 ? artBySubsys[f].reduce((a,b)=>a+b,0)/artBySubsys[f].length : 0;
+    scores.capability[f] = capMean;
+    scores.artifact[f] = artMean;
+    scores.fluency[f] = 0.7 * capMean + 0.3 * artMean;
+
+    // Visibility gap
+    const allVis = [...capVisBySubsys[f], ...artVisBySubsys[f]];
+    scores.visibilityGaps[f] = allVis.length > 0 ? (allVis.reduce((a,b)=>a+b,0)/allVis.length)*100 : 0;
+
+    // Level
+    const s = scores.fluency[f];
+    scores.fluencyLevels[f] = s < 25 ? 1 : s < 45 ? 2 : s < 70 ? 3 : s < 88 ? 4 : 5;
+  });
+
+  // Overall fluency (bottleneck-aware)
+  const levels = Object.values(scores.fluencyLevels).sort((a,b)=>a-b);
+  const Lmin = levels[0];
+  const Lsecond = levels[1];
+  const Lmean = levels.reduce((a,b)=>a+b,0)/levels.length;
+  if (Lsecond - Lmin >= 2) {
+    scores.overallFluencyLevel = Lmin;
+  } else {
+    const rounded = Math.round(Lmean);
+    scores.overallFluencyLevel = Math.max(Lmin, Math.min(rounded, Math.min(Lmin+1, 5)));
+  }
+
+  const fVals = Object.values(scores.fluency);
+  scores.overallFluency = fVals.reduce((a,b)=>a+b,0)/fVals.length;
+
+  return scores;
+}
+
+// ============================================================
+
+//  RESULTS RENDERER (CLEAN DASHBOARD)
+// ============================================================
+
+let cachedScores = null;
+
+function renderResults(el) {
+  const scores = calculateScores();
+  cachedScores = scores;
+  saveSubmission(scores);
+  const dom = ARCHETYPES[scores.dominantArchetype];
+  const sec = scores.secondaryArchetype ? ARCHETYPES[scores.secondaryArchetype] : null;
+  const fl = FLUENCY_LEVELS[scores.overallFluencyLevel];
+  const domScore = Math.round(scores.postureFinal[scores.dominantArchetype]);
+
+  let html = '<div class="results-container">';
+
+  // QC Warning
+  if (!scores.qcPassed) {
+    html += '<div class="qc-warning"><strong>Quality Check Note:</strong> One or more attention check questions were not answered correctly. Results should be interpreted with caution.</div>';
+  }
+
+  // Hero Card
+  html += `
+    <div class="results-hero-card animate-stagger" style="animation-delay:0.1s">
+      <div class="hero-icon" style="background:${getColorValue(dom.color)}">${dom.name.split(' ').pop().charAt(0)}</div>
+      <div class="hero-info">
+        <div class="hero-subtitle">Your AI Orientation</div>
+        <h1>${dom.name}</h1>
+        <p class="hero-desc">${dom.description}</p>
+        ${sec ? `<div class="secondary-chip">with ${sec.name} tendencies</div>` : ''}
+      </div>
+      <div class="hero-score" data-target="${domScore}"><span>score</span>${domScore}</div>
+    </div>
+  `;
+
+  // Fluency Card (redesigned)
+  const minFLevel = Math.min(...Object.values(scores.fluencyLevels));
+  const visGapSummary = Object.entries(scores.visibilityGaps).filter(([_,g]) => g > 20);
+  html += `
+    <div class="fluency-card animate-stagger" style="animation-delay:0.2s">
+      <h2 style="font-size:14px;font-weight:700;color:#7d8792;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px">AI Fluency Level</h2>
+      <div class="fluency-gauge">
+        ${[1,2,3,4,5].map(l => {
+          const cls = l < scores.overallFluencyLevel ? 'past' : l === scores.overallFluencyLevel ? 'active' : '';
+          return `<div class="fluency-segment ${cls}"></div>`;
+        }).join('')}
+      </div>
+      <div class="fluency-level-label">Level ${scores.overallFluencyLevel}: ${fl.name}</div>
+      <p class="fluency-desc">${fl.description}</p>
+      <hr class="fluency-divider">
+      <div class="fluency-breakdown-title">Fluency Components</div>
+      <div class="fluency-breakdown">
+        ${['F1','F2','F3','F4'].map(f => {
+          const lvl = scores.fluencyLevels[f];
+          const sc = Math.round(scores.fluency[f]);
+          const isBottle = lvl === minFLevel && Object.values(scores.fluencyLevels).filter(l=>l>minFLevel).length > 0;
+          return `<div class="fluency-row">
+            <div class="fluency-row-name">${SUBSYSTEMS[f].name}<span class="info-tooltip" tabindex="0"><span class="info-icon">\u24d8</span><span class="tooltip-text">${SUBSYSTEMS[f].description}</span></span>${isBottle ? '<span class="fluency-bottleneck-tag">Limiting factor</span>' : ''}</div>
+            <div class="fluency-row-bar"><div class="fluency-row-bar-fill" style="width:${sc}%"></div></div>
+            <div class="fluency-row-level">L${lvl}</div>
+            <div class="fluency-row-score">${sc}</div>
+          </div>`;
+        }).join('')}
+      </div>
+      ${visGapSummary.length > 0 ? '<div class="fluency-vis-note">Visibility gaps detected in ' + visGapSummary.map(([k,g]) => SUBSYSTEMS[k].name + ' (' + Math.round(g) + '%)').join(', ') + ' \u2014 responses included "heard but haven\'t seen" or "don\'t know."</div>' : ''}
+    </div>
+  `;
+
+  // Radar Chart
+  html += renderRadarChart(scores);
+
+  // Explore CTA
+  html += `
+    <div class="explore-cta animate-stagger" style="animation-delay:0.4s">
+      <button class="btn-primary" onclick="showFullReport('${dom.key}', ${scores.overallFluencyLevel})">
+        Explore My Results \u2192
+      </button>
+    </div>
+  `;
+
+  // Visibility Gap
+  const totalVis = Object.values(scores.visibilityGaps).reduce((a,b)=>a+b,0)/4;
+  if (totalVis > 10) {
+    html += `
+      <div class="visibility-gap animate-stagger" style="animation-delay:0.5s">
+        <h4>Visibility Gap Analysis</h4>
+        <p>${Math.round(totalVis)}% of questions were answered with "heard but haven't seen" or "don't know," suggesting gaps in organizational visibility around AI initiatives.</p>
+        <ul>${Object.entries(scores.visibilityGaps).filter(([_,g])=>g>15).map(([k,g])=>`<li>${SUBSYSTEMS[k].name}: ${Math.round(g)}%</li>`).join('')}</ul>
+      </div>
+    `;
+  }
+
+  html += '<div style="text-align:center;margin-top:16px;"><button class="btn-ghost" onclick="restartSurvey()">Take Assessment Again</button></div>';
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+function renderRadarChart(scores) {
+  const archetypeOrder = ['P1','P2','P3','P4','P5','P6','P7'];
+  const cx = 200, cy = 200, R = 140;
+  const n = archetypeOrder.length;
+  const angleStep = (2 * Math.PI) / n;
+  const startAngle = -Math.PI / 2;
+
+  function polar(cx, cy, r, angle) {
+    return [cx + r * Math.cos(angle), cy + r * Math.sin(angle)];
+  }
+
+  let svg = '<svg viewBox="-30 -10 460 430" xmlns="http://www.w3.org/2000/svg">';
+
+  // Guide rings
+  [0.25, 0.5, 0.75, 1.0].forEach(frac => {
+    const r = R * frac;
+    let pts = [];
+    for (let i = 0; i < n; i++) {
+      const a = startAngle + i * angleStep;
+      pts.push(polar(cx, cy, r, a).join(','));
+    }
+    svg += '<polygon points="' + pts.join(' ') + '" fill="none" stroke="#e0e4e8" stroke-width="1" stroke-dasharray="' + (frac < 1 ? '4,3' : '0') + '"/>';
+  });
+
+  // Axis lines
+  for (let i = 0; i < n; i++) {
+    const a = startAngle + i * angleStep;
+    const [ex, ey] = polar(cx, cy, R, a);
+    svg += '<line x1="' + cx + '" y1="' + cy + '" x2="' + ex + '" y2="' + ey + '" stroke="#d0d5db" stroke-width="1"/>';
+  }
+
+  // Score polygon
+  const colorMap = { P1: '#E8712B', P2: '#4A6670', P3: '#6B2D5B', P4: '#F2A630', P5: '#2D8B5E', P6: '#3B7DD8', P7: '#8B5E3C' };
+  let polyPts = [];
+  let dots = '';
+  let labels = '';
+  archetypeOrder.forEach((key, i) => {
+    const sc = Math.round(scores.postureFinal[key]);
+    const frac = sc / 100;
+    const a = startAngle + i * angleStep;
+    const [px, py] = polar(cx, cy, R * frac, a);
+    polyPts.push(px + ',' + py);
+    dots += '<circle cx="' + px + '" cy="' + py + '" r="5" fill="' + colorMap[key] + '" stroke="white" stroke-width="2"/>';
+
+    const [lx, ly] = polar(cx, cy, R + 24, a);
+    const archName = ARCHETYPES[key].name.split(' ').pop();
+    const anchor = lx < cx - 10 ? 'end' : lx > cx + 10 ? 'start' : 'middle';
+    const isDom = key === scores.dominantArchetype;
+    labels += '<text x="' + lx + '" y="' + ly + '" text-anchor="' + anchor + '" font-size="' + (isDom ? '12' : '11') + '" font-weight="' + (isDom ? '800' : '600') + '" fill="' + colorMap[key] + '" font-family="Sora, sans-serif">' + (isDom ? '\u2605 ' : '') + archName + '</text>';
+    labels += '<text x="' + lx + '" y="' + (ly + 14) + '" text-anchor="' + anchor + '" font-size="10" fill="#7d8792" font-family="Manrope, sans-serif">' + sc + '</text>';
+  });
+
+  svg += '<polygon points="' + polyPts.join(' ') + '" fill="rgba(107,45,91,0.12)" stroke="' + colorMap[scores.dominantArchetype] + '" stroke-width="2.5"/>';
+  svg += dots;
+  svg += labels;
+  svg += '</svg>';
+
+  // Build card
+  let html = '<div class="radar-chart-card animate-stagger" style="animation-delay:0.3s">';
+  html += '<h2>Archetype Profile</h2>';
+  html += '<div class="radar-svg-wrap">' + svg + '</div>';
+  html += '<div class="radar-legend">';
+  archetypeOrder.forEach(key => {
+    const a = ARCHETYPES[key];
+    const sc = Math.round(scores.postureFinal[key]);
+    const isDom = key === scores.dominantArchetype;
+    const isSec = key === scores.secondaryArchetype;
+    html += '<div class="radar-legend-item" style="cursor:pointer" onclick="showArchetypePopup(\'' + key + '\')"><div class="radar-legend-dot" style="background:' + colorMap[key] + '"></div>' + a.name.split(' ').pop() + ' <span class="radar-legend-score">' + sc + '</span>';
+    if (isDom) html += ' <span class="badge dominant-badge">Top</span>';
+    if (isSec) html += ' <span class="badge secondary-badge">2nd</span>';
+    html += '</div>';
+  });
+  html += '</div></div>';
+  return html;
+}
+
+function showArchetypePopup(key) {
+  const a = ARCHETYPES[key];
+  if (!a) return;
+  const existing = document.getElementById('archetypePopup');
+  if (existing) existing.remove();
+  const colorVal = { P1:'#E8712B', P2:'#4A6670', P3:'#6B2D5B', P4:'#F2A630', P5:'#2D8B5E', P6:'#3B7DD8', P7:'#8B5E3C' }[key] || '#333';
+  const popup = document.createElement('div');
+  popup.id = 'archetypePopup';
+  popup.className = 'archetype-popup-overlay';
+  popup.onclick = function(ev) { if (ev.target === popup) popup.remove(); };
+  popup.innerHTML = '<div class="archetype-popup"><button class="popup-close" onclick="document.getElementById(\'archetypePopup\').remove()">&times;</button><h3 style="color:' + colorVal + '">' + a.name + '</h3><p class="popup-desc">' + a.description + '</p><div class="popup-detail"><strong>Core Belief:</strong> ' + a.coreBelief + '</div><div class="popup-detail"><strong>Core Tension:</strong> ' + a.coreTension + '</div><div class="popup-detail"><strong>Approach:</strong> ' + a.approach + '</div></div>';
+  document.body.appendChild(popup);
+}
+
+function getColorValue(cssVar) {
+  const map = {
+    'var(--athlete)': '#E8712B', 'var(--builder)': '#4A6670', 'var(--steward)': '#6B2D5B',
+    'var(--integrator)': '#F2A630', 'var(--optimizer)': '#2D8B5E', 'var(--visionary)': '#3B7DD8',
+    'var(--skeptic)': '#8B5E3C'
+  };
+  return map[cssVar] || cssVar;
+}
+
+// ============================================================
+//  FULL REPORT PAGE
+// ============================================================
+
+function showFullReport(archetypeKey, fluencyLevel) {
+  const profileKey = archetypeKey + '-' + fluencyLevel;
+  const md = (window.PROFILE_REPORTS && window.PROFILE_REPORTS[profileKey]) || '';
+  if (!md) {
+    alert('Report data not available. Please ensure profiles.js is loaded.');
+    return;
+  }
+
+  // Hide survey, show report
+  document.getElementById('surveyContainer').style.display = 'none';
+  document.querySelector('.logo-header').style.display = 'none';
+  document.querySelector('.progress-bar-container').style.display = 'none';
+  document.getElementById('reportContainer').style.display = 'block';
+  document.onkeydown = null;
+
+  // Find archetype info
+  const archEntry = Object.entries(ARCHETYPES).find(([k, a]) => a.key === archetypeKey);
+  const arch = archEntry ? archEntry[1] : null;
+  const archColor = arch ? getColorValue(arch.color) : '#6B2D5B';
+  const archName = arch ? arch.name : archetypeKey;
+  const flName = FLUENCY_LEVELS[fluencyLevel] ? FLUENCY_LEVELS[fluencyLevel].name : '';
+
+  // Parse markdown into sections
+  const sections = parseReportSections(md);
+
+  let html = `<div class="report-page">`;
+
+  // Top bar
+  html += `
+    <div class="report-topbar">
+      <button class="btn-secondary" onclick="backToSummary()">\u2190 Back to Summary</button>
+      <span class="logo-svg-small">${CHN_LOGO_SVG}</span>
+      <span class="report-arch-badge" style="background:${archColor}">${archName} \u2022 L${fluencyLevel}</span>
+    </div>
+  `;
+
+  // Hero banner
+  html += `
+    <div class="report-hero-banner" style="background: linear-gradient(135deg, ${archColor}, ${archColor}cc);">
+      <h1>${archName}</h1>
+      <p class="rh-subtitle">Fluency Level ${fluencyLevel}: ${flName}</p>
+      <p class="rh-tagline">Your Strategic Profile & Roadmap</p>
+    </div>
+  `;
+
+  // Mobile TOC toggle
+  html += `<div class="toc-mobile-wrapper">
+    <button class="toc-toggle" onclick="toggleMobileToc()" aria-expanded="false" aria-controls="mobileToc">
+      \u2630 Table of Contents
+    </button>
+    <nav class="report-toc report-toc--mobile" id="mobileToc">
+      <ul class="toc-list">${sections.map((sec, i) => `<a class="toc-item ${i===0?'active':''}" href="#section-${i}" onclick="scrollToSection(${i})">${sec.title}</a>`).join('')}</ul>
+    </nav>
+  </div>`;
+
+  // Layout
+  html += `<div class="report-layout">`;
+
+  // TOC
+  html += `<nav class="report-toc" id="reportToc"><ul class="toc-list">`;
+  const sectionIcons = ['\ud83c\udfaf','\ud83d\udd0d','\u26a0\ufe0f','\ud83d\udd04','\u2705','\ud83d\ude80','\ud83d\uddfa\ufe0f','\u23f8\ufe0f','\ud83d\udcdd'];
+  sections.forEach((sec, i) => {
+    html += `<a class="toc-item ${i===0?'active':''}" href="#section-${i}" onclick="scrollToSection(${i})">${sec.title}</a>`;
+  });
+  html += `</ul></nav>`;
+
+  // Content
+  html += `<div class="report-content-area">`;
+  sections.forEach((sec, i) => {
+    const isRoadmap = sec.title.toLowerCase().includes('roadmap');
+    const isNotAttempt = sec.title.toLowerCase().includes('not to attempt');
+    const isSummary = sec.title.toLowerCase().includes('summary');
+
+    html += `<div class="report-section" id="section-${i}">`;
+    html += `<div class="section-header"><span class="section-icon">${sectionIcons[i] || '\ud83d\udcc4'}</span><h2 class="section-title">${sec.title}</h2></div>`;
+
+    if (isRoadmap) {
+      html += renderRoadmapTimeline(sec.content, fluencyLevel);
+    } else if (isNotAttempt) {
+      html += renderCautionCards(sec.content);
+    } else if (isSummary) {
+      html += `<div class="quote-callout"><p>${extractSummaryQuote(sec.content)}</p></div>`;
+      const split = renderSectionContentSplit(sec.content);
+      html += split.intro;
+      if (split.details) {
+        html += `<button class="details-toggle" onclick="toggleDetails(this)">Show Details \u25bc</button>`;
+        html += `<div class="section-details collapsed"><div class="section-details-inner">${split.details}</div></div>`;
+      }
+    } else {
+      const split = renderSectionContentSplit(sec.content);
+      html += split.intro;
+      if (split.details) {
+        html += `<button class="details-toggle" onclick="toggleDetails(this)">Show Details \u25bc</button>`;
+        html += `<div class="section-details collapsed"><div class="section-details-inner">${split.details}</div></div>`;
+      }
+    }
+
+    html += `</div>`;
+  });
+
+  // Secondary archetype banner
+  if (cachedScores && cachedScores.secondaryArchetype) {
+    const secArch = ARCHETYPES[cachedScores.secondaryArchetype];
+    if (secArch && secArch.key !== archetypeKey) {
+      html += `
+        <div class="secondary-banner">
+          <p>You also showed <strong>${secArch.name}</strong> tendencies. Explore that profile to understand your secondary orientation.</p>
+          <button class="btn-secondary" onclick="showFullReport('${secArch.key}', ${fluencyLevel})">View ${secArch.name} Profile \u2192</button>
+        </div>
+      `;
+    }
+  }
+
+  // Back button
+  html += `<div class="report-back-footer"><button class="btn-secondary" onclick="backToSummary()">\u2190 Back to Summary</button></div>`;
+
+  html += `</div></div></div>`;
+
+  document.getElementById('reportContainer').innerHTML = html;
+  window.scrollTo({ top: 0 });
+  initTocObserver();
+}
+
+function backToSummary() {
+  document.getElementById('reportContainer').style.display = 'none';
+  document.getElementById('reportContainer').innerHTML = '';
+  renderScreen();
+}
+
+function toggleDetails(btn) {
+  const details = btn.nextElementSibling;
+  const isCollapsed = details.classList.contains('collapsed');
+  details.classList.toggle('collapsed');
+  btn.textContent = isCollapsed ? 'Hide Details \u25b2' : 'Show Details \u25bc';
+}
+
+function toggleAccordion(header) {
+  const body = header.nextElementSibling;
+  header.classList.toggle('open');
+  body.classList.toggle('open');
+}
+
+function toggleMobileToc() {
+  const toc = document.getElementById('mobileToc');
+  const btn = toc ? toc.previousElementSibling : null;
+  if (toc) {
+    const isOpen = toc.classList.contains('open');
+    toc.classList.toggle('open');
+    if (btn) btn.setAttribute('aria-expanded', !isOpen);
+  }
+}
+
+function scrollToSection(idx) {
+  const el = document.getElementById('section-' + idx);
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function initTocObserver() {
+  const sections = document.querySelectorAll('.report-section');
+  const tocItems = document.querySelectorAll('.toc-item');
+  if (!sections.length || !tocItems.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        const idx = parseInt(id.replace('section-', ''));
+        tocItems.forEach((item, i) => {
+          item.classList.toggle('active', i === idx);
+        });
+      }
+    });
+  }, {
+    rootMargin: '-80px 0px -60% 0px',
+    threshold: 0
+  });
+
+  sections.forEach(sec => observer.observe(sec));
+}
+
+
+function parseReportSections(md) {
+  const lines = md.split('\n');
+  const sections = [];
+  let current = null;
+  const promotedH3 = ['what not to attempt', 'summary of the transition'];
+
+  for (const line of lines) {
+    const h2Match = line.match(/^## (.+)$/);
+    const h1Match = line.match(/^# (.+)$/);
+    const h3Match = line.match(/^### (.+)$/);
+    const isPromotedH3 = h3Match && promotedH3.some(p => h3Match[1].toLowerCase().includes(p));
+
+    if (h2Match || h1Match || isPromotedH3) {
+      if (current) sections.push(current);
+      const title = (h2Match || h1Match || h3Match)[1].trim();
+      current = { title: title, content: '' };
+    } else if (current) {
+      current.content += line + '\n';
+    } else {
+      // Content before first heading - make intro section
+      if (!current) {
+        current = { title: 'Strategic Profile', content: '' };
+      }
+      current.content += line + '\n';
+    }
+  }
+  if (current) sections.push(current);
+
+  // If first section is the h1 title, merge with next or rename
+  if (sections.length > 0 && sections[0].content.trim().length < 10 && sections.length > 1) {
+    sections[1].content = sections[0].content + sections[1].content;
+    sections.shift();
+  }
+
+  return sections;
+}
+
+
+
+function renderRoadmapTimeline(content, fluencyLevel) {
+  const lines = content.split('\n');
+  let html = '<div class="roadmap-timeline"><div class="roadmap-line"></div>';
+  let phaseNum = 0;
+  let inPhase = false;
+  let currentItems = '';
+  let phaseLabels = ['Foundation', 'Build', 'Scale'];
+
+  for (const line of lines) {
+    const phaseMatch = line.match(/^### Phase (\d+):?\s*(.+)$/);
+    const boldMatch = line.match(/^\*\*(.+?)\*\*\.?\s*(.*)$/);
+    const failureMatch = line.match(/^\*\*Common failure mode/i);
+
+    if (phaseMatch) {
+      if (inPhase) {
+        html += currentItems + '</div></div>';
+      }
+      phaseNum++;
+      const phaseTitle = phaseMatch[2] || '';
+      html += `<div class="roadmap-phase">
+        <div class="phase-marker">${phaseNum}</div>
+        <div class="phase-label">${phaseLabels[phaseNum-1] || 'Phase ' + phaseNum}</div>
+        <div class="phase-title">${phaseTitle}</div>
+        <div class="phase-items">`;
+      currentItems = '';
+      inPhase = true;
+    } else if (failureMatch) {
+      // Extract the full failure mode text
+      const failText = line.replace(/^\*\*Common failure mode to avoid:\*\*\s*/i, '').replace(/\*\*/g, '');
+      currentItems += `<div class="failure-callout"><strong>\u26a0 Common failure mode to avoid</strong><p>${failText}</p></div>`;
+    } else if (boldMatch && inPhase && !failureMatch) {
+      currentItems += `<div class="phase-item-card"><strong>${boldMatch[1]}</strong><p>${boldMatch[2]}</p></div>`;
+    } else if (line.trim() && inPhase && !line.startsWith('#') && !line.startsWith('---')) {
+      // Continuation text for the last item
+      if (currentItems.includes('</p></div>')) {
+        currentItems = currentItems.replace(/<\/p><\/div>$/, ' ' + line.trim() + '</p></div>');
+      }
+    }
+  }
+
+  if (inPhase) {
+    html += currentItems + '</div></div>';
+  }
+
+  // End marker
+  const nextLevel = fluencyLevel + 1;
+  if (nextLevel <= 5) {
+    html += `<div class="roadmap-phase">
+      <div class="phase-marker end">\u2713</div>
+      <div class="phase-title phase-title--target">Level ${nextLevel}: ${FLUENCY_LEVELS[nextLevel] ? FLUENCY_LEVELS[nextLevel].name : ''}</div>
+    </div>`;
+  }
+
+  html += '</div>';
+  return html;
+}
+
+function renderCautionCards(content) {
+  let html = '';
+  const lines = content.split('\n');
+  let currentCard = null;
+
+  for (const line of lines) {
+    const boldMatch = line.match(/^\*\*(.+?)\*\*\.?\s*(.*)$/);
+    if (boldMatch) {
+      if (currentCard) {
+        html += `<div class="caution-card"><strong>\u23f8 ${currentCard.title}</strong><p>${currentCard.text}</p></div>`;
+      }
+      currentCard = { title: boldMatch[1], text: boldMatch[2] || '' };
+    } else if (line.trim() && currentCard) {
+      currentCard.text += ' ' + line.trim();
+    } else if (line.trim() && !currentCard) {
+      html += `<p class="caution-intro">${line.trim()}</p>`;
+    }
+  }
+  if (currentCard) {
+    html += `<div class="caution-card"><strong>\u23f8 ${currentCard.title}</strong><p>${currentCard.text}</p></div>`;
+  }
+
+  return html;
+}
+
+function extractSummaryQuote(content) {
+  // Get first meaningful sentence
+  const lines = content.split('\n').filter(l => l.trim() && !l.startsWith('#') && !l.startsWith('---'));
+  if (lines.length > 0) {
+    const first = lines[0].replace(/\*\*/g, '').trim();
+    // Return first sentence
+    const dot = first.indexOf('. ');
+    return dot > 0 ? first.substring(0, dot + 1) : first;
+  }
+  return '';
+}
+
+function toggleReport(key) {
+  const el = document.getElementById('report-' + key);
+  if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+function inlineFormat(text) {
+  return text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+}
+
+function renderSectionContent(content) {
+  const lines = content.split('\n');
+  let html = '';
+  let inBoldItem = false;
+  let introMode = true;
+  let currentBoldTitle = '';
+  let currentBoldBody = '';
+
+  let cardIndex = 0;
+  function flushBoldItem() {
+    if (currentBoldTitle) {
+      let body = currentBoldBody;
+      body = body.replace(/(<li[^>]*>.*?<\/li>\s*)+/g, '<ul>$&</ul>');
+      body = body.replace(/<\/ul>\s*<ul>/g, '');
+      const altClass = (cardIndex % 2 === 1) ? ' accent-card--alt' : '';
+      html += '<div class="accent-card' + altClass + '"><div class="accent-title">' + currentBoldTitle + '</div><div class="accent-body">' + body + '</div></div>';
+      currentBoldTitle = '';
+      currentBoldBody = '';
+      inBoldItem = false;
+      cardIndex++;
+    }
+  }
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed) continue;
+
+    const h3Match = trimmed.match(/^### (.+)$/);
+    if (h3Match) { flushBoldItem(); introMode = false; html += '<h3 class="report-subhead">' + h3Match[1] + '</h3>'; continue; }
+
+    if (trimmed === '---') { flushBoldItem(); html += '<hr class="section-divider">'; continue; }
+
+    const boldStartMatch = trimmed.match(/^\*\*(.+?)\*\*\.?\s*(.*)$/);
+    if (boldStartMatch && !trimmed.match(/^\*\*Common failure mode/i)) {
+      flushBoldItem(); introMode = false; inBoldItem = true;
+      currentBoldTitle = boldStartMatch[1];
+      currentBoldBody = boldStartMatch[2] ? '<p>' + inlineFormat(boldStartMatch[2]) + '</p>' : '';
+      continue;
+    }
+
+    const bulletMatch = trimmed.match(/^[-*] (.+)$/);
+    if (bulletMatch) {
+      if (inBoldItem) { currentBoldBody += '<li>' + inlineFormat(bulletMatch[1]) + '</li>'; }
+      else { html += '<li class="standalone-bullet">' + inlineFormat(bulletMatch[1]) + '</li>'; }
+      continue;
+    }
+
+    if (inBoldItem) { currentBoldBody += '<p>' + inlineFormat(trimmed) + '</p>'; }
+    else if (introMode) { html += '<p class="section-intro">' + inlineFormat(trimmed) + '</p>'; }
+    else { html += '<p class="report-body-text">' + inlineFormat(trimmed) + '</p>'; }
+  }
+
+  flushBoldItem();
+  html = html.replace(/(<li class="standalone-bullet">.*?<\/li>\s*)+/g, '<ul class="styled-list">$&</ul>');
+  html = html.replace(/<\/ul>\s*<ul class="styled-list">/g, '');
+  return html;
+}
+
+function renderSectionContentSplit(content) {
+  const lines = content.split('\n');
+  let introHtml = '';
+  let detailsHtml = '';
+  let inBoldItem = false;
+  let introMode = true;
+  let currentBoldTitle = '';
+  let currentBoldBody = '';
+  let cardIndex = 0;
+
+  function flushBoldItem() {
+    if (currentBoldTitle) {
+      let body = currentBoldBody;
+      body = body.replace(/(<li[^>]*>.*?<\/li>\s*)+/g, '<ul>$&</ul>');
+      body = body.replace(/<\/ul>\s*<ul>/g, '');
+      const altClass = (cardIndex % 2 === 1) ? ' accent-card--alt' : '';
+      detailsHtml += '<div class="accent-card' + altClass + '"><div class="accent-title">' + currentBoldTitle + '</div><div class="accent-body">' + body + '</div></div>';
+      currentBoldTitle = '';
+      currentBoldBody = '';
+      inBoldItem = false;
+      cardIndex++;
+    }
+  }
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed) continue;
+
+    const h3Match = trimmed.match(/^### (.+)$/);
+    if (h3Match) { flushBoldItem(); introHtml += '<h3 class="report-subhead">' + h3Match[1] + '</h3>'; introMode = false; continue; }
+
+    if (trimmed === '---') { flushBoldItem(); introHtml += '<hr class="section-divider">'; continue; }
+
+    const boldStartMatch = trimmed.match(/^\*\*(.+?)\*\*\.?\s*(.*)$/);
+    if (boldStartMatch && !trimmed.match(/^\*\*Common failure mode/i)) {
+      flushBoldItem(); introMode = false; inBoldItem = true;
+      currentBoldTitle = boldStartMatch[1];
+      currentBoldBody = boldStartMatch[2] ? '<p>' + inlineFormat(boldStartMatch[2]) + '</p>' : '';
+      continue;
+    }
+
+    const bulletMatch = trimmed.match(/^[-*] (.+)$/);
+    if (bulletMatch) {
+      if (inBoldItem) { currentBoldBody += '<li>' + inlineFormat(bulletMatch[1]) + '</li>'; }
+      else { introHtml += '<li class="standalone-bullet">' + inlineFormat(bulletMatch[1]) + '</li>'; }
+      continue;
+    }
+
+    if (inBoldItem) { currentBoldBody += '<p>' + inlineFormat(trimmed) + '</p>'; }
+    else if (introMode) { introHtml += '<p class="section-intro">' + inlineFormat(trimmed) + '</p>'; }
+    else { introHtml += '<p class="report-body-text">' + inlineFormat(trimmed) + '</p>'; }
+  }
+
+  flushBoldItem();
+  introHtml = introHtml.replace(/(<li class="standalone-bullet">.*?<\/li>\s*)+/g, '<ul class="styled-list">$&</ul>');
+  introHtml = introHtml.replace(/<\/ul>\s*<ul class="styled-list">/g, '');
+  detailsHtml = detailsHtml.replace(/(<li class="standalone-bullet">.*?<\/li>\s*)+/g, '<ul class="styled-list">$&</ul>');
+  detailsHtml = detailsHtml.replace(/<\/ul>\s*<ul class="styled-list">/g, '');
+
+  return { intro: introHtml, details: detailsHtml || null };
+}
+
+// ============================================================
+//  KEYBOARD HANDLING
+// ============================================================
+
+function handleKeydown(e, screen) {
+  const key = e.key;
+  if (key === 'Escape' || (key === 'ArrowLeft' && !['text','qc'].includes(screen.type))) {
+    e.preventDefault(); prevScreen(); return;
+  }
+  if (key === 'Enter') {
+    e.preventDefault();
+    if (screen.type === 'context' && screen.question.type === 'text') {
+      const inp = document.getElementById('textInput');
+      state.responses[screen.question.id] = inp ? inp.value : '';
+      saveState(); nextScreen(); return;
+    }
+    nextScreen(); return;
+  }
+  switch(screen.type) {
+    case 'context':
+      if (screen.question.type === 'text') return;
+      const ck = key.toUpperCase();
+      if (screen.question.options.some(o => o.key === ck)) { e.preventDefault(); selectOption(screen.question.id, ck); }
+      break;
+    case 'posture-single': handleSingleLikertKeydown(e, screen.item, 'pst'); break;
+    case 'capability-single': handleSingleLikertKeydown(e, screen.item, 'cap'); break;
+    case 'artifact-single': handleSingleLikertKeydown(e, screen.item, 'art'); break;
+    case 'vignette': {
+      const vk = key.toUpperCase();
+      const vIdx = vk.charCodeAt(0) - 65;
+      const sOpts = screen.vignette._shuffledOptions || screen.vignette.options;
+      if (vIdx >= 0 && vIdx < sOpts.length) { e.preventDefault(); selectOption(screen.vignette.id, sOpts[vIdx].key); }
+      break;
+    }
+    case 'qc': handleQCKeydown2(e); break;
+  }
+}
+
+function handleSingleLikertKeydown(e, item, scaleType) {
+  const key = e.key;
+  const num = parseInt(key);
+  const maxNum = scaleType === 'art' ? 4 : 5;
+  if (num >= 1 && num <= maxNum) { e.preventDefault(); selectSingleLikert(item.id, num); return; }
+  if (scaleType !== 'pst') {
+    const uk = key.toUpperCase();
+    if (uk === 'H') { e.preventDefault(); selectSingleLikert(item.id, 7); }
+    if (uk === 'D') { e.preventDefault(); selectSingleLikert(item.id, 9); }
+    if (uk === 'N') { e.preventDefault(); selectSingleLikert(item.id, 8); }
+  }
+}
+
+function handleQCKeydown2(e) {
+  const key = e.key;
+  if (key === 'Tab') {
+    e.preventDefault();
+    currentFocusIndex = e.shiftKey ? 0 : 1;
+    updateFocus(); return;
+  }
+  if (currentFocusIndex === 0) {
+    const num = parseInt(key);
+    if (num >= 1 && num <= 5) { e.preventDefault(); selectLikertItem('QC-001', num, 0, 2); }
+  } else {
+    const uk = key.toUpperCase();
+    if (['A','B','C','D'].includes(uk)) { e.preventDefault(); selectLikertItem('QC-002', uk, 1, 2); }
+  }
+}
+
+
+function updateFocus() {
+  document.querySelectorAll('.likert-item').forEach((item, idx) => {
+    item.classList.toggle('focused', idx === currentFocusIndex);
+    if (idx === currentFocusIndex) item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+}
+
+//  INTERACTION HANDLERS
+// ============================================================
+
+function selectOption(qId, key) {
+  state.responses[qId] = key;
+  saveState();
+  document.querySelectorAll('.option').forEach(o => o.classList.toggle('selected', o.dataset.key === key));
+  setTimeout(() => nextScreen(), 250);
+}
+
+function selectLikertItem(itemId, value, itemIndex, totalItems) {
+  state.responses[itemId] = value;
+  saveState();
+  const item = document.querySelector(`.likert-item[data-id="${itemId}"]`);
+  if (item) {
+    item.classList.add('answered');
+    item.querySelectorAll('.likert-option, .extended-option').forEach(o => {
+      o.classList.toggle('selected', o.dataset.value == value);
+    });
+  }
+  if (itemIndex < totalItems - 1) {
+    currentFocusIndex = itemIndex + 1;
+    updateFocus();
+  } else {
+    const screen = state.screens[state.currentScreen];
+    const items = screen.items || (screen.type === 'qc' ? [{id:'QC-001'},{id:'QC-002'}] : []);
+    const allAnswered = items.every(i => state.responses[i.id] !== undefined);
+    if (allAnswered) {
+      setTimeout(() => nextScreen(), 350);
+    }
+  }
+}
+
+function skipQuestion(qId) {
+  state.responses[qId] = '';
+  saveState();
+  nextScreen();
+}
+
+function isCurrentScreenAnswered() {
+  const screen = state.screens[state.currentScreen];
+  if (!screen) return true;
+  switch (screen.type) {
+    case 'welcome': case 'interstitial': case 'results': return true;
+    case 'context':
+      if (screen.question.optional) return true;
+      if (screen.question.type === 'text') return true;
+      return state.responses[screen.question.id] !== undefined;
+    case 'posture-single': case 'capability-single': case 'artifact-single':
+      return state.responses[screen.item.id] !== undefined;
+    case 'vignette':
+      return state.responses[screen.vignette.id] !== undefined;
+    case 'qc':
+      return state.responses['QC-001'] !== undefined && state.responses['QC-002'] !== undefined;
+    default: return true;
+  }
+}
+
+function showValidationFeedback() {
+  const card = document.querySelector('.question-card');
+  if (card) { card.classList.remove('shake'); void card.offsetWidth; card.classList.add('shake'); }
+  let msg = document.querySelector('.validation-msg');
+  if (!msg) {
+    msg = document.createElement('div');
+    msg.className = 'validation-msg';
+    msg.textContent = 'Please select an answer to continue';
+    const footer = document.querySelector('.nav-footer');
+    if (footer) footer.parentNode.insertBefore(msg, footer);
+    else if (card) card.appendChild(msg);
+  }
+  msg.style.display = 'block';
+}
+
+function nextScreen() {
+  if (state.currentScreen < state.totalScreens - 1) {
+    if (!isCurrentScreenAnswered()) { showValidationFeedback(); return; }
+    state.currentScreen++;
+    renderScreen();
+  }
+}
+
+function prevScreen() {
+  if (state.currentScreen > 0) {
+    state.currentScreen--;
+    renderScreen();
+  }
+}
+
+function restartSurvey() {
+  if (confirm('Start over? All responses will be cleared.')) {
+    clearState();
+    buildScreens();
+    renderScreen();
+  }
+}
+
+//  PROFILE REPORTS
+// ============================================================
+
+function getProfileHTML(key) {
+  if (window.PROFILE_REPORTS && window.PROFILE_REPORTS[key]) {
+    return markdownToHTML(window.PROFILE_REPORTS[key]);
+  }
+  const parts = key.split('-');
+  const archName = parts[0].charAt(0).toUpperCase() + parts[0].slice(1);
+  const level = parts[1];
+  return `<p><em>The detailed strategic profile and roadmap for ${archName} at Fluency Level ${level} will appear here.</em></p>`;
+}
+
+function markdownToHTML(md) {
+  let html = md
+    .replace(/^### (.*$)/gm, '<h3>$1</h3>')
+    .replace(/^## (.*$)/gm, '<h2>$1</h2>')
+    .replace(/^# (.*$)/gm, '<h2>$1</h2>')
+    .replace(/^\*\*(.+?)\*\*/gm, '<strong>$1</strong>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/^---$/gm, '<hr>')
+    .replace(/^\- (.+)$/gm, '<li>$1</li>')
+    .replace(/^\* (.+)$/gm, '<li>$1</li>')
+    .replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>')
+    .replace(/^(?!<[hluop\/<]|$)(.+)$/gm, '<p>$1</p>')
+    .replace(/<\/ul>\n?<ul>/g, '')
+    .replace(/\n{2,}/g, '\n');
+  return html;
+}
+
+// ============================================================
+//  SUBMISSION & ADMIN
+// ============================================================
+
+// Helper: look up readable text for a context question answer
+function getContextLabel(questionId, answerKey) {
+  const q = CONTEXT_QUESTIONS.find(c => c.id === questionId);
+  if (!q || !q.options) return answerKey || '';
+  const opt = q.options.find(o => o.key === answerKey);
+  return opt ? opt.text : (answerKey || '');
+}
+
+// All question IDs in order for Sheet columns
+const ALL_PST_IDS = PST_ITEMS.map(i => i.id);
+const ALL_CAP_IDS = CAP_ITEMS.map(i => i.id);
+const ALL_ART_IDS = ART_ITEMS.map(i => i.id);
+const ALL_VIG_IDS = VIGNETTES.map(v => v.id);
+
+// CSV/Sheet column headers (flat, readable)
+const SUBMISSION_HEADERS = [
+  'Timestamp', 'Role', 'Function', 'AI Usage Frequency', 'AI Involvement', 'Business Unit',
+  'Dominant Archetype', 'Secondary Archetype',
+  'P1 Athlete', 'P2 Builder', 'P3 Steward', 'P4 Integrator', 'P5 Optimizer', 'P6 Visionary', 'P7 Skeptic',
+  'Overall Fluency Level', 'Overall Fluency Score',
+  'F1 Use & Value Score', 'F1 Level', 'F2 Enablement Score', 'F2 Level', 'F3 Risk & Trust Score', 'F3 Level', 'F4 Platform & Data Score', 'F4 Level',
+  'QC Passed', 'Vis Gap F1 %', 'Vis Gap F2 %', 'Vis Gap F3 %', 'Vis Gap F4 %',
+  ...ALL_PST_IDS, ...ALL_CAP_IDS, ...ALL_ART_IDS, ...ALL_VIG_IDS
+];
+
+function buildSubmissionRow(scores) {
+  const r = state.responses;
+  const row = {
+    timestamp: new Date().toISOString(),
+    role: getContextLabel('CON-001', r['CON-001']),
+    func: getContextLabel('CON-002', r['CON-002']),
+    aiUsage: getContextLabel('CON-003', r['CON-003']),
+    involvement: getContextLabel('CON-004', r['CON-004']),
+    businessUnit: r['CON-005'] || '',
+    dominantArchetype: ARCHETYPES[scores.dominantArchetype] ? ARCHETYPES[scores.dominantArchetype].name : scores.dominantArchetype,
+    secondaryArchetype: scores.secondaryArchetype ? (ARCHETYPES[scores.secondaryArchetype] ? ARCHETYPES[scores.secondaryArchetype].name : scores.secondaryArchetype) : '',
+    p1Score: Math.round(scores.postureFinal.P1), p2Score: Math.round(scores.postureFinal.P2),
+    p3Score: Math.round(scores.postureFinal.P3), p4Score: Math.round(scores.postureFinal.P4),
+    p5Score: Math.round(scores.postureFinal.P5), p6Score: Math.round(scores.postureFinal.P6),
+    p7Score: Math.round(scores.postureFinal.P7),
+    fluencyLevel: scores.overallFluencyLevel,
+    fluencyScore: Math.round(scores.overallFluency),
+    f1Score: Math.round(scores.fluency.F1), f1Level: scores.fluencyLevels.F1,
+    f2Score: Math.round(scores.fluency.F2), f2Level: scores.fluencyLevels.F2,
+    f3Score: Math.round(scores.fluency.F3), f3Level: scores.fluencyLevels.F3,
+    f4Score: Math.round(scores.fluency.F4), f4Level: scores.fluencyLevels.F4,
+    qcPassed: scores.qcPassed ? 'Yes' : 'No',
+    visF1: Math.round(scores.visibilityGaps.F1),
+    visF2: Math.round(scores.visibilityGaps.F2),
+    visF3: Math.round(scores.visibilityGaps.F3),
+    visF4: Math.round(scores.visibilityGaps.F4)
+  };
+  // Individual answers
+  ALL_PST_IDS.forEach(id => { row[id] = r[id] !== undefined ? r[id] : ''; });
+  ALL_CAP_IDS.forEach(id => { row[id] = r[id] !== undefined ? r[id] : ''; });
+  ALL_ART_IDS.forEach(id => { row[id] = r[id] !== undefined ? r[id] : ''; });
+  ALL_VIG_IDS.forEach(id => { row[id] = r[id] !== undefined ? r[id] : ''; });
+  return row;
+}
+
+function submissionToArray(row) {
+  return [
+    row.timestamp, row.role, row.func, row.aiUsage, row.involvement, row.businessUnit,
+    row.dominantArchetype, row.secondaryArchetype,
+    row.p1Score, row.p2Score, row.p3Score, row.p4Score, row.p5Score, row.p6Score, row.p7Score,
+    row.fluencyLevel, row.fluencyScore,
+    row.f1Score, row.f1Level, row.f2Score, row.f2Level, row.f3Score, row.f3Level, row.f4Score, row.f4Level,
+    row.qcPassed, row.visF1, row.visF2, row.visF3, row.visF4,
+    ...ALL_PST_IDS.map(id => row[id] !== undefined ? row[id] : ''),
+    ...ALL_CAP_IDS.map(id => row[id] !== undefined ? row[id] : ''),
+    ...ALL_ART_IDS.map(id => row[id] !== undefined ? row[id] : ''),
+    ...ALL_VIG_IDS.map(id => row[id] !== undefined ? row[id] : '')
+  ];
+}
+
+async function saveSubmission(scores) {
+  const row = buildSubmissionRow(scores);
+
+  // Deduplicate hash
+  const hash = JSON.stringify([row.role, row.func, row.dominantArchetype, row.fluencyLevel, row.p1Score]);
+  row.hash = hash;
+
+  // Save to localStorage
+  try {
+    const existing = JSON.parse(localStorage.getItem('chn_ai_submissions') || '[]');
+    if (!existing.some(s => s.hash === hash)) {
+      existing.push(row);
+      localStorage.setItem('chn_ai_submissions', JSON.stringify(existing));
+    }
+  } catch(e) {}
+
+  // POST to Google Sheets as flat array (matches HEADERS order)
+  if (SHEETS_WEBHOOK_URL) {
+    try {
+      const payload = { headers: SUBMISSION_HEADERS, values: submissionToArray(row), hash: hash };
+      await fetch(SHEETS_WEBHOOK_URL, {
+        method: 'POST',
+        body: JSON.stringify(payload),
+        mode: 'no-cors'
+      });
+    } catch(e) { console.warn('Sheets submission failed:', e); }
+  }
+}
+
+// Store fetched subs globally so exportCSV can use them
+let _adminSubs = [];
+
+async function fetchSubmissions() {
+  let submissions = [];
+  // Try Google Sheets first
+  if (SHEETS_WEBHOOK_URL) {
+    try {
+      const resp = await fetch(SHEETS_WEBHOOK_URL + '?action=getAll', { redirect: 'follow' });
+      if (resp.ok) {
+        const data = await resp.json();
+        if (Array.isArray(data) && data.length > 0) {
+          submissions = data;
+          console.log('Loaded ' + data.length + ' submissions from Google Sheets');
+          return submissions;
+        }
+      } else {
+        console.warn('Sheets GET returned status ' + resp.status);
+      }
+    } catch(e) { console.warn('Sheets fetch failed, using localStorage fallback:', e.message); }
+  }
+  // Fallback to localStorage
+  try {
+    submissions = JSON.parse(localStorage.getItem('chn_ai_submissions') || '[]');
+    if (submissions.length > 0) console.log('Loaded ' + submissions.length + ' submissions from localStorage');
+  } catch(e) {}
+  return submissions;
+}
+
+async function renderAdmin() {
+  document.getElementById('surveyContainer').style.display = 'none';
+  document.getElementById('reportContainer').style.display = 'none';
+  document.querySelector('.logo-header').style.display = 'none';
+  document.querySelector('.progress-bar-container').style.display = 'none';
+  const container = document.getElementById('adminContainer');
+  container.style.display = 'block';
+
+  container.innerHTML = '<div class="admin-page"><div class="admin-header"><h1>Assessment Dashboard</h1><span class="admin-loading">Loading submissions...</span></div></div>';
+
+  const subs = await fetchSubmissions();
+  _adminSubs = subs;
+  const total = subs.length;
+
+  if (total === 0) {
+    container.innerHTML = '<div class="admin-page"><div class="admin-header"><h1>Assessment Dashboard</h1></div><div class="admin-section"><p style="color:#7d8792">No submissions yet. Complete the assessment to see data here.</p></div></div>';
+    return;
+  }
+
+  // Compute stats — handle both old format (key-based) and new format (name-based) archetypes
+  const archCounts = {};
+  const fluencyCounts = {};
+  let totalFluency = 0;
+  let qcPassCount = 0;
+
+  // Build reverse lookup: archetype name -> key
+  const archNameToKey = {};
+  Object.entries(ARCHETYPES).forEach(([k, a]) => { archNameToKey[a.name] = k; archNameToKey[k] = k; });
+
+  subs.forEach(s => {
+    // Resolve archetype to key (works with "The Athlete" or "P1")
+    const rawArch = s.dominantArchetype || '';
+    const archKey = archNameToKey[rawArch] || rawArch;
+    archCounts[archKey] = (archCounts[archKey] || 0) + 1;
+
+    const fl = Number(s.fluencyLevel) || 1;
+    fluencyCounts[fl] = (fluencyCounts[fl] || 0) + 1;
+    totalFluency += (Number(s.fluencyScore) || 0);
+    if (s.qcPassed === true || s.qcPassed === 'Yes') qcPassCount++;
+  });
+
+  const topArch = Object.entries(archCounts).sort((a,b) => b[1]-a[1])[0];
+  const topArchName = topArch ? (ARCHETYPES[topArch[0]] ? ARCHETYPES[topArch[0]].name : topArch[0]) : 'N/A';
+  const avgFluency = total > 0 ? (totalFluency / total).toFixed(1) : 0;
+  const qcRate = total > 0 ? Math.round((qcPassCount / total) * 100) : 0;
+
+  let html = '<div class="admin-page">';
+  html += '<div class="admin-header"><h1>Assessment Dashboard</h1><span style="color:#7d8792;font-size:13px">' + total + ' submission' + (total !== 1 ? 's' : '') + '</span></div>';
+
+  // Summary cards
+  html += '<div class="admin-cards">';
+  html += '<div class="admin-stat"><div class="stat-label">Total Responses</div><div class="stat-value">' + total + '</div></div>';
+  html += '<div class="admin-stat"><div class="stat-label">Top Archetype</div><div class="stat-value" style="font-size:18px">' + topArchName + '</div><div class="stat-detail">' + (topArch ? topArch[1] : 0) + ' of ' + total + '</div></div>';
+  html += '<div class="admin-stat"><div class="stat-label">Avg Fluency Score</div><div class="stat-value">' + avgFluency + '</div></div>';
+  html += '<div class="admin-stat"><div class="stat-label">QC Pass Rate</div><div class="stat-value">' + qcRate + '%</div></div>';
+  html += '</div>';
+
+  // Archetype distribution
+  html += '<div class="admin-section"><h2>Archetype Distribution</h2>';
+  const archColors = { P1: '#E8712B', P2: '#4A6670', P3: '#6B2D5B', P4: '#F2A630', P5: '#2D8B5E', P6: '#3B7DD8', P7: '#8B5E3C' };
+  Object.keys(ARCHETYPES).forEach(k => {
+    const ct = archCounts[k] || 0;
+    const pct = total > 0 ? Math.round((ct / total) * 100) : 0;
+    html += '<div class="admin-dist-row"><div class="admin-dist-label">' + ARCHETYPES[k].name.split(' ').pop() + '</div><div class="admin-dist-bar"><div class="admin-dist-fill" style="width:' + pct + '%;background:' + (archColors[k]||'#999') + '"></div></div><div class="admin-dist-count">' + ct + '</div></div>';
+  });
+  html += '</div>';
+
+  // Fluency distribution
+  html += '<div class="admin-section"><h2>Fluency Level Distribution</h2>';
+  for (let l = 1; l <= 5; l++) {
+    const ct = fluencyCounts[l] || 0;
+    const pct = total > 0 ? Math.round((ct / total) * 100) : 0;
+    html += '<div class="admin-dist-row"><div class="admin-dist-label">L' + l + ' ' + (FLUENCY_LEVELS[l] ? FLUENCY_LEVELS[l].name : '') + '</div><div class="admin-dist-bar"><div class="admin-dist-fill" style="width:' + pct + '%;background:var(--deep-purple)"></div></div><div class="admin-dist-count">' + ct + '</div></div>';
+  }
+  html += '</div>';
+
+  // Submissions table (summary columns — full data in CSV export)
+  html += '<div class="admin-section"><h2>All Submissions</h2><p style="font-size:12px;color:#7d8792;margin-bottom:12px">Showing key columns. Use Export CSV for all ' + SUBMISSION_HEADERS.length + ' columns including individual answers.</p><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>#</th><th>Date</th><th>Role</th><th>Function</th><th>Archetype</th><th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>P5</th><th>P6</th><th>P7</th><th>Fluency</th><th>F1</th><th>F2</th><th>F3</th><th>F4</th><th>QC</th></tr></thead><tbody>';
+  subs.forEach((s, i) => {
+    const date = s.timestamp ? new Date(s.timestamp).toLocaleDateString() : '';
+    html += '<tr><td>' + (i+1) + '</td><td>' + date + '</td><td>' + (s.role||'') + '</td><td>' + (s.func||'') + '</td><td>' + (s.dominantArchetype||'') + '</td><td>' + (s.p1Score!=null?s.p1Score:'') + '</td><td>' + (s.p2Score!=null?s.p2Score:'') + '</td><td>' + (s.p3Score!=null?s.p3Score:'') + '</td><td>' + (s.p4Score!=null?s.p4Score:'') + '</td><td>' + (s.p5Score!=null?s.p5Score:'') + '</td><td>' + (s.p6Score!=null?s.p6Score:'') + '</td><td>' + (s.p7Score!=null?s.p7Score:'') + '</td><td>L' + (s.fluencyLevel||'') + ' (' + (s.fluencyScore||'') + ')</td><td>' + (s.f1Score!=null?s.f1Score:'') + '</td><td>' + (s.f2Score!=null?s.f2Score:'') + '</td><td>' + (s.f3Score!=null?s.f3Score:'') + '</td><td>' + (s.f4Score!=null?s.f4Score:'') + '</td><td>' + (s.qcPassed||'') + '</td></tr>';
+  });
+  html += '</tbody></table></div></div>';
+
+  // Export CSV
+  html += '<div class="admin-actions"><button class="btn-primary" onclick="exportCSV()">Export CSV (' + SUBMISSION_HEADERS.length + ' columns)</button></div>';
+
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+function exportCSV() {
+  const subs = _adminSubs.length > 0 ? _adminSubs : JSON.parse(localStorage.getItem('chn_ai_submissions') || '[]');
+  if (subs.length === 0) { alert('No submissions to export.'); return; }
+
+  const rows = subs.map(s => {
+    // Build array matching SUBMISSION_HEADERS order
+    const vals = [
+      s.timestamp, s.role, s.func, s.aiUsage, s.involvement, s.businessUnit,
+      s.dominantArchetype, s.secondaryArchetype,
+      s.p1Score, s.p2Score, s.p3Score, s.p4Score, s.p5Score, s.p6Score, s.p7Score,
+      s.fluencyLevel, s.fluencyScore,
+      s.f1Score, s.f1Level, s.f2Score, s.f2Level, s.f3Score, s.f3Level, s.f4Score, s.f4Level,
+      s.qcPassed, s.visF1, s.visF2, s.visF3, s.visF4,
+      ...ALL_PST_IDS.map(id => s[id] !== undefined ? s[id] : ''),
+      ...ALL_CAP_IDS.map(id => s[id] !== undefined ? s[id] : ''),
+      ...ALL_ART_IDS.map(id => s[id] !== undefined ? s[id] : ''),
+      ...ALL_VIG_IDS.map(id => s[id] !== undefined ? s[id] : '')
+    ];
+    return vals.map(v => '"' + String(v!=null ? v : '').replace(/"/g, '""') + '"').join(',');
+  });
+
+  const csv = [SUBMISSION_HEADERS.join(','), ...rows].join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'chn_ai_submissions_' + new Date().toISOString().split('T')[0] + '.csv';
+  a.click();
+}
+
+// ============================================================
+
+// ============================================================
+//  INITIALIZATION
+// ============================================================
+
+// Google Sheets webhook URL - paste your deployed Apps Script URL here
+const SHEETS_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbw7UXmqu5X8fYKCTwde07e6AgWwWrzSkUkfTHxPD-k7lP7LXHQPxNvZ36Z0XyY2CECS/exec';
+
+loadState();
+buildScreens();
+
+// Admin route check
+if (new URLSearchParams(window.location.search).get('admin') === 'true') {
+  renderAdmin();
+} else {
+  renderScreen();
+}
+</script>
+
+<!-- Profile reports loaded from external data file (profiles.js) -->
+<script src="profiles.js"></script>
+<script>
+if (!window.PROFILE_REPORTS) window.PROFILE_REPORTS = {};
+</script>
+
+</body>
+</html>
