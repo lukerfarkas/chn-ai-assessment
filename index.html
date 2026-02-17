@@ -211,6 +211,8 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--orange); ou
 .radar-legend { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 14px; }
 .radar-legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--dark-slate); }
 .radar-legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.radar-legend-icon { display: inline-flex; align-items: center; flex-shrink: 0; }
+.radar-legend-icon svg { width: 18px; height: 18px; }
 .radar-legend-score { color: #7d8792; font-weight: 500; }
 .radar-legend-item:hover { opacity: 0.8; }
 .archetype-popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.35); z-index: 2000; display: flex; align-items: center; justify-content: center; animation: fadeIn 200ms ease-out; }
@@ -245,7 +247,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--orange); ou
 .toc-list { list-style: none; }
 .toc-item { display: block; padding: 9px 14px; font-size: 13px; font-weight: 500; color: var(--charcoal); border-radius: 8px; margin-bottom: 2px; cursor: pointer; transition: all 0.15s; text-decoration: none; border-left: 3px solid transparent; }
 .toc-item:hover { background: #f0f2f5; }
-.toc-item.active { background: #f2eaf0; color: var(--deep-purple); font-weight: 700; border-left-color: var(--deep-purple); }
+.toc-item.active { background: #f2eaf0; color: var(--deep-purple); font-weight: 700; border-left-color: var(--deep-purple); box-shadow: inset 0 0 0 1px rgba(107,45,91,0.12); }
 .toc-toggle { display: none; width: 100%; padding: 12px 16px; border: 1px solid var(--border); border-radius: 10px; background: white; font-weight: 600; cursor: pointer; font-size: 14px; margin-bottom: 10px; transition: background 0.15s; }
 .toc-toggle:hover { background: #f8f9fb; }
 .report-toc--mobile { overflow: hidden; max-height: 0; opacity: 0; transition: max-height 0.35s ease, opacity 0.25s ease; }
@@ -312,7 +314,8 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--orange); ou
 
 .report-section { margin-bottom: 28px; }
 .section-header { display: flex; align-items: center; gap: 12px; padding: 18px 0 14px; border-bottom: 2px solid #e2e6eb; margin-bottom: 18px; }
-.section-icon { font-size: 22px; flex-shrink: 0; }
+.section-icon { font-size: 22px; flex-shrink: 0; display: inline-flex; align-items: center; }
+.section-icon svg { width: 22px; height: 22px; }
 .section-title { font-family: "Sora", sans-serif; font-size: 18px; font-weight: 700; color: var(--dark-slate); }
 .details-toggle { display: inline-flex; align-items: center; gap: 6px; background: none; border: 1px solid var(--border); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600; color: #7d8792; cursor: pointer; margin: 14px 0; transition: all 0.15s; }
 .details-toggle:hover { background: #f5f7f9; color: var(--dark-slate); }
@@ -648,7 +651,7 @@ const VIGNETTES = [
 // ============================================================
 
 const ARCHETYPES = {
-  P1: { key: 'athlete', name: 'The Athlete', color: 'var(--athlete)',
+  P1: { key: 'athlete', name: 'The Athlete', color: 'var(--athlete)', icon: '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 3a2 2 0 11-4 0 2 2 0 014 0zM7 8l3 1 3-1-1 4-2 1-2-1-1-4zm3 6l-2 4h2l1-2 1 2h2l-2-4h-2z" fill="#E8712B"/></svg>',
     description: 'An Athlete organization builds AI understanding through action\u2014moving fast to learn what works and reduce fear through firsthand experience.',
     coreBelief: 'Momentum creates clarity.',
     coreTension: 'The risk of inertia outweighs the risk of imperfection.',
@@ -657,7 +660,7 @@ const ARCHETYPES = {
     strengths: ['Speed to insight','Reduced fear through firsthand experience','Cultural permission to engage with AI','Early discovery of meaningful use cases'],
     constraints: ['Tool sprawl and duplicated effort','Inconsistent quality and uneven outcomes','Difficulty scaling successful experiments']
   },
-  P2: { key: 'builder', name: 'The Builder', color: 'var(--builder)',
+  P2: { key: 'builder', name: 'The Builder', color: 'var(--builder)', icon: '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="12" width="7" height="6" rx="1" fill="#4A6670"/><rect x="11" y="8" width="7" height="10" rx="1" fill="#4A6670" opacity="0.7"/><rect x="6" y="4" width="7" height="14" rx="1" fill="#4A6670" opacity="0.85"/></svg>',
     description: 'A Builder organization treats AI as infrastructure\u2014designing durable, scalable systems rather than relying on one-off tools.',
     coreBelief: 'Real advantage is built, not bolted on.',
     coreTension: 'Short-term wins are meaningless if they create long-term fragility.',
@@ -666,7 +669,7 @@ const ARCHETYPES = {
     strengths: ['Durable capability and compounding advantage','Technical coherence and interoperability','Scalable innovation with reduced reinvention'],
     constraints: ['Slow time-to-value','Adoption lag ("we built it, but\u2026")','Perception of over-engineering']
   },
-  P3: { key: 'steward', name: 'The Steward', color: 'var(--steward)',
+  P3: { key: 'steward', name: 'The Steward', color: 'var(--steward)', icon: '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 1L3 5v5c0 4.4 3 8.5 7 9.5 4-1 7-5.1 7-9.5V5l-7-4z" fill="#6B2D5B"/><path d="M9 10l-2-2-1 1 3 3 5-5-1-1-4 4z" fill="white"/></svg>',
     description: 'A Steward organization orients around trust\u2014ensuring AI is safe, ethical, and defensible before it scales.',
     coreBelief: 'Trust is a prerequisite for scale.',
     coreTension: 'The cost of preventable harm outweighs the cost of delayed progress.',
@@ -675,7 +678,7 @@ const ARCHETYPES = {
     strengths: ['Reduced organizational risk','Ethical clarity','Long-term credibility and trust','Greater confidence for leaders and teams'],
     constraints: ['Missed opportunities and slower learning','Friction with faster-moving teams','Innovation moving outside formal channels']
   },
-  P4: { key: 'integrator', name: 'The Integrator', color: 'var(--integrator)',
+  P4: { key: 'integrator', name: 'The Integrator', color: 'var(--integrator)', icon: '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6" cy="6" r="3" fill="#F2A630"/><circle cx="14" cy="6" r="3" fill="#F2A630" opacity="0.7"/><circle cx="6" cy="14" r="3" fill="#F2A630" opacity="0.7"/><circle cx="14" cy="14" r="3" fill="#F2A630"/><path d="M9 6h2M6 9v2M14 9v2M9 14h2" stroke="#F2A630" stroke-width="1.5"/></svg>',
     description: 'An Integrator organization focuses on making AI real\u2014embedding it into workflows so it actually gets used at scale.',
     coreBelief: 'Value only exists if people actually use it.',
     coreTension: 'Potential without adoption is wasted effort.',
@@ -684,7 +687,7 @@ const ARCHETYPES = {
     strengths: ['Scaled adoption and consistent usage','Operational reliability and reduced fragmentation','Realized value from AI investments'],
     constraints: ['Limited experimentation and fewer novel discoveries','Slower responsiveness to emerging opportunities']
   },
-  P5: { key: 'optimizer', name: 'The Optimizer', color: 'var(--optimizer)',
+  P5: { key: 'optimizer', name: 'The Optimizer', color: 'var(--optimizer)', icon: '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 17l4-5 3 2 4-6 3-2" stroke="#2D8B5E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 6h3v3" stroke="#2D8B5E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     description: 'An Optimizer organization adopts AI to measurably improve performance, efficiency, and outcomes.',
     coreBelief: 'If it doesn\'t improve outcomes, it doesn\'t matter.',
     coreTension: 'Resources spent on low-impact initiatives crowd out real value.',
@@ -693,7 +696,7 @@ const ARCHETYPES = {
     strengths: ['Fast, defensible wins','Executive credibility and disciplined prioritization','Clear measurement of AI value'],
     constraints: ['Undervaluing longer-horizon benefits','Treating AI only as automation','Missing transformational opportunities']
   },
-  P6: { key: 'visionary', name: 'The Visionary', color: 'var(--visionary)',
+  P6: { key: 'visionary', name: 'The Visionary', color: 'var(--visionary)', icon: '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="4" stroke="#3B7DD8" stroke-width="2"/><circle cx="10" cy="10" r="1.5" fill="#3B7DD8"/><path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.9 4.9l1.4 1.4M13.7 13.7l1.4 1.4M4.9 15.1l1.4-1.4M13.7 6.3l1.4-1.4" stroke="#3B7DD8" stroke-width="1.5" stroke-linecap="round"/></svg>',
     description: 'A Visionary organization uses AI to reimagine strategy, offerings, and long-term advantage\u2014not just efficiency.',
     coreBelief: 'AI changes what\'s possible, not just what\'s efficient.',
     coreTension: 'Incrementalism risks irrelevance.',
@@ -702,7 +705,7 @@ const ARCHETYPES = {
     strengths: ['Direction and coherence across AI work','Strategic differentiation','Cultural ambition and alignment'],
     constraints: ['Execution gaps and abstraction','Overpromising relative to operational readiness','Friction with teams needing clarity and support']
   },
-  P7: { key: 'skeptic', name: 'The Skeptic', color: 'var(--skeptic)',
+  P7: { key: 'skeptic', name: 'The Skeptic', color: 'var(--skeptic)', icon: '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8.5" cy="8.5" r="5" stroke="#8B5E3C" stroke-width="2"/><path d="M12.5 12.5L17 17" stroke="#8B5E3C" stroke-width="2.5" stroke-linecap="round"/></svg>',
     description: 'A Skeptic organization pressures AI claims with evidence\u2014demanding proof before belief or scale.',
     coreBelief: 'Credibility comes from evidence.',
     coreTension: 'Overconfidence creates blind spots.',
@@ -1406,7 +1409,7 @@ function renderRadarChart(scores) {
     const sc = Math.round(scores.postureFinal[key]);
     const isDom = key === scores.dominantArchetype;
     const isSec = key === scores.secondaryArchetype;
-    html += '<div class="radar-legend-item" style="cursor:pointer" onclick="showArchetypePopup(\'' + key + '\')"><div class="radar-legend-dot" style="background:' + colorMap[key] + '"></div>' + a.name.split(' ').pop() + ' <span class="radar-legend-score">' + sc + '</span>';
+    html += '<div class="radar-legend-item" style="cursor:pointer" onclick="showArchetypePopup(\'' + key + '\')"><span class="radar-legend-icon">' + (a.icon || '') + '</span>' + a.name.split(' ').pop() + ' <span class="radar-legend-score">' + sc + '</span>';
     if (isDom) html += ' <span class="badge dominant-badge">Top</span>';
     if (isSec) html += ' <span class="badge secondary-badge">2nd</span>';
     html += '</div>';
@@ -1502,7 +1505,7 @@ function showFullReport(archetypeKey, fluencyLevel) {
 
   // TOC
   html += `<nav class="report-toc" id="reportToc"><ul class="toc-list">`;
-  const sectionIcons = ['\ud83c\udfaf','\ud83d\udd0d','\u26a0\ufe0f','\ud83d\udd04','\u2705','\ud83d\ude80','\ud83d\uddfa\ufe0f','\u23f8\ufe0f','\ud83d\udcdd'];
+  const sectionIcons = ['<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="11" cy="11" r="9" stroke="#6B2D5B" stroke-width="2"/><circle cx="11" cy="11" r="5" stroke="#6B2D5B" stroke-width="1.5"/><circle cx="11" cy="11" r="1.5" fill="#6B2D5B"/></svg>','<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 11c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="#6B2D5B" stroke-width="2" stroke-linecap="round"/><path d="M11 11l4-4" stroke="#6B2D5B" stroke-width="2" stroke-linecap="round"/><circle cx="11" cy="11" r="2" fill="#6B2D5B"/><path d="M11 14v4M7 16l4 2 4-2" stroke="#6B2D5B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>','<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 3L2 19h18L11 3z" stroke="#6B2D5B" stroke-width="2" stroke-linejoin="round"/><path d="M11 10v4" stroke="#6B2D5B" stroke-width="2" stroke-linecap="round"/><circle cx="11" cy="16" r="1" fill="#6B2D5B"/></svg>','<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 4v4H4M14 18v-4h4" stroke="#6B2D5B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 8a7 7 0 0112.5-3M18 14a7 7 0 01-12.5 3" stroke="#6B2D5B" stroke-width="2" stroke-linecap="round"/></svg>','<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="11" cy="11" r="9" stroke="#6B2D5B" stroke-width="2"/><path d="M7 11l3 3 5-6" stroke="#6B2D5B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>','<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 3v2M4.2 6.8l1.4 1.4M3 13h2M4.2 19.2l1.4-1.4" stroke="#6B2D5B" stroke-width="1.5" stroke-linecap="round"/><path d="M7 13a4 4 0 118 0" stroke="#6B2D5B" stroke-width="2" stroke-linecap="round"/><rect x="6" y="17" width="10" height="2" rx="1" fill="#6B2D5B"/><path d="M11 13V9" stroke="#6B2D5B" stroke-width="2" stroke-linecap="round"/></svg>','<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="5" cy="5" r="2.5" stroke="#6B2D5B" stroke-width="1.5"/><circle cx="17" cy="17" r="2.5" stroke="#6B2D5B" stroke-width="1.5"/><circle cx="17" cy="8" r="1.5" fill="#6B2D5B" opacity="0.4"/><path d="M7 6l8 2M7 7l8 8" stroke="#6B2D5B" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="2 2"/></svg>','<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="11" cy="11" r="9" stroke="#6B2D5B" stroke-width="2"/><path d="M8 8v6M14 8v6" stroke="#6B2D5B" stroke-width="2.5" stroke-linecap="round"/></svg>','<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="2" width="14" height="18" rx="2" stroke="#6B2D5B" stroke-width="2"/><path d="M8 7h6M8 11h6M8 15h4" stroke="#6B2D5B" stroke-width="1.5" stroke-linecap="round"/></svg>'];
   sections.forEach((sec, i) => {
     html += `<a class="toc-item ${i===0?'active':''}" href="#section-${i}" onclick="scrollToSection(${i})">${sec.title}</a>`;
   });
@@ -1603,21 +1606,34 @@ function scrollToSection(idx) {
 
 function initTocObserver() {
   const sections = document.querySelectorAll('.report-section');
-  const tocItems = document.querySelectorAll('.toc-item');
-  if (!sections.length || !tocItems.length) return;
+  if (!sections.length) return;
+
+  // Get desktop and mobile TOC items separately
+  const desktopToc = document.getElementById('reportToc');
+  const mobileToc = document.getElementById('mobileToc');
+  const desktopItems = desktopToc ? desktopToc.querySelectorAll('.toc-item') : [];
+  const mobileItems = mobileToc ? mobileToc.querySelectorAll('.toc-item') : [];
+
+  let currentIdx = 0;
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const id = entry.target.id;
         const idx = parseInt(id.replace('section-', ''));
-        tocItems.forEach((item, i) => {
-          item.classList.toggle('active', i === idx);
-        });
+        if (!isNaN(idx)) {
+          currentIdx = idx;
+          desktopItems.forEach((item, i) => item.classList.toggle('active', i === idx));
+          mobileItems.forEach((item, i) => item.classList.toggle('active', i === idx));
+          // Scroll active TOC item into view if needed
+          if (desktopItems[idx]) {
+            desktopItems[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        }
       }
     });
   }, {
-    rootMargin: '-80px 0px -60% 0px',
+    rootMargin: '-80px 0px -50% 0px',
     threshold: 0
   });
 
