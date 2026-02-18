@@ -154,6 +154,23 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--orange); ou
 .secondary-chip { display: inline-flex; background: #f0f2f5; border-radius: 999px; padding: 4px 12px; font-size: 12px; font-weight: 600; color: var(--dark-slate); }
 .hero-score { font-family: "Sora", sans-serif; font-size: 36px; font-weight: 800; color: var(--deep-purple); text-align: center; flex-shrink: 0; }
 .hero-score span { display: block; font-size: 11px; font-weight: 600; color: #9aa3ad; text-transform: uppercase; }
+.results-orientation { background: #f8f6fb; border-radius: 14px; padding: 18px 24px; margin-bottom: 18px; border: 1px solid #ece6f0; }
+.results-orientation p { font-size: 14px; line-height: 1.65; color: var(--charcoal); margin: 0; }
+.hero-detail { font-size: 13px; color: var(--charcoal); line-height: 1.55; margin-bottom: 4px; }
+.hero-detail-label { font-weight: 700; color: var(--dark-slate); }
+.fluency-segment-wrap { display: flex; flex-direction: column; align-items: center; flex: 1; }
+.fluency-segment-label { font-size: 10px; color: #9aa3ad; margin-top: 4px; font-weight: 500; }
+.fluency-segment-label.active { font-weight: 700; color: var(--deep-purple); }
+.fluency-segment-label.past { color: var(--deep-purple); opacity: 0.6; }
+.results-explainer { background: white; border-radius: 12px; border: 1px solid #e8ecf0; padding: 16px 20px; margin: 16px 0; }
+.results-explainer summary { cursor: pointer; font-weight: 700; font-size: 14px; color: var(--dark-slate); list-style: none; display: flex; align-items: center; gap: 8px; }
+.results-explainer summary::-webkit-details-marker { display: none; }
+.results-explainer summary::before { content: '\25B6'; font-size: 10px; transition: transform 0.2s; }
+.results-explainer[open] summary::before { transform: rotate(90deg); }
+.explainer-content { padding-top: 12px; }
+.explainer-content h4 { font-size: 13px; font-weight: 700; color: var(--dark-slate); margin: 14px 0 4px; }
+.explainer-content h4:first-child { margin-top: 0; }
+.explainer-content p { font-size: 13px; line-height: 1.65; color: var(--charcoal); margin: 0 0 6px; }
 
 .fluency-card { background: white; border-radius: 18px; box-shadow: var(--shadow-card); padding: 28px 32px; border: 1px solid #e8ecf0; }
 .fluency-header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
@@ -1271,6 +1288,9 @@ function renderResults(el) {
     html += '<div class="qc-warning"><strong>Quality Check Note:</strong> One or more attention check questions were not answered correctly. Results should be interpreted with caution.</div>';
   }
 
+  // Orientation banner
+  html += `<div class="results-orientation animate-stagger" style="animation-delay:0.05s"><p><strong>Your results are in.</strong> This assessment measures two things: your organization\u2019s <strong>AI orientation</strong> \u2014 the instincts that shape how it approaches AI \u2014 and its <strong>AI fluency</strong> \u2014 how capable it is of turning those instincts into operational reality.</p></div>`;
+
   // Hero Card
   html += `
     <div class="results-hero-card animate-stagger" style="animation-delay:0.1s">
@@ -1279,7 +1299,9 @@ function renderResults(el) {
         <div class="hero-subtitle">Your AI Orientation</div>
         <h1>${dom.name}</h1>
         <p class="hero-desc">${dom.description}</p>
-        ${sec ? `<div class="secondary-chip">with ${sec.name} tendencies</div>` : ''}
+        <div class="hero-detail"><span class="hero-detail-label">Core belief:</span> ${dom.coreBelief}</div>
+        <div class="hero-detail"><span class="hero-detail-label">Approach:</span> ${dom.approach}</div>
+        ${sec ? `<div class="secondary-chip" style="margin-top:8px">with ${sec.name} tendencies</div>` : ''}
       </div>
       <div class="hero-score" data-target="${domScore}"><span>score</span>${domScore}</div>
     </div>
@@ -1294,7 +1316,7 @@ function renderResults(el) {
       <div class="fluency-gauge">
         ${[1,2,3,4,5].map(l => {
           const cls = l < scores.overallFluencyLevel ? 'past' : l === scores.overallFluencyLevel ? 'active' : '';
-          return `<div class="fluency-segment ${cls}"></div>`;
+          return `<div class="fluency-segment-wrap"><div class="fluency-segment ${cls}"></div><div class="fluency-segment-label ${cls}">L${l}</div></div>`;
         }).join('')}
       </div>
       <div class="fluency-level-label">Level ${scores.overallFluencyLevel}: ${fl.name}</div>
@@ -1320,6 +1342,9 @@ function renderResults(el) {
 
   // Radar Chart
   html += renderRadarChart(scores);
+
+  // How to read your results
+  html += `<details class="results-explainer animate-stagger" style="animation-delay:0.35s"><summary>How to read your results</summary><div class="explainer-content"><h4>AI Orientation (the radar chart)</h4><p>The chart above profiles your organization across seven AI orientations \u2014 distinct instincts that shape how organizations approach AI. Most organizations have one dominant orientation with one or two secondary tendencies. Higher scores mean stronger alignment. Click any name in the legend to learn more about each orientation.</p><h4>AI Fluency (the gauge)</h4><p>Fluency measures your organization\u2019s operational readiness for AI across four dimensions: Use & Value, Enablement & Adoption, Risk & Trust, and Platform & Data. Your overall level is determined by the weakest dimension \u2014 a single lagging area holds back the whole. Five levels range from Orientation (just starting) to Advantage (AI as compounding strategic capability).</p><h4>The scores</h4><p>Scores run 0\u2013100 and reflect how strongly your responses aligned with each orientation or fluency dimension. They are not grades \u2014 a high Steward score and low Athlete score simply means your organization\u2019s instincts lean toward trust and governance over rapid experimentation.</p></div></details>`;
 
   // Explore CTA
   html += `
