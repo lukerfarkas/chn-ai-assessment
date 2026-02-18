@@ -961,6 +961,7 @@ function renderPostureSingle(el, screen) {
   el.innerHTML = `
     <div class="card question-card">
       <div class="section-pill">Section 2 of 6</div>
+      <div class="item-code">${item.id}</div>
       <div class="question-text">${item.text}</div>
       <div class="single-likert">
         ${[1,2,3,4,5].map(v => `
@@ -983,6 +984,7 @@ function renderCapabilitySingle(el, screen) {
   el.innerHTML = `
     <div class="card question-card">
       <div class="section-pill">Section 3 of 6</div>
+      <div class="item-code">${item.id}</div>
       <div class="question-text">${item.text}</div>
       <div class="single-likert">
         ${[1,2,3,4,5].map(v => `
@@ -1010,6 +1012,7 @@ function renderArtifactSingle(el, screen) {
   el.innerHTML = `
     <div class="card question-card">
       <div class="section-pill">Section 5 of 6</div>
+      <div class="item-code">${item.id}</div>
       <div class="question-text">${item.text}</div>
       <div class="single-likert">
         ${[1,2,3,4].map(v => `
@@ -2051,6 +2054,12 @@ function showValidationFeedback() {
 
 function nextScreen() {
   if (state.currentScreen < state.totalScreens - 1) {
+    // Capture text input value before advancing (handles Next button click)
+    const screen = state.screens[state.currentScreen];
+    if (screen && screen.type === 'context' && screen.question && screen.question.type === 'text') {
+      const inp = document.getElementById('textInput');
+      if (inp) { state.responses[screen.question.id] = inp.value; saveState(); }
+    }
     if (!isCurrentScreenAnswered()) { showValidationFeedback(); return; }
     state.currentScreen++;
     renderScreen();
