@@ -960,8 +960,7 @@ function renderPostureSingle(el, screen) {
   const val = state.responses[item.id];
   el.innerHTML = `
     <div class="card question-card">
-      <div class="section-pill">Section 2 of 6 \u2022 ${screen.label}</div>
-      <div class="item-code">${item.id}</div>
+      <div class="section-pill">Section 2 of 6</div>
       <div class="question-text">${item.text}</div>
       <div class="single-likert">
         ${[1,2,3,4,5].map(v => `
@@ -983,8 +982,7 @@ function renderCapabilitySingle(el, screen) {
   const val = state.responses[item.id];
   el.innerHTML = `
     <div class="card question-card">
-      <div class="section-pill">Section 3 of 6 \u2022 ${screen.label}</div>
-      <div class="item-code">${item.id}</div>
+      <div class="section-pill">Section 3 of 6</div>
       <div class="question-text">${item.text}</div>
       <div class="single-likert">
         ${[1,2,3,4,5].map(v => `
@@ -1011,8 +1009,7 @@ function renderArtifactSingle(el, screen) {
   const val = state.responses[item.id];
   el.innerHTML = `
     <div class="card question-card">
-      <div class="section-pill">Section 5 of 6 \u2022 ${screen.label}</div>
-      <div class="item-code">${item.id}</div>
+      <div class="section-pill">Section 5 of 6</div>
       <div class="question-text">${item.text}</div>
       <div class="single-likert">
         ${[1,2,3,4].map(v => `
@@ -2288,6 +2285,12 @@ async function renderAdmin() {
   const avgFluency = total > 0 ? (totalFluency / total).toFixed(1) : 0;
   const qcRate = total > 0 ? Math.round((qcPassCount / total) * 100) : 0;
 
+  // Org-level rollup: most common archetype + most common fluency level
+  const orgArchKey = topArch && ARCHETYPES[topArch[0]] ? ARCHETYPES[topArch[0]].key : '';
+  const fluencyEntries = Object.entries(fluencyCounts).sort((a, b) => b[1] - a[1] || Number(a[0]) - Number(b[0]));
+  const orgFL = fluencyEntries.length > 0 ? Number(fluencyEntries[0][0]) : 1;
+  const orgFLName = FLUENCY_LEVELS[orgFL] ? FLUENCY_LEVELS[orgFL].name : '';
+
   let html = '<div class="admin-page">';
   html += '<div class="admin-header"><h1>Assessment Dashboard</h1><span style="color:#7d8792;font-size:13px">' + total + ' submission' + (total !== 1 ? 's' : '') + '</span></div>';
 
@@ -2326,8 +2329,13 @@ async function renderAdmin() {
   });
   html += '</tbody></table></div></div>';
 
-  // Export CSV
-  html += '<div class="admin-actions"><button class="btn-primary" onclick="exportCSV()">Export CSV (' + SUBMISSION_HEADERS.length + ' columns)</button></div>';
+  // Actions
+  html += '<div class="admin-actions" style="display:flex;gap:12px;flex-wrap:wrap">';
+  if (orgArchKey) {
+    html += '<button class="btn-primary" onclick="showFullReport(\'' + orgArchKey + '\',' + orgFL + ')" style="background:var(--deep-purple)">Explore Organization Results \u2014 ' + topArchName + ' at L' + orgFL + '</button>';
+  }
+  html += '<button class="btn-primary" onclick="exportCSV()">Export CSV (' + SUBMISSION_HEADERS.length + ' columns)</button>';
+  html += '</div>';
 
   html += '</div>';
   container.innerHTML = html;
