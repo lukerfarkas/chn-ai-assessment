@@ -154,14 +154,17 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--orange); ou
 .secondary-chip { display: inline-flex; background: #f0f2f5; border-radius: 999px; padding: 4px 12px; font-size: 12px; font-weight: 600; color: var(--dark-slate); }
 .hero-score { font-family: "Sora", sans-serif; font-size: 36px; font-weight: 800; color: var(--deep-purple); text-align: center; flex-shrink: 0; }
 .hero-score span { display: block; font-size: 11px; font-weight: 600; color: #9aa3ad; text-transform: uppercase; }
-.results-orientation { background: #f8f6fb; border-radius: 14px; padding: 18px 24px; margin-bottom: 18px; border: 1px solid #ece6f0; }
-.results-orientation p { font-size: 14px; line-height: 1.65; color: var(--charcoal); margin: 0; }
 .hero-detail { font-size: 13px; color: var(--charcoal); line-height: 1.55; margin-bottom: 4px; }
 .hero-detail-label { font-weight: 700; color: var(--dark-slate); }
-.fluency-segment-wrap { display: flex; flex-direction: column; align-items: center; flex: 1; }
-.fluency-segment-label { font-size: 10px; color: #9aa3ad; margin-top: 4px; font-weight: 500; }
-.fluency-segment-label.active { font-weight: 700; color: var(--deep-purple); }
-.fluency-segment-label.past { color: var(--deep-purple); opacity: 0.6; }
+.hero-fluency-section { border-top: 1px solid #e8ecf0; margin-top: 16px; padding-top: 16px; }
+.hero-fluency-header { font-size: 12px; font-weight: 700; color: #9aa3ad; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+.hero-fluency-title { font-family: "Sora", sans-serif; font-size: 20px; font-weight: 700; color: var(--deep-purple); margin-bottom: 4px; }
+.hero-fluency-desc { font-size: 13px; color: var(--charcoal); line-height: 1.55; margin-bottom: 12px; }
+.level-bar { display: flex; gap: 0; border-radius: 8px; overflow: hidden; height: 28px; background: #e8ecf0; position: relative; }
+.level-bar-segment { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; color: #9aa3ad; background: #e8ecf0; border-right: 2px solid white; position: relative; transition: all 0.3s; }
+.level-bar-segment:last-child { border-right: none; }
+.level-bar-segment.filled { background: var(--deep-purple); color: rgba(255,255,255,0.7); }
+.level-bar-segment.current { background: linear-gradient(90deg, var(--deep-purple), var(--orange)); color: white; font-weight: 800; font-size: 11px; }
 .results-explainer { background: white; border-radius: 12px; border: 1px solid #e8ecf0; padding: 16px 20px; margin: 16px 0; }
 .results-explainer summary { cursor: pointer; font-weight: 700; font-size: 14px; color: var(--dark-slate); list-style: none; display: flex; align-items: center; gap: 8px; }
 .results-explainer summary::-webkit-details-marker { display: none; }
@@ -1288,40 +1291,48 @@ function renderResults(el) {
     html += '<div class="qc-warning"><strong>Quality Check Note:</strong> One or more attention check questions were not answered correctly. Results should be interpreted with caution.</div>';
   }
 
-  // Orientation banner
-  html += `<div class="results-orientation animate-stagger" style="animation-delay:0.05s"><p><strong>Your results are in.</strong> This assessment measures two things: your organization\u2019s <strong>AI orientation</strong> \u2014 the instincts that shape how it approaches AI \u2014 and its <strong>AI fluency</strong> \u2014 how capable it is of turning those instincts into operational reality.</p></div>`;
+  const flLevelNames = { 1: 'Orientation', 2: 'Exploration', 3: 'Operationalization', 4: 'Institutionalization', 5: 'Advantage' };
 
-  // Hero Card
+  // Combined Hero Card — archetype + fluency top-level
   html += `
-    <div class="results-hero-card animate-stagger" style="animation-delay:0.1s">
-      <div class="hero-icon" style="background:${getColorValue(dom.color)}">${dom.icon}</div>
-      <div class="hero-info">
-        <div class="hero-subtitle">Your AI Orientation</div>
-        <h1>${dom.name}</h1>
-        <p class="hero-desc">${dom.description}</p>
-        <div class="hero-detail"><span class="hero-detail-label">Core belief:</span> ${dom.coreBelief}</div>
-        <div class="hero-detail"><span class="hero-detail-label">Approach:</span> ${dom.approach}</div>
-        ${sec ? `<div class="secondary-chip" style="margin-top:8px">with ${sec.name} tendencies</div>` : ''}
+    <div class="results-hero-card animate-stagger" style="animation-delay:0.1s;flex-direction:column">
+      <div style="display:flex;align-items:center;gap:24px;width:100%">
+        <div class="hero-icon" style="background:${getColorValue(dom.color)}">${dom.icon}</div>
+        <div class="hero-info">
+          <div class="hero-subtitle">Your AI Orientation</div>
+          <h1>${dom.name}</h1>
+          <p class="hero-desc">${dom.description}</p>
+          <div class="hero-detail"><span class="hero-detail-label">Core belief:</span> ${dom.coreBelief}</div>
+          <div class="hero-detail"><span class="hero-detail-label">Approach:</span> ${dom.approach}</div>
+          ${sec ? `<div class="secondary-chip" style="margin-top:8px">with ${sec.name} tendencies</div>` : ''}
+        </div>
+        <div class="hero-score" data-target="${domScore}"><span>score</span>${domScore}</div>
       </div>
-      <div class="hero-score" data-target="${domScore}"><span>score</span>${domScore}</div>
+      <div class="hero-fluency-section">
+        <div class="hero-fluency-header">AI Fluency Level</div>
+        <div class="hero-fluency-title">Level ${scores.overallFluencyLevel}: ${fl.name}</div>
+        <div class="hero-fluency-desc">${fl.description}</div>
+        <div class="level-bar">
+          ${[1,2,3,4,5].map(l => {
+            const cls = l < scores.overallFluencyLevel ? 'filled' : l === scores.overallFluencyLevel ? 'current' : '';
+            return '<div class="level-bar-segment ' + cls + '">' + flLevelNames[l] + '</div>';
+          }).join('')}
+        </div>
+      </div>
     </div>
   `;
 
-  // Fluency Card (redesigned)
+  // How to read your results
+  html += `<details class="results-explainer animate-stagger" style="animation-delay:0.15s"><summary>How to read your results</summary><div class="explainer-content"><h4>AI Orientation (the radar chart)</h4><p>The chart below profiles your organization across seven AI orientations \u2014 distinct instincts that shape how organizations approach AI. Most organizations have one dominant orientation with one or two secondary tendencies. Higher scores mean stronger alignment. Click any name in the legend to learn more about each orientation.</p><h4>AI Fluency (the breakdown)</h4><p>Fluency measures your organization\u2019s operational readiness for AI across four dimensions: Use & Value, Enablement & Adoption, Risk & Trust, and Platform & Data. Your overall level is determined by the weakest dimension \u2014 a single lagging area holds back the whole. Five levels range from Orientation (just starting) to Advantage (AI as compounding strategic capability).</p><h4>The scores</h4><p>Scores run 0\u2013100 and reflect how strongly your responses aligned with each orientation or fluency dimension. They are not grades \u2014 a high Steward score and low Athlete score simply means your organization\u2019s instincts lean toward trust and governance over rapid experimentation.</p></div></details>`;
+
+  // Radar Chart
+  html += renderRadarChart(scores);
+
+  // Fluency Breakdown Card
   const minFLevel = Math.min(...Object.values(scores.fluencyLevels));
   const visGapSummary = Object.entries(scores.visibilityGaps).filter(([_,g]) => g > 20);
   html += `
-    <div class="fluency-card animate-stagger" style="animation-delay:0.2s">
-      <h2 style="font-size:14px;font-weight:700;color:#7d8792;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px">AI Fluency Level</h2>
-      <div class="fluency-gauge">
-        ${[1,2,3,4,5].map(l => {
-          const cls = l < scores.overallFluencyLevel ? 'past' : l === scores.overallFluencyLevel ? 'active' : '';
-          return `<div class="fluency-segment-wrap"><div class="fluency-segment ${cls}"></div><div class="fluency-segment-label ${cls}">L${l}</div></div>`;
-        }).join('')}
-      </div>
-      <div class="fluency-level-label">Level ${scores.overallFluencyLevel}: ${fl.name}</div>
-      <p class="fluency-desc">${fl.description}</p>
-      <hr class="fluency-divider">
+    <div class="fluency-card animate-stagger" style="animation-delay:0.3s">
       <div class="fluency-breakdown-title">Fluency Components</div>
       <div class="fluency-breakdown">
         ${['F1','F2','F3','F4'].map(f => {
@@ -1340,15 +1351,9 @@ function renderResults(el) {
     </div>
   `;
 
-  // Radar Chart
-  html += renderRadarChart(scores);
-
-  // How to read your results
-  html += `<details class="results-explainer animate-stagger" style="animation-delay:0.35s"><summary>How to read your results</summary><div class="explainer-content"><h4>AI Orientation (the radar chart)</h4><p>The chart above profiles your organization across seven AI orientations \u2014 distinct instincts that shape how organizations approach AI. Most organizations have one dominant orientation with one or two secondary tendencies. Higher scores mean stronger alignment. Click any name in the legend to learn more about each orientation.</p><h4>AI Fluency (the gauge)</h4><p>Fluency measures your organization\u2019s operational readiness for AI across four dimensions: Use & Value, Enablement & Adoption, Risk & Trust, and Platform & Data. Your overall level is determined by the weakest dimension \u2014 a single lagging area holds back the whole. Five levels range from Orientation (just starting) to Advantage (AI as compounding strategic capability).</p><h4>The scores</h4><p>Scores run 0\u2013100 and reflect how strongly your responses aligned with each orientation or fluency dimension. They are not grades \u2014 a high Steward score and low Athlete score simply means your organization\u2019s instincts lean toward trust and governance over rapid experimentation.</p></div></details>`;
-
   // Explore CTA
   html += `
-    <div class="explore-cta animate-stagger" style="animation-delay:0.4s">
+    <div class="explore-cta animate-stagger" style="animation-delay:0.35s">
       <button class="btn-primary" onclick="showFullReport('${dom.key}', ${scores.overallFluencyLevel})">
         Explore My Results \u2192
       </button>
@@ -1359,7 +1364,7 @@ function renderResults(el) {
   const totalVis = Object.values(scores.visibilityGaps).reduce((a,b)=>a+b,0)/4;
   if (totalVis > 10) {
     html += `
-      <div class="visibility-gap animate-stagger" style="animation-delay:0.5s">
+      <div class="visibility-gap animate-stagger" style="animation-delay:0.4s">
         <h4>Visibility Gap Analysis</h4>
         <p>${Math.round(totalVis)}% of questions were answered with "heard but haven't seen" or "don't know," suggesting gaps in organizational visibility around AI initiatives.</p>
         <ul>${Object.entries(scores.visibilityGaps).filter(([_,g])=>g>15).map(([k,g])=>`<li>${SUBSYSTEMS[k].name}: ${Math.round(g)}%</li>`).join('')}</ul>
