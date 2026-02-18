@@ -1,0 +1,7 @@
+name = "chn-ai-assessment"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+account_id = "668d89cde9909f0f9f6c455aa016cc0d"
+
+[assets]
+directory = "."

@@ -1,0 +1,8 @@
+.git/
+.wrangler/
+docs/
+node_modules/
+wrangler.toml
+worker.js
+sheets_backend.gs
+*.md
