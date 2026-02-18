@@ -283,6 +283,10 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--orange); ou
 .styled-list { padding-left: 0; list-style: none; margin: 12px 0; }
 .styled-list li { position: relative; padding-left: 20px; font-size: 14px; line-height: 1.7; color: var(--charcoal); margin-bottom: 8px; }
 .styled-list li::before { content: ''; position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--deep-purple); }
+.following-list { counter-reset: following; padding-left: 0; list-style: none; margin: 16px 0; }
+.following-list .numbered-item { counter-increment: following; position: relative; padding-left: 36px; font-size: 14px; line-height: 1.7; color: var(--charcoal); margin-bottom: 16px; }
+.following-list .numbered-item::before { content: counter(following); position: absolute; left: 0; top: 0; width: 24px; height: 24px; border-radius: 50%; background: var(--deep-purple); color: white; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; font-family: "Sora", sans-serif; }
+.following-list .numbered-item strong { color: var(--dark-slate); }
 .section-divider { border: none; border-top: 1px solid #e2e6eb; margin: 28px 0; }
 .report-body-text { font-size: var(--report-prose-size); line-height: var(--report-prose-line-height); color: var(--charcoal); margin-bottom: 16px; }
 .report-back-footer { text-align: center; margin: 36px 0; }
@@ -1784,11 +1788,23 @@ function inlineFormat(text) {
   return text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
 }
 
+function isFollowingTrigger(text) {
+  const low = text.toLowerCase();
+  return /following\b/.test(low) && /\b(true|present|common|apply|recognizable|likely|hold|covers|reflect|represent|strengths|list)\b/.test(low);
+}
+function boldFirstSentence(text) {
+  const m = text.match(/^([^.!?]+[.!?])\s*(.*)$/s);
+  if (m) return '<strong>' + inlineFormat(m[1]) + '</strong> ' + inlineFormat(m[2]);
+  return inlineFormat(text);
+}
+
 function renderSectionContent(content) {
   const lines = content.split('\n');
   let html = '';
   let inBoldItem = false;
   let introMode = true;
+  let numberedMode = false;
+  let numberedCount = 0;
   let currentBoldTitle = '';
   let currentBoldBody = '';
 
@@ -1806,19 +1822,24 @@ function renderSectionContent(content) {
       cardIndex++;
     }
   }
+  function flushNumbered() {
+    if (numberedMode && numberedCount > 0) html += '</ol>';
+    numberedMode = false;
+    numberedCount = 0;
+  }
 
   for (const line of lines) {
     const trimmed = line.trim();
     if (!trimmed) continue;
 
     const h3Match = trimmed.match(/^### (.+)$/);
-    if (h3Match) { flushBoldItem(); introMode = false; html += '<h3 class="report-subhead">' + h3Match[1] + '</h3>'; continue; }
+    if (h3Match) { flushBoldItem(); flushNumbered(); introMode = false; html += '<h3 class="report-subhead">' + h3Match[1] + '</h3>'; continue; }
 
-    if (trimmed === '---') { flushBoldItem(); html += '<hr class="section-divider">'; continue; }
+    if (trimmed === '---') { flushBoldItem(); flushNumbered(); html += '<hr class="section-divider">'; continue; }
 
     const boldStartMatch = trimmed.match(/^\*\*(.+?)\*\*\.?\s*(.*)$/);
     if (boldStartMatch && !trimmed.match(/^\*\*Common failure mode/i)) {
-      flushBoldItem(); introMode = false; inBoldItem = true;
+      flushBoldItem(); flushNumbered(); introMode = false; inBoldItem = true;
       currentBoldTitle = boldStartMatch[1];
       currentBoldBody = boldStartMatch[2] ? '<p>' + inlineFormat(boldStartMatch[2]) + '</p>' : '';
       continue;
@@ -1832,11 +1853,19 @@ function renderSectionContent(content) {
     }
 
     if (inBoldItem) { currentBoldBody += '<p>' + inlineFormat(trimmed) + '</p>'; }
-    else if (introMode) { html += '<p class="section-intro">' + inlineFormat(trimmed) + '</p>'; }
+    else if (numberedMode) {
+      numberedCount++;
+      html += '<li class="numbered-item">' + boldFirstSentence(trimmed) + '</li>';
+    }
+    else if (introMode) {
+      html += '<p class="section-intro">' + inlineFormat(trimmed) + '</p>';
+      if (isFollowingTrigger(trimmed)) { numberedMode = true; html += '<ol class="following-list">'; introMode = false; }
+    }
     else { html += '<p class="report-body-text">' + inlineFormat(trimmed) + '</p>'; }
   }
 
   flushBoldItem();
+  flushNumbered();
   html = html.replace(/(<li class="standalone-bullet">.*?<\/li>\s*)+/g, '<ul class="styled-list">$&</ul>');
   html = html.replace(/<\/ul>\s*<ul class="styled-list">/g, '');
   return html;
@@ -1848,6 +1877,8 @@ function renderSectionContentSplit(content) {
   let detailsHtml = '';
   let inBoldItem = false;
   let introMode = true;
+  let numberedMode = false;
+  let numberedCount = 0;
   let currentBoldTitle = '';
   let currentBoldBody = '';
   let cardIndex = 0;
@@ -1865,19 +1896,24 @@ function renderSectionContentSplit(content) {
       cardIndex++;
     }
   }
+  function flushNumbered() {
+    if (numberedMode && numberedCount > 0) introHtml += '</ol>';
+    numberedMode = false;
+    numberedCount = 0;
+  }
 
   for (const line of lines) {
     const trimmed = line.trim();
     if (!trimmed) continue;
 
     const h3Match = trimmed.match(/^### (.+)$/);
-    if (h3Match) { flushBoldItem(); introHtml += '<h3 class="report-subhead">' + h3Match[1] + '</h3>'; introMode = false; continue; }
+    if (h3Match) { flushBoldItem(); flushNumbered(); introHtml += '<h3 class="report-subhead">' + h3Match[1] + '</h3>'; introMode = false; continue; }
 
-    if (trimmed === '---') { flushBoldItem(); introHtml += '<hr class="section-divider">'; continue; }
+    if (trimmed === '---') { flushBoldItem(); flushNumbered(); introHtml += '<hr class="section-divider">'; continue; }
 
     const boldStartMatch = trimmed.match(/^\*\*(.+?)\*\*\.?\s*(.*)$/);
     if (boldStartMatch && !trimmed.match(/^\*\*Common failure mode/i)) {
-      flushBoldItem(); introMode = false; inBoldItem = true;
+      flushBoldItem(); flushNumbered(); introMode = false; inBoldItem = true;
       currentBoldTitle = boldStartMatch[1];
       currentBoldBody = boldStartMatch[2] ? '<p>' + inlineFormat(boldStartMatch[2]) + '</p>' : '';
       continue;
@@ -1891,11 +1927,19 @@ function renderSectionContentSplit(content) {
     }
 
     if (inBoldItem) { currentBoldBody += '<p>' + inlineFormat(trimmed) + '</p>'; }
-    else if (introMode) { introHtml += '<p class="section-intro">' + inlineFormat(trimmed) + '</p>'; }
+    else if (numberedMode) {
+      numberedCount++;
+      introHtml += '<li class="numbered-item">' + boldFirstSentence(trimmed) + '</li>';
+    }
+    else if (introMode) {
+      introHtml += '<p class="section-intro">' + inlineFormat(trimmed) + '</p>';
+      if (isFollowingTrigger(trimmed)) { numberedMode = true; introHtml += '<ol class="following-list">'; introMode = false; }
+    }
     else { introHtml += '<p class="report-body-text">' + inlineFormat(trimmed) + '</p>'; }
   }
 
   flushBoldItem();
+  flushNumbered();
   introHtml = introHtml.replace(/(<li class="standalone-bullet">.*?<\/li>\s*)+/g, '<ul class="styled-list">$&</ul>');
   introHtml = introHtml.replace(/<\/ul>\s*<ul class="styled-list">/g, '');
   detailsHtml = detailsHtml.replace(/(<li class="standalone-bullet">.*?<\/li>\s*)+/g, '<ul class="styled-list">$&</ul>');
