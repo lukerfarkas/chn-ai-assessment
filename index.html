@@ -1323,7 +1323,7 @@ function renderResults(el) {
   `;
 
   // How to read your results
-  html += `<details class="results-explainer animate-stagger" style="animation-delay:0.15s"><summary>How to read your results</summary><div class="explainer-content"><h4>AI Orientation (the radar chart)</h4><p>The chart below profiles your organization across seven AI orientations \u2014 distinct instincts that shape how organizations approach AI. Most organizations have one dominant orientation with one or two secondary tendencies. Higher scores mean stronger alignment. Click any name in the legend to learn more about each orientation.</p><h4>AI Fluency (the breakdown)</h4><p>Fluency measures your organization\u2019s operational readiness for AI across four dimensions: Use & Value, Enablement & Adoption, Risk & Trust, and Platform & Data. Your overall level is determined by the weakest dimension \u2014 a single lagging area holds back the whole. Five levels range from Orientation (just starting) to Advantage (AI as compounding strategic capability).</p><h4>The scores</h4><p>Scores run 0\u2013100 and reflect how strongly your responses aligned with each orientation or fluency dimension. They are not grades \u2014 a high Steward score and low Athlete score simply means your organization\u2019s instincts lean toward trust and governance over rapid experimentation.</p></div></details>`;
+  html += `<details class="results-explainer animate-stagger" style="animation-delay:0.15s"><summary>How to read your results</summary><div class="explainer-content"><h4>AI Orientation (the radar chart)</h4><p>The chart below profiles your organization across seven AI orientations \u2014 distinct instincts that shape how organizations approach AI. Most organizations have one dominant orientation with one or two secondary tendencies. Higher scores mean stronger alignment. Click any name in the legend to learn more about each orientation.</p><h4>AI Fluency (the breakdown)</h4><p>Fluency measures your organization\u2019s operational readiness for AI across four dimensions: Use & Value, Enablement & Adoption, Risk & Trust, and Platform & Data. Your overall level reflects a composite across all four dimensions, weighted toward areas where gaps are most significant. Five levels range from Orientation (just starting) to Advantage (AI as compounding strategic capability).</p><h4>The scores</h4><p>Scores run 0\u2013100 and reflect how strongly your responses aligned with each orientation or fluency dimension. They are not grades \u2014 a high Steward score and low Athlete score simply means your organization\u2019s instincts lean toward trust and governance over rapid experimentation.</p></div></details>`;
 
   // Radar Chart
   html += renderRadarChart(scores);
@@ -1355,7 +1355,7 @@ function renderResults(el) {
   html += `
     <div class="explore-cta animate-stagger" style="animation-delay:0.35s">
       <button class="btn-primary" onclick="showFullReport('${dom.key}', ${scores.overallFluencyLevel})">
-        Explore My Results \u2192
+        Dive Deeper \u2192
       </button>
     </div>
   `;
