@@ -2385,6 +2385,28 @@ async function renderAdmin() {
   html += '<div class="admin-stat"><div class="stat-label">QC Pass Rate</div><div class="stat-value">' + qcRate + '%</div></div>';
   html += '</div>';
 
+  // Average archetype radar chart
+  const avgPosture = { P1: 0, P2: 0, P3: 0, P4: 0, P5: 0, P6: 0, P7: 0 };
+  subs.forEach(s => {
+    avgPosture.P1 += Number(s.p1Score) || 0;
+    avgPosture.P2 += Number(s.p2Score) || 0;
+    avgPosture.P3 += Number(s.p3Score) || 0;
+    avgPosture.P4 += Number(s.p4Score) || 0;
+    avgPosture.P5 += Number(s.p5Score) || 0;
+    avgPosture.P6 += Number(s.p6Score) || 0;
+    avgPosture.P7 += Number(s.p7Score) || 0;
+  });
+  Object.keys(avgPosture).forEach(k => { avgPosture[k] = avgPosture[k] / total; });
+  const sortedAvg = Object.entries(avgPosture).sort((a,b) => b[1] - a[1]);
+  const avgScores = {
+    postureFinal: avgPosture,
+    dominantArchetype: sortedAvg[0][0],
+    secondaryArchetype: sortedAvg.length > 1 ? sortedAvg[1][0] : null
+  };
+  html += '<div class="admin-section"><h2>Average Archetype Profile</h2>';
+  html += renderRadarChart(avgScores);
+  html += '</div>';
+
   // Archetype distribution
   html += '<div class="admin-section"><h2>Archetype Distribution</h2>';
   const archColors = { P1: '#E8712B', P2: '#4A6670', P3: '#6B2D5B', P4: '#F2A630', P5: '#2D8B5E', P6: '#3B7DD8', P7: '#8B5E3C' };
